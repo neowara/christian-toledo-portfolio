@@ -1,6 +1,6 @@
 {
   "name": "project-casa-verde",
-  "description": "Build a personal website, blog, or portfolio with Astro.",
+  "description": "Christian Toledo's personal portfolio - Full-stack developer showcasing web development projects and self-hosted infrastructure.",
   "cloudflare": {
     "label": "Astro Framework Starter",
     "products": [

@@ -1,62 +1,126 @@
-# Astro Starter Kit: Blog
+# Casa Verde - Christian Toledo's Portfolio
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
 
-![Astro Template Preview](https://github.com/withastro/astro/assets/2244813/ff10799f-a816-4703-b967-c78997e8323d)
+Personal portfolio website showcasing web development projects and self-hosted infrastructure.
 
-<!-- dash-content-start -->
+## 🚀 Tech Stack
 
-Create a blog with Astro and deploy it on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
+- **Framework**: Astro 5.7
+- **Styling**: Custom CSS with cyberpunk theme
+- **Deployment**: Cloudflare Workers
+- **Content**: MDX for blog posts
 
-Features:
+## 🎨 Design
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+Cyberpunk-themed design featuring:
+- Dark backgrounds with neon accent colors (cyan #00FFFF, magenta #FF00FF, purple #B026FF)
+- Glowing text effects and gradient animations
+- Grid-based background patterns with pulsing effects
+- Fully responsive design for all screen sizes
+- Interactive cards and buttons with hover effects
 
-<!-- dash-content-end -->
+## 📁 Project Structure
 
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/astro-blog-starter-template
 ```
-
-A live public deployment of this template is available at [https://astro-blog-starter-template.templates.workers.dev](https://astro-blog-starter-template.templates.workers.dev)
-
-## 🚀 Project Structure
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
+/
+├── public/                 # Static assets
+│   ├── fonts/             # Custom fonts (Atkinson)
+│   └── favicon.svg        # Site favicon
+├── src/
+│   ├── components/        # Reusable components (Header, Footer, etc.)
+│   ├── content/
+│   │   └── blog/         # Blog posts in Markdown/MDX
+│   ├── layouts/          # Page layouts (BlogPost, etc.)
+│   ├── pages/            # Route pages (index, about, blog)
+│   ├── styles/           # Global cyberpunk theme CSS
+│   └── consts.ts         # Site configuration constants
+└── package.json
+```
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands are run from the root of the project:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
 | `npm install`             | Installs dependencies                            |
 | `npm run dev`             | Starts local dev server at `localhost:4321`      |
 | `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| `npm run preview`         | Preview your build locally before deploying      |
 | `npm run deploy`          | Deploy your production site to Cloudflare        |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run check`           | Type-check and dry-run deployment                |
 
-## 👀 Want to learn more?
+## 📝 Adding Blog Posts
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Create a new `.md` or `.mdx` file in `src/content/blog/`:
 
-## Credit
+```md
+---
+title: 'Your Post Title'
+description: 'Post description'
+pubDate: 'MMM DD YYYY'
+heroImage: '/optional-image.jpg'
+---
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Your content here...
+```
+
+Blog posts will automatically appear in the `/blog` section with the cyberpunk theme styling.
+
+## 🖼️ Adding Images
+
+**Important**: To display the photo on the About page, add your personal images to the `public/` folder:
+
+```bash
+# Add this image for the About page
+public/me_and_riki.jpg    # Photo with Riki
+```
+
+Any images placed in `public/` can be referenced in your code with a leading `/`:
+
+```astro
+<img src="/me_and_riki.jpg" alt="Description" />
+```
+
+## 🌐 Infrastructure
+
+This portfolio is part of a larger self-hosted infrastructure ecosystem:
+
+- **Portfolio**: [casa-verde.casa](https://casa-verde.casa)
+- **Jellyfin Media Server**: [jellyfin.casa-verde.casa](https://jellyfin.casa-verde.casa)
+- **Navidrome Music**: [navidrome.casa-verde.casa](https://navidrome.casa-verde.casa)
+- **Immich Photos**: [immich.casa-verde.casa](https://immich.casa-verde.casa)
+
+All services run on Proxmox with LXC containers, managed via terminal with Nginx reverse proxy and automated SSL certificates.
+
+## 🎯 Features
+
+- ✅ Fully responsive cyberpunk-themed design
+- ✅ Homepage with hero section, skills showcase, and project highlights
+- ✅ About page with personal bio and photo
+- ✅ Blog section for technical writing
+- ✅ SEO-friendly with proper meta tags
+- ✅ Fast performance with Astro's static site generation
+- ✅ Deployed on Cloudflare Workers for global edge distribution
+
+## 🛠️ Configuration
+
+Update site settings in `src/consts.ts`:
+
+```ts
+export const SITE_TITLE = "Christian Toledo";
+export const SITE_DESCRIPTION = "Web Developer | Full-Stack Engineer | Infrastructure Enthusiast";
+export const GITHUB_URL = "https://github.com/christiantoledo";
+export const LINKEDIN_URL = "https://linkedin.com/in/christian-toledo";
+export const EMAIL = "christiantoledo@live.com";
+```
+
+## 📄 License
+
+© 2025 Christian Toledo. All rights reserved.
+
+---
+
+Built with [Astro](https://astro.build) and deployed on [Cloudflare Workers](https://workers.cloudflare.com/).
