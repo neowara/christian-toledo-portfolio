@@ -97,11 +97,12 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 				</div>
 
 				<div class="timeline">
-					{EXPERIENCE_SV.map((job) => (
+					{[...EXPERIENCE_SV].reverse().map((job) => (
 						<div class="timeline-item card">
+							<span class="timeline-node" aria-hidden="true"></span>
 							<div class="timeline-head">
 								<h3>{job.role}</h3>
-								<span class="timeline-date mono">{job.org} · {job.dates}</span>
+								<span class="timeline-date mono"><span class="timeline-org">{job.org}</span><span class="timeline-dates"> · {job.dates}</span></span>
 							</div>
 							<ul set:html={job.bullets.map((b) => `<li>${b}</li>`).join('')} />
 							<div class="stack-tags">
@@ -109,6 +110,10 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 							</div>
 						</div>
 					))}
+					<div class="timeline-now">
+						<span class="timeline-now-dot" aria-hidden="true"></span>
+						<span class="timeline-now-label">Nu — letar efter nya möjligheter</span>
+					</div>
 				</div>
 			</section>
 
@@ -277,12 +282,37 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 	}
 
 	.timeline {
+		--gutter: 2.6rem;
+		--line-x: 0.7rem;
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		gap: 1.6rem;
+		padding-left: var(--gutter);
+	}
+	.timeline::before {
+		content: '';
+		position: absolute;
+		left: calc(var(--line-x) - 1px);
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: var(--border-strong);
 	}
 	.timeline-item {
+		position: relative;
 		padding: 1.8rem 2rem;
+	}
+	.timeline-node {
+		position: absolute;
+		left: calc(var(--line-x) - var(--gutter) - 0.45rem);
+		top: 2.1rem;
+		width: 0.9rem;
+		height: 0.9rem;
+		border-radius: 50%;
+		background: var(--bg);
+		border: 2px solid var(--accent);
+		box-shadow: 0 0 0 3px var(--bg);
 	}
 	.timeline-head {
 		display: flex;
@@ -297,8 +327,12 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 	}
 	.timeline-date {
 		font-size: 0.82rem;
-		color: var(--text-dim);
+		color: var(--text);
 		white-space: nowrap;
+	}
+	.timeline-org {
+		color: var(--accent);
+		font-weight: 600;
 	}
 	.timeline-item :global(ul) {
 		margin: 0;
@@ -310,6 +344,44 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 	}
 	.timeline-item :global(strong) {
 		color: var(--text);
+	}
+	.timeline-item .stack-tags span {
+		color: var(--text);
+		border-color: var(--border-strong);
+	}
+	.timeline-now {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		padding: 0.4rem 0 0.2rem;
+	}
+	.timeline-now-dot {
+		position: absolute;
+		left: calc(var(--line-x) - var(--gutter) - 0.5rem);
+		top: 50%;
+		transform: translateY(-50%);
+		width: 1rem;
+		height: 1rem;
+		border-radius: 50%;
+		background: var(--accent);
+		animation: timeline-blink 1.6s ease-in-out infinite;
+	}
+	.timeline-now-label {
+		font-family: var(--mono);
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: var(--text);
+	}
+	@keyframes timeline-blink {
+		0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent-soft-strong); }
+		50% { opacity: 0.35; box-shadow: 0 0 0 7px transparent; }
+	}
+	@media (max-width: 640px) {
+		.timeline {
+			--gutter: 1.8rem;
+			--line-x: 0.5rem;
+		}
 	}
 
 	.cta-band {
