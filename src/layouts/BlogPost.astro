@@ -46,10 +46,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			}
 			.prose :global(figure) {
 				margin: 2rem 0;
+				text-align: center;
 			}
 			.prose :global(figure img) {
-				width: 100%;
+				width: auto;
+				max-width: 100%;
+				max-height: 65vh;
 				border: 1px solid var(--border);
+				cursor: zoom-in;
 			}
 			.prose :global(figcaption) {
 				margin-top: 0.7rem;
@@ -57,6 +61,38 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				color: var(--text-dim);
 				text-align: center;
 				font-family: var(--mono);
+			}
+			.lightbox {
+				position: fixed;
+				inset: 0;
+				display: none;
+				align-items: center;
+				justify-content: center;
+				background: rgba(0, 0, 0, 0.85);
+				z-index: 1000;
+				padding: 3vh 3vw;
+				cursor: zoom-out;
+			}
+			.lightbox.is-open {
+				display: flex;
+			}
+			.lightbox img {
+				max-width: 100%;
+				max-height: 100%;
+				border-radius: var(--radius-sm);
+				box-shadow: var(--shadow);
+			}
+			.lightbox-close {
+				position: fixed;
+				top: 1.2rem;
+				right: 1.5rem;
+				font-family: var(--mono);
+				font-size: 1.6rem;
+				line-height: 1;
+				color: var(--text);
+				background: none;
+				border: none;
+				cursor: pointer;
 			}
 			.title {
 				margin-bottom: 1em;
@@ -117,6 +153,37 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 			</article>
 		</main>
+		<div class="lightbox" id="lightbox">
+			<button class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
+			<img id="lightbox-img" src="" alt="" />
+		</div>
 		<Footer />
 	</body>
 </html>
+<script>
+	const lightbox = document.getElementById('lightbox') as HTMLDivElement;
+	const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+
+	function openLightbox(src: string, alt: string) {
+		lightboxImg.src = src;
+		lightboxImg.alt = alt;
+		lightbox.classList.add('is-open');
+	}
+
+	function closeLightbox() {
+		lightbox.classList.remove('is-open');
+		lightboxImg.src = '';
+	}
+
+	document.querySelectorAll('.prose figure img').forEach((img) => {
+		img.addEventListener('click', () => {
+			openLightbox((img as HTMLImageElement).src, (img as HTMLImageElement).alt);
+		});
+	});
+
+	lightbox.addEventListener('click', closeLightbox);
+	document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') closeLightbox();
+	});
+</script>
