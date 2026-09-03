@@ -75,7 +75,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				align-items: center;
 				justify-content: center;
 				padding: 3vh 3vw;
-				cursor: zoom-in;
+				cursor: default;
 			}
 			.lightbox-stage.is-zoomed {
 				cursor: grab;
@@ -214,6 +214,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	const MAX_SCALE = 6;
 	let scale = 1;
 	let isPanning = false;
+	let didDrag = false;
 	let panStartX = 0;
 	let panStartY = 0;
 	let scrollStartX = 0;
@@ -282,13 +283,14 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	document.getElementById('lightbox-zoom-out')?.addEventListener('click', () => applyZoom(scale - 1));
 	document.getElementById('lightbox-zoom-reset')?.addEventListener('click', () => applyZoom(MIN_SCALE));
 
+	lightboxImg.addEventListener('dragstart', (e) => e.preventDefault());
+
 	stage.addEventListener('click', (e) => {
-		if (isPanning) return;
-		if (e.target === lightboxImg) {
-			applyZoom(scale >= MAX_SCALE ? MIN_SCALE : scale + 2, e.clientX, e.clientY);
-		} else {
-			closeLightbox();
+		if (didDrag) {
+			didDrag = false;
+			return;
 		}
+		if (e.target !== lightboxImg) closeLightbox();
 	});
 
 	stage.addEventListener('wheel', (e) => {
@@ -300,6 +302,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	stage.addEventListener('mousedown', (e) => {
 		if (scale <= MIN_SCALE) return;
 		isPanning = true;
+		didDrag = false;
 		stage.classList.add('is-panning');
 		panStartX = e.clientX;
 		panStartY = e.clientY;
@@ -309,6 +312,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	});
 	window.addEventListener('mousemove', (e) => {
 		if (!isPanning) return;
+		if (Math.abs(e.clientX - panStartX) > 3 || Math.abs(e.clientY - panStartY) > 3) didDrag = true;
 		stage.scrollLeft = scrollStartX - (e.clientX - panStartX);
 		stage.scrollTop = scrollStartY - (e.clientY - panStartY);
 	});
