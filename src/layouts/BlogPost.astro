@@ -168,6 +168,22 @@ const strings = t(lang);
 			.back-link:hover {
 				color: var(--accent);
 			}
+			@media (max-width: 768px) {
+				.prose {
+					padding: 2rem 0 3rem;
+				}
+			}
+			@media (max-width: 480px) {
+				.prose {
+					max-width: calc(100% - 1.6em);
+				}
+				.prose :global(h1) {
+					font-size: 1.7rem;
+				}
+				.prose :global(h2) {
+					font-size: 1.25rem;
+				}
+			}
 		</style>
 	</head>
 

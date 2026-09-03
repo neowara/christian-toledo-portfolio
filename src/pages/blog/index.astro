@@ -109,10 +109,14 @@ const posts = (await getCollection('blog', ({ id }) => id.startsWith('en/'))).so
 		.post-row {
 			flex-direction: column;
 			align-items: flex-start;
+			padding: 1.2rem 1.2rem;
 		}
 		.post-thumb {
 			width: 100%;
 			height: 140px;
+		}
+		.post-date {
+			white-space: normal;
 		}
 	}
 </style>
