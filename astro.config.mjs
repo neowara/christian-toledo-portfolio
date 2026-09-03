@@ -7,7 +7,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://casa-verde.casa",
+  site: "https://christian-toledo.casa-verde.casa",
   integrations: [mdx(), sitemap()],
   adapter: cloudflare({
     platformProxy: {

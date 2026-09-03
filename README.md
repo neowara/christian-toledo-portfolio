@@ -1,4 +1,4 @@
-# Casa Verde - Christian Toledo's Portfolio
+# Christian Toledo - Portfolio
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/astro-blog-starter-template)
 
@@ -88,7 +88,7 @@ Any images placed in `public/` can be referenced in your code with a leading `/`
 
 This portfolio is part of a larger self-hosted infrastructure ecosystem:
 
-- **Portfolio**: [casa-verde.casa](https://casa-verde.casa)
+- **Portfolio**: [christian-toledo.casa-verde.casa](https://christian-toledo.casa-verde.casa)
 - **Jellyfin Media Server**: [jellyfin.casa-verde.casa](https://jellyfin.casa-verde.casa)
 - **Navidrome Music**: [navidrome.casa-verde.casa](https://navidrome.casa-verde.casa)
 - **Immich Photos**: [immich.casa-verde.casa](https://immich.casa-verde.casa)
