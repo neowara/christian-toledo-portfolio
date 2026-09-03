@@ -2,7 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, STATUS_CONFIG } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../consts';
 ---
 
 <!doctype html>
@@ -13,171 +13,112 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, STATUS_CONFIG } from '..
 	<body>
 		<Header />
 		<main>
-			<!-- Hero Section -->
 			<section class="hero">
-				<div class="hero-content">
-					<span class="hero-tag">// FULL-STACK DEVELOPER</span>
-					<h1>Christian Toledo</h1>
-					<p class="hero-subtitle">
-						Building <strong>production-ready systems</strong> and <strong>self-hosted infrastructure</strong>
-						with 8 years of JavaScript/TypeScript expertise
-					</p>
-					<p class="hero-description">
-						Developer who codes daily, runs personal production servers, and genuinely loves building things that work.
-						From React frontends to Proxmox containers, I understand systems at every layer.
-					</p>
-					<div class="hero-cta">
-						<a href="/about" class="btn">Learn More</a>
-						<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Get In Touch</a>
-					</div>
-				</div>
-				<div class="hero-stats">
-					<div class="stat">
-						<span class="stat-number">8+</span>
-						<span class="stat-label">Years Experience</span>
-					</div>
-					<div class="stat">
-						<span class="stat-number">4</span>
-						<span class="stat-label">Production Services</span>
-					</div>
-					<div class="stat">
-						<span class="stat-number">24/7</span>
-						<span class="stat-label">Infrastructure Uptime</span>
-					</div>
+				<span class="eyebrow">Göteborg, Sweden</span>
+				<h1>Christian Toledo.<br>Full-stack engineer who ships and operates his own systems.</h1>
+				<p class="lead">Close to 7 years building production web and mobile apps across product companies and consultancies. The more interesting proof of how I work is what I build when nobody's asking: an Android app that talks directly to hardware over Bluetooth, and a home lab run with the documentation discipline of a production team.</p>
+				<p class="sub">Most recently a fullstack developer at Dear Friends and Nexer AB, working across clients including PostNord, Nordic Wellness, and Inera (1177). Originally from Cuba, based in Göteborg since 2011.</p>
+				<div class="btn-row">
+					<a href="#work" class="btn">See my work →</a>
+					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Get in touch</a>
 				</div>
 			</section>
 
-			<!-- Skills Section -->
-			<section class="skills-section">
-				<h2>// EXPERTISE</h2>
-				<div class="skills-grid">
-					<div class="skill-category card">
-						<h3>Frontend</h3>
-						<div class="skills-list">
-							<span class="skill-tag">React (6+ years)</span>
-							<span class="skill-tag">Vue.js (5+ years)</span>
-							<span class="skill-tag">Angular (5+ years)</span>
-							<span class="skill-tag">TypeScript</span>
-							<span class="skill-tag">Next.js</span>
-							<span class="skill-tag">Redux & Vuex</span>
-							<span class="skill-tag">Tailwind CSS</span>
-							<span class="skill-tag">SASS</span>
-						</div>
-					</div>
-
-					<div class="skill-category card">
-						<h3>Backend & Infrastructure</h3>
-						<div class="skills-list">
-							<span class="skill-tag">Node.js</span>
-							<span class="skill-tag">.NET Core & C#</span>
-							<span class="skill-tag">Express</span>
-							<span class="skill-tag">MySQL & MongoDB</span>
-							<span class="skill-tag">Docker</span>
-							<span class="skill-tag">Proxmox & LXC</span>
-							<span class="skill-tag">Linux (CLI)</span>
-							<span class="skill-tag">Nginx</span>
-						</div>
-					</div>
-
-					<div class="skill-category card">
-						<h3>Tools & Practices</h3>
-						<div class="skills-list">
-							<span class="skill-tag">Git & CI/CD</span>
-							<span class="skill-tag">Cypress & Testing</span>
-							<span class="skill-tag">Storybook</span>
-							<span class="skill-tag">Webpack</span>
-							<span class="skill-tag">Agile/Scrum</span>
-							<span class="skill-tag">Azure DevOps</span>
-							<span class="skill-tag">Team Leadership</span>
-							<span class="skill-tag">Mentoring</span>
-						</div>
-					</div>
+			<section id="work">
+				<div class="section-head">
+					<span class="eyebrow">Selected work</span>
+					<h2>Two systems I built, ship, and keep running.</h2>
+					<p>Not demos. Both are live, in daily personal use, with real users (me, and whoever's in the house), real failure modes, and a written history of the decisions behind them.</p>
 				</div>
-			</section>
 
-			<!-- Featured Projects Section -->
-			<section class="projects-section">
-				<h2>// PERSONAL INFRASTRUCTURE</h2>
-				<p class="section-intro">
-					I run my own self-hosted infrastructure at <strong>casa-verde.casa</strong> on Proxmox with LXC containers.
-					This isn't just a hobby—it's where I experiment with technologies before bringing them into professional work.
-				</p>
 				<div class="projects-grid">
-					{Object.values(PROJECTS).map((project) => (
-						<div class="project-card card">
-							<div class="project-header">
-								<h3>{project.name}</h3>
-								<span
-									class="project-tag"
-									style={`background: ${STATUS_CONFIG[project.status].color}20; border-color: ${STATUS_CONFIG[project.status].color}66; color: ${STATUS_CONFIG[project.status].color};`}
-								>
-									{STATUS_CONFIG[project.status].label}
-								</span>
+					<article class="project-card card">
+						<div class="project-col-a">
+							<div class="project-icon"><img src={PROJECTS.turbo.icon} alt="Turbo logo" /></div>
+							<span class="project-tag mono">{PROJECTS.turbo.tag}</span>
+							<h3 class="project-name">{PROJECTS.turbo.name}</h3>
+							<p class="project-pitch">{PROJECTS.turbo.pitch}</p>
+							<div class="project-links">
+								{PROJECTS.turbo.repoLinks.map((link) => (
+									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
+								))}
+								<a href={`/blog/${PROJECTS.turbo.blogSlug}/`}>Read the deep dive →</a>
 							</div>
-							<p>{project.description}</p>
-							{project.status === "production" ? (
-								<a href={project.url} target="_blank" rel="noopener noreferrer" class="project-link">
-									{project.url.replace('https://', '')} →
-								</a>
-							) : (
-								<span class="project-link disabled">{STATUS_CONFIG[project.status].label}</span>
-							)}
+						</div>
+						<div class="project-col-b">
+							<ul class="detail-list">
+								{PROJECTS.turbo.details.map((d) => (
+									<li><strong>{d.title}:</strong> {d.body}</li>
+								))}
+							</ul>
+							<div class="stack-tags">
+								{PROJECTS.turbo.stack.map((s) => <span>{s}</span>)}
+							</div>
+						</div>
+					</article>
+
+					<article class="project-card card">
+						<div class="project-col-a">
+							<div class="project-icon">
+								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+									<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect>
+									<rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>
+									<path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"></path>
+								</svg>
+							</div>
+							<span class="project-tag mono">{PROJECTS.casaVerde.tag}</span>
+							<h3 class="project-name">{PROJECTS.casaVerde.name}</h3>
+							<p class="project-pitch">{PROJECTS.casaVerde.pitch}</p>
+							<div class="project-links">
+								{PROJECTS.casaVerde.repoLinks.map((link) => (
+									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
+								))}
+								<a href={`/blog/${PROJECTS.casaVerde.blogSlug}/`}>Read the deep dive →</a>
+							</div>
+						</div>
+						<div class="project-col-b">
+							<ul class="detail-list">
+								{PROJECTS.casaVerde.details.map((d) => (
+									<li><strong>{d.title}:</strong> {d.body}</li>
+								))}
+							</ul>
+							<div class="stack-tags">
+								{PROJECTS.casaVerde.stack.map((s) => <span>{s}</span>)}
+							</div>
+						</div>
+					</article>
+				</div>
+			</section>
+
+			<section>
+				<div class="section-head">
+					<span class="eyebrow">Experience</span>
+					<h2>Where the day job happens.</h2>
+				</div>
+
+				<div class="timeline">
+					{EXPERIENCE.map((job) => (
+						<div class="timeline-item card">
+							<div class="timeline-head">
+								<h3>{job.role}</h3>
+								<span class="timeline-date mono">{job.org} · {job.dates}</span>
+							</div>
+							<ul set:html={job.bullets.map((b) => `<li>${b}</li>`).join('')} />
+							<div class="stack-tags">
+								{job.stack.map((s) => <span>{s}</span>)}
+							</div>
 						</div>
 					))}
 				</div>
-
-				<div class="infrastructure-details card">
-					<h4>Infrastructure Stack</h4>
-					<ul>
-						<li><strong>Proxmox Hypervisor:</strong> Managing 8+ LXC containers</li>
-						<li><strong>Nginx Reverse Proxy:</strong> SSL/TLS certificates with Let's Encrypt automation</li>
-						<li><strong>Docker Orchestration:</strong> Container management and service deployment</li>
-						<li><strong>Automated Backups:</strong> Scheduled backups with monitoring</li>
-						<li><strong>All CLI Managed:</strong> Terminal/SSH only (no GUI)</li>
-					</ul>
-					<p class="infrastructure-note">
-						Currently refactoring the entire stack for improved efficiency and resource utilization.
-						I also experiment with LLMs using Ollama locally for AI/ML testing and prompt engineering.
-					</p>
-				</div>
 			</section>
 
-			<!-- Professional Experience Highlight -->
-			<section class="experience-highlight">
-				<h2>// PROFESSIONAL HIGHLIGHTS</h2>
-				<div class="timeline">
-					<div class="timeline-item card">
-						<div class="timeline-header">
-							<h3>Front-End Developer (Consultant)</h3>
-							<span class="timeline-date">Nexer AB • 2023-2025</span>
-						</div>
-						<ul>
-							<li>Architected production applications for <strong>PostNord</strong> and <strong>Inera AB</strong></li>
-							<li>Reduced build times by <strong>40%</strong> through optimization</li>
-							<li>Expanded into <strong>React Native</strong>, delivering app to 50k+ users</li>
-							<li>Mentored 3 junior developers on best practices</li>
-						</ul>
-					</div>
-
-					<div class="timeline-item card">
-						<div class="timeline-header">
-							<h3>Lead Front-End Developer</h3>
-							<span class="timeline-date">Nordic Retail Group • 2021-2023</span>
-						</div>
-						<ul>
-							<li>Built component library with <strong>40+ reusable Vue.js components</strong></li>
-							<li>Reduced feature development time by <strong>35%</strong></li>
-							<li>Custom CMS handling <strong>10,000+ daily active users</strong></li>
-							<li>Established E2E testing achieving <strong>80%+ coverage</strong></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="cta-section">
-					<h3>Want to know more about my work?</h3>
-					<div class="cta-buttons">
-						<a href="/about" class="btn">Read Full Bio</a>
-						<a href="/blog" class="btn btn-secondary">Check Out My Blog</a>
+			<section class="section-spaced">
+				<div class="cta-band card">
+					<h2>Want the fuller picture?</h2>
+					<p>The About page covers the path from Cuba to Göteborg and what I do outside of code. The blog goes deep on how Turbo and casa-verde actually work. I'm looking for a team that cares about technical quality and actually ships. If that's you, let's talk.</p>
+					<div class="btn-row">
+						<a href="/about" class="btn">About me</a>
+						<a href="/blog" class="btn btn-secondary">Read the blog</a>
 					</div>
 				</div>
 			</section>
@@ -187,339 +128,211 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, STATUS_CONFIG } from '..
 </html>
 
 <style>
-	/* Hero Section */
 	.hero {
-		padding: 4rem 0;
-		text-align: center;
+		padding: 3.5rem 0 3rem;
 	}
-
-	.hero-tag {
-		display: inline-block;
-		color: var(--neon-green);
-		font-family: 'Courier New', monospace;
-		font-size: 0.9rem;
-		letter-spacing: 2px;
-		margin-bottom: 1rem;
-		text-shadow: 0 0 10px var(--neon-green);
+	.hero .lead {
+		max-width: 640px;
+		font-size: 1.2rem;
+		color: var(--text);
+		margin-top: 1.2rem;
 	}
-
-	.hero h1 {
-		margin-bottom: 1.5rem;
+	.hero .sub {
+		max-width: 620px;
+		margin-top: 1rem;
 	}
-
-	.hero-subtitle {
-		font-size: clamp(1.2rem, 3vw, 1.6rem);
-		color: var(--text-primary);
-		margin-bottom: 1.5rem;
-		line-height: 1.6;
-	}
-
-	.hero-description {
-		font-size: 1.1rem;
-		color: var(--text-secondary);
-		max-width: 800px;
-		margin: 0 auto 2.5rem;
-		line-height: 1.8;
-	}
-
-	.hero-cta {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-bottom: 3rem;
-	}
-
-	.btn-secondary {
-		border-color: var(--neon-yellow);
-		color: var(--neon-yellow);
-	}
-
-	.btn-secondary::before {
-		background: var(--neon-yellow);
-	}
-
-	.btn-secondary:hover {
-		color: var(--bg-darkest);
-		box-shadow: 0 0 20px var(--neon-yellow), inset 0 0 20px rgba(255, 237, 78, 0.3);
-	}
-
-	.hero-stats {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: 2rem;
-		margin-top: 3rem;
-		padding: 2rem;
-		background: var(--bg-card);
-		border: 1px solid rgba(0, 255, 255, 0.2);
-		border-radius: 12px;
-		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-	}
-
-	.stat {
-		text-align: center;
-	}
-
-	.stat-number {
-		display: block;
-		font-size: 3rem;
-		font-weight: 700;
-		color: var(--neon-cyan);
-		text-shadow: 0 0 15px var(--neon-cyan);
-		margin-bottom: 0.5rem;
-	}
-
-	.stat-label {
-		color: var(--text-secondary);
-		font-size: 0.95rem;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-	}
-
-	/* Skills Section */
-	.skills-section {
-		margin: 5rem 0;
-	}
-
-	.skills-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
+	.hero .btn-row {
 		margin-top: 2rem;
 	}
-
-	.skill-category h3 {
-		margin-bottom: 1.5rem;
-		font-size: 1.4rem;
-	}
-
-	.skills-list {
+	.btn-row {
 		display: flex;
+		gap: 0.9rem;
 		flex-wrap: wrap;
-		gap: 0.75rem;
 	}
 
-	.skill-tag {
-		display: inline-block;
-		padding: 0.5rem 1rem;
-		background: rgba(0, 255, 255, 0.1);
-		border: 1px solid rgba(0, 255, 255, 0.3);
-		border-radius: 20px;
-		color: var(--text-primary);
-		font-size: 0.9rem;
-		transition: all 0.3s ease;
+	section {
+		padding: 3.5rem 0;
 	}
-
-	.skill-tag:hover {
-		background: rgba(0, 255, 255, 0.2);
-		border-color: var(--neon-cyan);
-		box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-		transform: translateY(-2px);
+	.section-spaced {
+		padding-top: 1rem;
 	}
-
-	/* Projects Section */
-	.projects-section {
-		margin: 5rem 0;
+	.section-head {
+		margin-bottom: 2.5rem;
+		max-width: 640px;
 	}
-
-	.section-intro {
-		font-size: 1.1rem;
-		color: var(--text-secondary);
-		margin: 2rem 0;
-		line-height: 1.8;
+	.section-head p {
+		margin-top: 0.8rem;
 	}
 
 	.projects-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-		margin: 3rem 0;
+		gap: 1.75rem;
 	}
-
 	.project-card {
+		display: grid;
+		grid-template-columns: 1.1fr 1.4fr;
+		gap: 2.5rem;
+		padding: 2.2rem;
+	}
+	.project-icon {
+		height: 44px;
+		width: fit-content;
+		min-width: 44px;
+		border-radius: 9px;
+		border: 1px solid var(--border);
+		background: var(--bg-elevated-2);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 1rem;
+		overflow: hidden;
+		padding: 0 0.6rem;
+	}
+	.project-icon img {
+		height: 60%;
+		width: auto;
+		object-fit: contain;
+		border-radius: 0;
+	}
+	.project-icon svg {
+		width: 24px;
+		height: 24px;
+		color: var(--accent);
+	}
+	.project-name {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+	.project-tag {
+		color: var(--accent);
+		font-size: 0.82rem;
+		margin-bottom: 0.9rem;
+		display: block;
+	}
+	.project-pitch {
+		color: var(--text);
+		font-size: 1.02rem;
+	}
+	.project-links {
+		display: flex;
+		gap: 1.2rem;
+		margin-top: 1.3rem;
+		flex-wrap: wrap;
+	}
+	.project-links a {
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--text);
+		border-bottom: 1px solid var(--border-strong);
+	}
+	.project-links a:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+	.detail-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
 		display: flex;
 		flex-direction: column;
-		min-height: 200px;
+		gap: 0.9rem;
 	}
-
-	.project-header {
+	.detail-list li {
+		padding-left: 1.3rem;
+		position: relative;
+		font-size: 0.96rem;
+	}
+	.detail-list li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.5em;
+		width: 6px;
+		height: 6px;
+		border-radius: 1px;
+		background: var(--accent);
+	}
+	.detail-list strong {
+		color: var(--text);
+	}
+	.stack-tags {
 		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin-bottom: 1rem;
 		flex-wrap: wrap;
 		gap: 0.5rem;
+		margin-top: 1.4rem;
 	}
-
-	.project-header h3 {
-		margin: 0;
-		font-size: 1.3rem;
-	}
-
-	.project-tag {
-		display: inline-block;
-		padding: 0.25rem 0.75rem;
-		border: 1px solid;
-		border-radius: 12px;
-		font-size: 0.75rem;
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-		font-weight: 600;
-	}
-
-	.project-card p {
-		flex-grow: 1;
-		margin: 1rem 0;
-	}
-
-	.project-link {
-		display: inline-block;
-		color: var(--neon-cyan);
-		font-weight: 600;
-		margin-top: auto;
-		transition: all 0.3s ease;
-	}
-
-	.project-link:hover {
-		transform: translateX(5px);
-	}
-
-	.project-link.disabled {
+	.stack-tags span {
+		font-family: var(--mono);
+		font-size: 0.76rem;
+		padding: 0.3rem 0.6rem;
+		border: 1px solid var(--border);
+		border-radius: 5px;
 		color: var(--text-dim);
-		cursor: not-allowed;
+		background: var(--bg-elevated-2);
 	}
-
-	.infrastructure-details {
-		margin-top: 3rem;
-	}
-
-	.infrastructure-details h4 {
-		font-size: 1.4rem;
-		margin-bottom: 1.5rem;
-		color: var(--neon-yellow);
-	}
-
-	.infrastructure-details ul {
-		margin-bottom: 1.5rem;
-	}
-
-	.infrastructure-details li {
-		margin-bottom: 1rem;
-		line-height: 1.6;
-	}
-
-	.infrastructure-note {
-		padding: 1.5rem;
-		background: rgba(0, 255, 255, 0.05);
-		border-left: 3px solid var(--neon-cyan);
-		border-radius: 4px;
-		margin-top: 1.5rem;
-	}
-
-	/* Experience Highlight */
-	.experience-highlight {
-		margin: 5rem 0;
+	@media (max-width: 860px) {
+		.project-card {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	.timeline {
-		margin: 3rem 0;
 		display: flex;
 		flex-direction: column;
-		gap: 2rem;
+		gap: 1.6rem;
 	}
-
 	.timeline-item {
-		position: relative;
+		padding: 1.8rem 2rem;
 	}
-
-	.timeline-header {
+	.timeline-head {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-start;
-		margin-bottom: 1rem;
-		flex-wrap: wrap;
 		gap: 1rem;
+		flex-wrap: wrap;
+		align-items: baseline;
+		margin-bottom: 0.9rem;
 	}
-
-	.timeline-header h3 {
-		margin: 0;
-		font-size: 1.4rem;
+	.timeline-head h3 {
+		color: var(--text);
 	}
-
 	.timeline-date {
-		color: var(--neon-yellow);
-		font-weight: 600;
-		font-size: 0.95rem;
+		font-size: 0.82rem;
+		color: var(--text-dim);
+		white-space: nowrap;
 	}
-
-	.timeline-item ul {
+	.timeline-item :global(ul) {
 		margin: 0;
-		padding-left: 1.5rem;
+		padding-left: 1.2rem;
+	}
+	.timeline-item :global(li) {
+		font-size: 0.96rem;
+		margin-bottom: 0.5rem;
+	}
+	.timeline-item :global(strong) {
+		color: var(--text);
 	}
 
-	.timeline-item li {
-		margin-bottom: 0.75rem;
-		line-height: 1.6;
-	}
-
-	/* CTA Section */
-	.cta-section {
+	.cta-band {
 		text-align: center;
-		padding: 3rem 0;
-		margin-top: 3rem;
+		padding: 3rem;
 	}
-
-	.cta-section h3 {
-		font-size: 2rem;
-		margin-bottom: 2rem;
+	.cta-band h2 {
+		margin-bottom: 0.6rem;
 	}
-
-	.cta-buttons {
-		display: flex;
-		gap: 1rem;
+	.cta-band p {
+		max-width: 480px;
+		margin: 0 auto 1.6rem;
+	}
+	.cta-band .btn-row {
 		justify-content: center;
-		flex-wrap: wrap;
 	}
 
-	/* Responsive Design */
-	@media (max-width: 768px) {
-		.hero {
-			padding: 2rem 0;
+	@media (max-width: 640px) {
+		.project-card {
+			padding: 1.6rem;
 		}
-
-		.hero-stats {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
-			padding: 1.5rem;
-		}
-
-		.stat-number {
-			font-size: 2.5rem;
-		}
-
-		.skills-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.projects-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.timeline-header {
-			flex-direction: column;
-			gap: 0.5rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.hero-cta {
-			flex-direction: column;
-			align-items: stretch;
-		}
-
-		.btn {
-			width: 100%;
-			text-align: center;
+		.cta-band {
+			padding: 2rem 1.4rem;
 		}
 	}
 </style>

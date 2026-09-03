@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { SITE_TITLE, EMAIL, GITHUB_URL, LINKEDIN_URL } from '../consts';
 
 const title = "About Me | " + SITE_TITLE;
-const description = "Full-stack developer from Cuba, based in Göteborg. 8 years of professional experience building production systems and self-hosted infrastructure.";
+const description = "Full-stack developer from Cuba, based in Göteborg since 2011. Close to seven years of professional experience, plus a habit of building and operating real systems on my own time.";
 ---
 
 <!doctype html>
@@ -16,277 +16,114 @@ const description = "Full-stack developer from Cuba, based in Göteborg. 8 years
 	<body>
 		<Header />
 		<main>
-			<!-- Hero Section with Photo -->
-			<section class="about-hero">
-				<div class="hero-image">
-					<img src="/me_and_riki.jpg" alt="Christian Toledo with Riki" />
-					<div class="image-caption">
-						Christian and Riki exploring the outdoors
+			<section>
+				<div class="about-hero">
+					<div class="profile-photo-wrap">
+						<img class="profile-photo" src="/christian-profile.jpg" alt="Christian Toledo" />
+					</div>
+					<div>
+						<span class="eyebrow">About</span>
+						<h1>Hey, I'm Christian.</h1>
+						<p class="lead">A full-stack developer from Cuba, based in Göteborg, Sweden since 2011. Close to seven years of professional experience, and a habit of building and operating real things on my own time, not just at work.</p>
 					</div>
 				</div>
-				<div class="hero-text">
-					<h1>Hey there, I'm Christian</h1>
-					<p class="intro-text">
-						A developer with 8 years of professional experience who genuinely loves building things.
-						Not just at work, but every single day. I code for at least 30 minutes daily on personal projects,
-						run my own production infrastructure, and constantly experiment with new technologies because
-						that's what keeps me sharp and engaged.
-					</p>
+			</section>
+
+			<section>
+				<div class="section-head"><span class="eyebrow">Background</span><h2>What I actually do</h2></div>
+				<div class="prose-block card">
+					<p>I studied front-end development at Medieinstitutet in Gothenburg, and started working professionally in 2018 alongside my studies, on small WordPress sites. Since then I've worked across both ends of the industry: product companies building one thing for years (Enginio, a Vue.js platform for advertising campaigns, from its early startup days through acquisition by Nordic Retail Group), and consultancies moving between several clients at once, most recently Dear Friends and Nexer AB, working with clients like PostNord, Nordic Wellness, and Inera (the 1177 healthcare platform).</p>
+					<p>I work across the stack: <strong>React, Vue, and Angular</strong> on the frontend, <strong>Node, .NET, and PHP</strong> on the backend, <strong>React Native</strong> for mobile, plus Umbraco and WordPress for content-driven sites. The project I'm proudest of from that consulting work is a React Native app I built solo for <strong>Göteborgs Stadsmission</strong>, connecting people donating surplus food with people who need it across the city. On the frontend I care about design and UX as much as I care about how things work underneath.</p>
+					<p>My first real production codebase was an internship at <strong>Plejd</strong>, a Swedish smart-home company, working in a 100,000+ line Angular.js/Vue.js application used by 50+ employees daily. I still think about that codebase whenever I'm deciding how much structure a new project actually needs.</p>
 				</div>
 			</section>
 
-			<!-- Main Bio Section -->
-			<section class="bio-section">
-				<h2>// WHO I AM</h2>
-				<div class="bio-content card">
-					<p>
-						I'm originally from <strong>Cuba</strong>, now based in <strong>Göteborg, Sweden</strong>.
-						I started working professionally in 2018, focusing primarily on JavaScript and TypeScript.
-						Over the years, I've gone deep into the entire JS ecosystem: <strong>React for 6+ years</strong>,
-						<strong>Vue.js for 5+ years</strong>, <strong>Angular for 5+ years</strong>, plus Next.js,
-						Redux, Vuex, and pretty much every major library and framework you can think of.
-					</p>
-
-					<p>
-						But here's what makes me different: <strong>I don't stop at the front-end.</strong> I've
-						expanded into Node.js, Express, .NET Core, C#, MySQL, Firebase, and MongoDB. I understand
-						databases, API design, and backend architecture because I believe good frontend developers
-						need to understand the entire system, not just their slice of it.
-					</p>
-
-					<p>
-						I've led teams, mentored developers, and shipped production code that's currently handling
-						thousands of users. At <strong>Nordic Retail Group</strong>, we built component libraries
-						with 40+ reusable components and reduced development time by 35%. At <strong>Nexer AB</strong>,
-						I worked with enterprise clients like PostNord and Inera AB, optimized build systems, and
-						expanded into mobile development with React Native.
-					</p>
+			<section>
+				<div class="section-head"><span class="eyebrow">Outside of work</span><h2>Where the rest of this portfolio comes from</h2></div>
+				<div class="prose-block card">
+					<p>The two projects on the home page, <strong>Turbo</strong> and <strong>casa-verde</strong>, aren't side projects in the "unfinished repo" sense. Turbo is an Android app that talks directly to an electric skateboard over Bluetooth and a backend that models its physics to estimate range; casa-verde is a home lab of about ten containers that I run, monitor, and document like it's someone's job to keep it up, because for a few hours a week it is.</p>
+					<p>I keep a written decision log for casa-verde: more than 80 short documents, each one explaining why a particular call was made, including the couple of times I had to revert something that made things worse. That habit, writing down the reasoning and not just the result, is the same one I bring to code review and architecture discussions at work.</p>
+					<p>I've also spent time running local LLMs (Ollama) for a home voice assistant, mostly to understand where they're actually reliable versus where they confidently make things up, a distinction that turned out to matter a lot once it was controlling real devices in my house.</p>
 				</div>
 			</section>
 
-			<!-- Personal Projects Section -->
-			<section class="personal-section">
-				<h2>// BEYOND THE 9-TO-5</h2>
-				<div class="personal-content card">
-					<p>
-						In my free time, I run my own self-hosted infrastructure at
-						<strong><a href="https://casa-verde.casa" target="_blank" rel="noopener noreferrer">casa-verde.casa</a></strong>.
-						It's not just a portfolio site (though that's currently in active development using React and Next.js).
-						I'm hosting multiple production services on <strong>Proxmox with LXC containers</strong>:
-					</p>
-
-					<ul class="services-list">
-						<li>
-							<strong>Jellyfin</strong> for my personal media library at
-							<a href="https://jellyfin.casa-verde.casa" target="_blank" rel="noopener noreferrer">jellyfin.casa-verde.casa</a>
-						</li>
-						<li>
-							<strong>Navidrome</strong> for music streaming at
-							<a href="https://navidrome.casa-verde.casa" target="_blank" rel="noopener noreferrer">navidrome.casa-verde.casa</a>
-						</li>
-						<li>
-							<strong>Immich</strong> for photo management at
-							<a href="https://immich.casa-verde.casa" target="_blank" rel="noopener noreferrer">immich.casa-verde.casa</a>
-						</li>
-						<li>
-							<strong>Various experimental projects and APIs</strong> I'm building
-						</li>
-					</ul>
-
-					<p>
-						Everything runs on Linux, managed entirely via a terminal with no GUI. I handle Nginx reverse
-						proxies, SSL certificates, Docker containers, automated backups, and monitoring. Right now, I'm
-						refactoring the entire setup to make it more efficient. This isn't just a hobby—it's where I
-						test technologies before bringing them into professional work.
-					</p>
-
-					<p>
-						I've also been experimenting with LLMs by running <strong>Ollama locally</strong> on my machine.
-						I wanted to understand how they work under the hood, how to optimize prompts, and what the actual
-						capabilities and limitations are beyond the hype.
-					</p>
-				</div>
-			</section>
-
-			<!-- What I Bring Section -->
-			<section class="values-section">
-				<h2>// WHAT I BRING</h2>
+			<section>
+				<div class="section-head"><span class="eyebrow">How I work</span><h2>A few things worth knowing</h2></div>
 				<div class="values-grid">
 					<div class="value-card card">
 						<h3>Ownership</h3>
-						<p>
-							When I take on a problem, I see it through from understanding requirements to monitoring
-							production. I ask questions, challenge assumptions when something doesn't make sense, and
-							work collaboratively to find the best solution, not just the fastest one.
-						</p>
+						<p>I follow a problem from requirements through to what happens once it's in production, including the parts that are inconvenient to own.</p>
 					</div>
-
 					<div class="value-card card">
-						<h3>Quick Learner</h3>
-						<p>
-							Give me a new framework, library, or tool, and I'll be productive within days because I
-							understand fundamentals. I've picked up React Native, .NET Core, and containerization all
-							while delivering production features on tight deadlines.
-						</p>
+						<h3>Learns fast, checks assumptions</h3>
+						<p>New framework, new protocol, new domain: I get productive quickly because I go after the fundamentals first, not just the API surface.</p>
 					</div>
-
 					<div class="value-card card">
-						<h3>Team Player</h3>
-						<p>
-							I've led teams and worked in teams. I share knowledge, contribute to code reviews with
-							constructive feedback, and try to make the team better just by being part of it. I believe
-							the best solutions come from teams where people feel comfortable saying "I don't know" and asking for help.
-						</p>
+						<h3>Writes things down</h3>
+						<p>Decisions, trade-offs, and failures get documented, not just remembered. It's cheaper for the next person, including future me.</p>
 					</div>
-
 					<div class="value-card card">
-						<h3>Self-Driven</h3>
-						<p>
-							I show up, communicate clearly, and care about the people I work with. I code every day outside
-							of work, run my own infrastructure, and constantly experiment. This isn't just a job for me—it's
-							a genuine passion.
-						</p>
+						<h3>Genuinely self-driven</h3>
+						<p>I code most days outside of work and run my own production infrastructure, not because it's expected, but because I like building things that work.</p>
 					</div>
 				</div>
 			</section>
 
-			<!-- Life Outside Code -->
-			<section class="personal-life-section">
-				<h2>// WHEN I'M NOT CODING</h2>
+			<section>
+				<div class="section-head"><span class="eyebrow">When I'm not coding</span><h2>The rest of it</h2></div>
 
-				<!-- PC Building Hobby -->
-				<div class="hobby-section">
-					<div class="hobby-content">
-						<div class="hobby-text card">
-							<h3>Building Custom PCs</h3>
-							<p>
-								I've been building custom computers since I was young, and it's evolved from a necessity
-								to a genuine passion. My current setup is a fully custom water-cooled beast featuring:
-							</p>
-							<ul class="specs-list">
-								<li><strong>RTX 4090</strong> GPU with custom water block</li>
-								<li><strong>Intel i7-13700K</strong> processor</li>
-								<li><strong>64GB DDR5 RAM</strong> for smooth multitasking</li>
-								<li><strong>Custom water cooling loop</strong> with cyan and yellow coolant (matching my website theme!)</li>
-								<li><strong>49" Samsung Odyssey Neo</strong> ultrawide monitor</li>
-							</ul>
-							<p>
-								There's something incredibly satisfying about optimizing every component, managing
-								thermals, and seeing cyan and yellow coolant flow through custom loops. It's engineering
-								meets art, and every build teaches me something new about hardware, cooling dynamics,
-								and system optimization.
-							</p>
-							<p>
-								I also build <strong>custom mechanical keyboards</strong> - selecting switches, lubing
-								stabilizers, programming QMK firmware. It's the perfect blend of hardware, software,
-								and that satisfying tactile feedback every developer appreciates.
-							</p>
-						</div>
-						<div class="hobby-images">
-							<img src="/my_pc.jpg" alt="Custom water-cooled PC with RGB lighting" class="hobby-img" />
-							<img src="/my_desktop_setup.jpg" alt="Complete desktop setup with ultrawide monitor" class="hobby-img" />
-						</div>
+				<div class="hobby-block">
+					<div class="hobby-copy">
+						<h3>An electric skateboard called Turbo</h3>
+						<p>The board that started all of it: a Tynee Ultra X Pro. I named it Turbo myself, in memory of Oliver Tree: his first stage character, back when he was still an unknown street performer, was called Turbo. Wanting to actually understand my rides instead of trusting a laggy cloud app turned into a full Android app and backend, and the board's own nickname was the obvious name for it too.</p>
+					</div>
+					<div class="hobby-imgs">
+						<img src="/tynee-board.jpg" alt="Tynee Ultra X Pro electric skateboard with helmet" />
 					</div>
 				</div>
 
-				<!-- Terrarium/Aquarium Hobby -->
-				<div class="hobby-section">
-					<div class="hobby-content reverse">
-						<div class="hobby-images">
-							<img src="/paladarium.jpg" alt="Custom built paludarium ecosystem" class="hobby-img" />
-							<img src="/terrarium.jpg" alt="Terrarium with tropical plants" class="hobby-img" />
-						</div>
-						<div class="hobby-text card">
-							<h3>Terrariums & Paludariums</h3>
-							<p>
-								Beyond digital systems, I've built multiple <strong>terrariums and paludariums</strong>—
-								miniature ecosystems combining land and water environments. I've kept various species
-								of tropical plants, insects, and lizards, designing and constructing these environments
-								from scratch with custom glass enclosures, drainage systems, and misting setups.
-							</p>
-							<p>
-								What makes this hobby particularly interesting is where it intersects with technology.
-								I use <strong>Home Assistant running on a Raspberry Pi</strong> to control lighting
-								schedules (simulating natural day/night cycles), automate watering systems, and monitor
-								temperature and humidity. It's a perfect blend of nature and tech—using code to maintain
-								living ecosystems.
-							</p>
-							<p>
-								Building these environments teaches patience, systems thinking, and the importance of
-								getting the fundamentals right. A stable ecosystem, like stable code, requires careful
-								planning, proper infrastructure, and constant monitoring to thrive.
-							</p>
-						</div>
+				<div class="hobby-block reverse">
+					<div class="hobby-imgs">
+						<img src="/my_pc.jpg" alt="Custom water-cooled PC build" />
+						<img src="/my_desktop_setup.jpg" alt="Desktop setup with ultrawide monitor" />
+					</div>
+					<div class="hobby-copy">
+						<h3>Building PCs and keyboards</h3>
+						<p>I've been building custom computers since I was a kid, and it's stayed a real hobby rather than turned into a chore. Current build: an RTX 4090 on a custom water loop, an i7-13700K, 64GB of DDR5, and a 49" ultrawide, plus a couple of mechanical keyboards built from the switches up, QMK firmware included.</p>
 					</div>
 				</div>
 
-				<!-- Riki Section -->
-				<div class="hobby-section">
-					<div class="hobby-content">
-						<div class="hobby-text card">
-							<h3>Meet Riki</h3>
-							<p>
-								<strong>Riki</strong> is my 4-year-old <strong>Labrador Retriever</strong>, and he's been
-								by my side since he was just 3 months old. He's incredibly intelligent, loyal, and has an
-								uncanny ability to sense when I need a break from debugging or when I've been staring at
-								a screen too long.
-							</p>
-							<p>
-								Labs are known for their friendly nature and high energy, and Riki is no exception. Whether
-								we're exploring trails in Göteborg, playing fetch at the park, or just hanging out while I
-								code, he's always there. He's taught me patience, routine, and the importance of taking breaks—
-								sometimes the best solution to a coding problem comes during a walk, not at the desk.
-							</p>
-							<p>
-								Having Riki reminds me that balance is important. You can love technology and building
-								things while still appreciating the simple joys: a dog excited to see you, a walk in nature,
-								or just sitting quietly with a loyal companion.
-							</p>
-						</div>
-						<div class="hobby-images single">
-							<img src="/riki.jpg" alt="Riki the Labrador Retriever" class="hobby-img large" />
-						</div>
+				<div class="hobby-block">
+					<div class="hobby-copy">
+						<h3>Terrariums and paludariums</h3>
+						<p>Building small land-and-water ecosystems from scratch: glass, drainage, misting, the works. I automate lighting and watering with Home Assistant on a Raspberry Pi, which turned out to be a good lesson in its own right: a stable ecosystem, like stable software, needs the fundamentals right before anything else matters.</p>
+					</div>
+					<div class="hobby-imgs">
+						<img src="/paladarium.jpg" alt="Custom paludarium ecosystem" />
+						<img src="/terrarium.jpg" alt="Terrarium with tropical plants" />
 					</div>
 				</div>
 
-				<!-- Closing Thoughts -->
-				<div class="closing-thoughts card">
-					<p>
-						All these hobbies share a common thread: <strong>building, optimizing, and maintaining systems</strong>—
-						whether it's code, hardware, ecosystems, or relationships. I'm at a point where I want to work on
-						something that feels meaningful, with a team that values technical quality, curiosity, and actually
-						shipping things that matter.
-					</p>
+				<div class="hobby-block reverse">
+					<div class="hobby-imgs">
+						<img src="/riki-lake.jpg" alt="Riki the Labrador standing in a lake" />
+						<img src="/riki-dock.jpg" alt="Riki the Labrador sitting on a dock by the water" />
+					</div>
+					<div class="hobby-copy">
+						<h3>Riki</h3>
+						<p>My Labrador, with me since he was three months old. Good at knowing when I've been staring at a screen too long, and right, more often than not, that a walk solves a problem faster than another hour at the desk.</p>
+					</div>
 				</div>
 			</section>
 
-			<!-- Contact Section -->
-			<section class="contact-section">
-				<h2>// LET'S CONNECT</h2>
-				<div class="contact-content">
-					<p>
-						I'm always interested in hearing about interesting projects or opportunities. Feel free to reach out!
-					</p>
-					<div class="contact-links">
-						<a href={`mailto:${EMAIL}`} class="btn">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-								<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-								<polyline points="22,6 12,13 2,6"></polyline>
-							</svg>
-							Email Me
-						</a>
-						<a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-							</svg>
-							LinkedIn
-						</a>
-						<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-							<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-							</svg>
-							GitHub
-						</a>
+			<section>
+				<div class="cta-band card">
+					<h2>Let's talk</h2>
+					<p>Interested in hearing about interesting problems or opportunities. Feel free to reach out.</p>
+					<div class="contact-row">
+						<a href={`mailto:${EMAIL}`} class="btn">Email me</a>
+						<a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
+						<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
 					</div>
 				</div>
 			</section>
@@ -296,283 +133,121 @@ const description = "Full-stack developer from Cuba, based in Göteborg. 8 years
 </html>
 
 <style>
-	/* About Hero */
+	section {
+		padding: 2.2rem 0;
+	}
 	.about-hero {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 0.85fr 1.15fr;
 		gap: 3rem;
 		align-items: center;
-		margin: 3rem 0 5rem;
+		padding: 1.5rem 0 1rem;
 	}
-
-	.hero-image {
-		position: relative;
-	}
-
-	.hero-image img {
+	.profile-photo-wrap {
 		width: 100%;
-		height: auto;
-		border-radius: 12px;
-		border: 2px solid rgba(0, 255, 255, 0.3);
-		box-shadow:
-			0 12px 48px rgba(0, 0, 0, 0.7),
-			0 0 40px rgba(0, 255, 255, 0.2);
-		transition: all 0.3s ease;
-	}
-
-	.hero-image img:hover {
-		transform: scale(1.02);
-		box-shadow:
-			0 16px 64px rgba(0, 0, 0, 0.9),
-			0 0 60px rgba(0, 255, 255, 0.3);
-	}
-
-	.image-caption {
-		text-align: center;
-		color: var(--text-secondary);
-		font-size: 0.9rem;
-		margin-top: 1rem;
-		font-style: italic;
-	}
-
-	.hero-text h1 {
-		margin-bottom: 1.5rem;
-	}
-
-	.intro-text {
-		font-size: 1.15rem;
-		line-height: 1.8;
-		color: var(--text-secondary);
-	}
-
-	/* Bio Section */
-	.bio-section,
-	.personal-section,
-	.values-section,
-	.personal-life-section,
-	.contact-section {
-		margin: 5rem 0;
-	}
-
-	.bio-content p,
-	.personal-content p,
-	.personal-life-content p {
-		font-size: 1.1rem;
-		line-height: 1.8;
-		margin-bottom: 1.5rem;
-	}
-
-	.services-list {
-		margin: 2rem 0;
-		padding-left: 1.5rem;
-	}
-
-	.services-list li {
-		margin-bottom: 1rem;
-		font-size: 1.05rem;
-		line-height: 1.7;
-	}
-
-	/* Values Grid */
-	.values-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-		margin-top: 2rem;
-	}
-
-	.value-card h3 {
-		margin-bottom: 1rem;
-		font-size: 1.5rem;
-	}
-
-	.value-card p {
-		font-size: 1rem;
-		line-height: 1.7;
-	}
-
-	/* Hobby Sections */
-	.hobby-section {
-		margin: 3rem 0;
-	}
-
-	.hobby-content {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 2rem;
-		align-items: start;
-	}
-
-	.hobby-content.reverse {
-		direction: rtl;
-	}
-
-	.hobby-content.reverse > * {
-		direction: ltr;
-	}
-
-	.hobby-text h3 {
-		font-size: 1.8rem;
-		margin-bottom: 1.5rem;
-		color: var(--neon-yellow);
-	}
-
-	.hobby-text p {
-		font-size: 1.05rem;
-		line-height: 1.8;
-		margin-bottom: 1.5rem;
-	}
-
-	.specs-list {
-		margin: 1.5rem 0;
-		padding-left: 1.5rem;
-		list-style: none;
-	}
-
-	.specs-list li {
-		margin-bottom: 0.75rem;
-		font-size: 1.05rem;
+		max-width: 320px;
+		aspect-ratio: 1 / 1;
+		margin: 0 auto;
+		border-radius: 50%;
+		overflow: hidden;
 		position: relative;
-		padding-left: 1.5rem;
+		border: 3px solid var(--bg-elevated-2);
+		outline: 1px solid var(--border);
 	}
-
-	.specs-list li::before {
-		content: '▸';
+	.profile-photo-wrap img.profile-photo {
 		position: absolute;
-		left: 0;
-		color: var(--neon-cyan);
-		font-weight: bold;
-	}
-
-	.hobby-images {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
-
-	.hobby-images.single {
-		justify-content: center;
-	}
-
-	.hobby-img {
-		width: 100%;
+		width: 115%;
+		max-width: none;
 		height: auto;
-		border-radius: 8px;
-		border: 2px solid rgba(0, 240, 255, 0.4);
-		box-shadow:
-			0 8px 32px rgba(0, 0, 0, 0.6),
-			0 0 30px rgba(0, 240, 255, 0.2);
-		transition: all 0.3s ease;
+		top: -8%;
+		left: -10%;
+		border-radius: 0;
 	}
-
-	.hobby-img:hover {
-		transform: scale(1.03);
-		border-color: var(--neon-cyan);
-		box-shadow:
-			0 12px 48px rgba(0, 0, 0, 0.8),
-			0 0 50px rgba(0, 240, 255, 0.4);
-	}
-
-	.hobby-img.large {
-		max-width: 100%;
-	}
-
-	.closing-thoughts {
-		margin-top: 3rem;
-	}
-
-	.closing-thoughts p {
+	.about-hero .lead {
 		font-size: 1.15rem;
-		line-height: 1.9;
-		text-align: center;
-		color: var(--text-secondary);
+		color: var(--text);
 	}
-
-	/* Contact Section */
-	.contact-content {
-		text-align: center;
-		padding: 2rem 0;
-	}
-
-	.contact-content p {
-		font-size: 1.2rem;
-		margin-bottom: 2rem;
-		color: var(--text-secondary);
-	}
-
-	.contact-links {
-		display: flex;
-		gap: 1rem;
-		justify-content: center;
-		flex-wrap: wrap;
-	}
-
-	.contact-links .btn,
-	.contact-links .btn-secondary {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-	}
-
-	.contact-links svg {
-		flex-shrink: 0;
-	}
-
-	/* Responsive Design */
-	@media (max-width: 768px) {
+	@media (max-width: 800px) {
 		.about-hero {
 			grid-template-columns: 1fr;
-			gap: 2rem;
-			margin: 2rem 0 3rem;
 		}
+	}
 
-		.hero-image {
-			order: 1;
-		}
+	.section-head {
+		margin-bottom: 1.5rem;
+		max-width: 640px;
+	}
+	.prose-block p:last-child {
+		margin-bottom: 0;
+	}
 
-		.hero-text {
-			order: 2;
-		}
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+		gap: 1.4rem;
+	}
+	.value-card h3 {
+		margin-bottom: 0.5rem;
+		font-size: 1.05rem;
+		color: var(--text);
+	}
+	.value-card p {
+		margin-bottom: 0;
+		font-size: 0.94rem;
+	}
 
-		.values-grid {
+	.hobby-block {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2.2rem;
+		align-items: center;
+		margin-bottom: 2.5rem;
+	}
+	.hobby-block.reverse .hobby-copy {
+		order: 2;
+	}
+	.hobby-block.reverse .hobby-imgs {
+		order: 1;
+	}
+	.hobby-imgs {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.hobby-copy h3 {
+		margin-bottom: 0.8rem;
+		color: var(--text);
+	}
+	@media (max-width: 800px) {
+		.hobby-block,
+		.hobby-block.reverse {
 			grid-template-columns: 1fr;
 		}
-
-		.bio-content p,
-		.personal-content p,
-		.personal-life-content p {
-			font-size: 1rem;
+		.hobby-block.reverse .hobby-copy,
+		.hobby-block.reverse .hobby-imgs {
+			order: unset;
 		}
+	}
 
-		.hobby-content,
-		.hobby-content.reverse {
-			grid-template-columns: 1fr;
-			direction: ltr;
-		}
-
-		.hobby-text h3 {
-			font-size: 1.5rem;
-		}
-
-		.hobby-text p {
-			font-size: 1rem;
-		}
+	.cta-band {
+		text-align: center;
+		padding: 3rem;
+	}
+	.cta-band p {
+		max-width: 480px;
+		margin: 0 auto 1.6rem;
+	}
+	.contact-row {
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		justify-content: center;
 	}
 
 	@media (max-width: 480px) {
-		.contact-links {
+		.contact-row {
 			flex-direction: column;
 			align-items: stretch;
-		}
-
-		.contact-links .btn,
-		.contact-links .btn-secondary {
-			width: 100%;
-			justify-content: center;
-		}
-
-		.specs-list li {
-			font-size: 0.95rem;
 		}
 	}
 </style>

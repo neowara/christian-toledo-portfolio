@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>casa-verde: running a home lab like it's someone's job | Christian Toledo</title>
+<meta name="description" content="Why some stacks in my home lab are Ansible and some are GitOps, what 80 written ADRs have actually caught, and two real incidents from a self-hosted voice assistant.">
+<link rel="icon" type="image/svg+xml" href="../public/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <nav class="wrap">
+    <a href="index.html" class="brand">christian<span>.</span>toledo</a>
+    <div class="nav-links">
+      <a href="index.html#work" class="page-link">Work</a>
+      <a href="blog.html" class="page-link active">Blog</a>
+      <a href="about.html" class="page-link">About</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" aria-label="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="post-header wrap">
+    <a href="blog.html" class="back-link">← Back to blog</a>
+    <div class="post-meta">SEP 2026 · 10 MIN READ · CASA-VERDE</div>
+    <h1>Running a home lab like it's someone's job</h1>
+  </div>
+
+  <article class="post-body wrap">
+    <p><strong>casa-verde</strong> is my home lab: a single Proxmox box running about ten LXC containers, media automation, a photo and music library, local DNS, a self-hosted voice assistant, a modded game server, plus a Home Assistant Green device tied into the same deploy pipeline. None of that is unusual for a homelab. What I think is actually worth writing about is how it's <em>operated</em>: as code, with a decision log, the same way I'd want a production system at work to be run.</p>
+
+    <figure>
+      <img src="assets/casa-verde-map.svg" alt="casa-verde infrastructure map: Proxmox host, LXC containers, and how they connect">
+      <figcaption>The actual map of the lab, kept as an editable diagram in the repo, regenerated automatically on every change</figcaption>
+    </figure>
+
+    <h2>One repo, and a real deploy pipeline</h2>
+    <p>Pushing to <code>main</code> is the deploy. A self-hosted GitHub Actions runner on the host applies the relevant Ansible roles to whichever containers a push actually touches. That "actually touches" part mattered once the lab grew past a couple of containers: a full deploy used to run five playbooks fully sequentially, on the order of 5 to 6 minutes, regardless of whether a change was infra-wide or a one-line docs fix. Now a push is diffed against the previous commit: playbooks a push doesn't touch are skipped entirely (a docs-only commit deploys in about 7 seconds), and whatever's left runs concurrently as backgrounded processes within the same job, since there's only one runner to actually place work on. A full-touching push now takes roughly as long as the slowest single playbook instead of the sum of all of them.</p>
+    <p>A handful of stacks are deliberately <strong>not</strong> Ansible. Where a stack benefits from webhook-speed redeploys, a docker-compose service that changes often, it's managed through <strong>Komodo</strong>, a GitOps tool, instead: push, webhook fires, Komodo pulls and rebuilds. Everything else that stack owns (a watcher script, shared roles) still goes through Ansible. The point isn't "pick one tool," it's using whichever deploy model actually fits how often a given piece changes.</p>
+
+    <h2>The habit that matters more than any tool choice: writing an ADR</h2>
+    <p>Every non-trivial decision in this repo gets a short written record, more than 80 of them at this point, explaining what was decided and why. That includes the decisions that turned out wrong. A same-day migration of every voice command to a different registration system once caused a universal latency regression across the board, not just the commands being migrated; the record of that mistake, and the partial revert that fixed it, is right there next to the change that caused it. That's the actual value of the habit: it's not a changelog of successes, it's a record of reasoning good enough that a bad call gets caught and explained instead of quietly forgotten.</p>
+    <p>A concrete example: the self-hosted voice assistant runs Whisper for speech-to-text and a small locally fine-tuned model (not a generic chat model) for command fallback, on CPU only, no GPU. Early on, an unmatched voice command failed instantly with "sorry, I didn't understand that": safe, but not helpful. Routing unmatched commands to a local LLM instead seemed like a straightforward improvement, except the first version of that took 45 to 57 seconds to respond, because a large general chat model was being asked to read a multi-thousand-token prompt (every exposed smart-home entity gets written into it) and then generate freely. The fix wasn't more hardware, it was recognizing the model was wrong for the job: swapping to a small model actually fine-tuned for device control cut that to roughly 5 to 6 seconds, and trimming (then carefully re-expanding) how many entities get exposed at all kept the prompt size from ballooning again.</p>
+
+    <h2>A second, quieter bug: threads fighting over cores</h2>
+    <p>Related, and less obvious: the local LLM runtime detects its thread count from the <em>host's</em> CPU topology, not the container's actual CPU limit. With no override, it spawned twelve-plus threads competing for a six-core budget, every core pegged at 100% from scheduling contention alone, generation throughput cratering to a small fraction of what the hardware could do. There's no environment variable for this; the only place to actually pin it is a model-specific parameter file, applied automatically on every deploy so it can't silently drift back to the wrong default. It's the kind of bug that looks like "the model is just slow" until you actually check what the CPU is doing.</p>
+
+    <h2>Monitoring means "did it actually fail," not "is it still running"</h2>
+    <p>A process staying up tells you almost nothing about whether it's doing its job, that's true whether the process is a deploy pipeline or a smart-home add-on. casa-verde runs a daily drift check comparing live state against what's in git and alerts if they've diverged, container/service health checks every five minutes, SMART disk health checks, and a standing watchdog that restarts any add-on that's crashed silently, added specifically after a supervisor add-on crashed for hours with every entity it provided still showing stale cached state, so nothing <em>looked</em> wrong until something actually tried to use it. Alerts go out over a self-hosted push notification server, tiered by real severity rather than one firehose channel.</p>
+
+    <h2>Why bother, for a homelab</h2>
+    <p>Because the failure modes of "it's just a hobby, it'll be fine" are the same failure modes that hit real production systems, just with lower stakes: drift between what's deployed and what's documented, a monitoring setup that confirms the wrong thing, a fix applied without writing down why. Running casa-verde this way is deliberate practice at catching those before they cost something that matters.</p>
+  </article>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-bottom" style="border-top:none;margin-top:0;">&copy; 2026 Christian Toledo.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Christian Toledo, Full-stack Engineer</title>
+<meta name="description" content="Full-stack engineer based in Göteborg, Sweden. I build production frontends by day, and build and operate real systems, hardware-connected apps and a homelab run like production, on my own time.">
+<link rel="icon" type="image/svg+xml" href="../public/favicon.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="script.js"></script>
+</head>
+<body>
+
+<header class="site">
+  <nav class="wrap">
+    <a href="index.html" class="brand">christian<span>.</span>toledo</a>
+    <div class="nav-links">
+      <a href="index.html#work" class="page-link">Work</a>
+      <a href="blog.html" class="page-link">Blog</a>
+      <a href="about.html" class="page-link">About</a>
+    </div>
+    <div class="nav-right">
+      <a class="icon-link" href="https://github.com/neowara" target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
+        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.linkedin.com/in/christiantm/" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <button class="theme-toggle" aria-label="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero wrap">
+    <span class="eyebrow">Göteborg, Sweden</span>
+    <h1>Christian Toledo.<br>Full-stack engineer who ships and operates his own systems.</h1>
+    <p class="lead">Close to 7 years building production web and mobile apps across product companies and consultancies. The more interesting proof of how I work is what I build when nobody's asking: an Android app that talks directly to hardware over Bluetooth, and a home lab run with the documentation discipline of a production team.</p>
+    <p class="sub">Most recently a fullstack developer at Dear Friends and Nexer AB, working across clients including PostNord, Nordic Wellness, and Inera (1177). Originally from Cuba, based in Göteborg since 2011.</p>
+    <div class="btn-row">
+      <a href="#work" class="btn btn-primary">See my work →</a>
+      <a href="mailto:christiantoledo@live.com" class="btn btn-outline">Get in touch</a>
+    </div>
+  </section>
+
+  <section id="work" class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Selected work</span>
+      <h2>Two systems I built, ship, and keep running.</h2>
+      <p>Not demos. Both are live, in daily personal use, with real users (me, and whoever's in the house), real failure modes, and a written history of the decisions behind them.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card reveal">
+        <div class="project-col-a">
+          <div class="project-icon"><img src="assets/turbo-logo.png" alt="Turbo logo"></div>
+          <span class="project-tag">// mobile + backend</span>
+          <h3 class="project-name">Turbo</h3>
+          <p class="project-pitch">An Android app and self-hosted backend for tracking rides on a modified electric skateboard, with direct Bluetooth control of the board itself, not just GPS logging.</p>
+          <div class="project-links">
+            <a href="https://github.com/neowara/turbo" target="_blank" rel="noopener">App repo ↗</a>
+            <a href="https://github.com/neowara/turbo-backend" target="_blank" rel="noopener">Backend repo ↗</a>
+            <a href="blog-turbo.html">Read the deep dive →</a>
+          </div>
+        </div>
+        <div class="project-col-b">
+          <ul class="detail-list">
+            <li><strong>Direct BLE, no cloud dependency:</strong> reverse-engineered the board's Bluetooth protocol to read and write live telemetry and settings directly, battery, voltage, ride mode, acceleration curves, bypassing Tuya Cloud entirely.</li>
+            <li><strong>Physics-based range estimation:</strong> the backend fits a per-mode model of rolling resistance, aerodynamic drag, and drivetrain efficiency from real ride history, instead of a linear battery-percent guess.</li>
+            <li><strong>Clean GPS from noisy hardware:</strong> raw phone GPS gets road-snapped through a self-hosted OSRM instance and enriched with weather, so a route doesn't visibly cut through buildings.</li>
+            <li><strong>Real auth, not a shared token:</strong> per-user accounts, argon2id password hashing, session-based API access, and an admin panel for account and data management.</li>
+          </ul>
+          <div class="stack-tags">
+            <span>Expo / React Native</span><span>TypeScript</span><span>Bluetooth LE</span>
+            <span>FastAPI</span><span>SQLModel</span><span>Alembic</span><span>OSRM</span><span>Docker</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card reveal">
+        <div class="project-col-a">
+          <div class="project-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+              <path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"/>
+            </svg>
+          </div>
+          <span class="project-tag">// infrastructure</span>
+          <h3 class="project-name">casa-verde</h3>
+          <p class="project-pitch">A home lab run with the same rigor as production infrastructure: not a pile of Docker containers, a system with a documented history of every real decision behind it.</p>
+          <div class="project-links">
+            <a href="https://github.com/neowara/casa-verde" target="_blank" rel="noopener">Repo ↗</a>
+            <a href="blog-casa-verde.html">Read the deep dive →</a>
+          </div>
+        </div>
+        <div class="project-col-b">
+          <ul class="detail-list">
+            <li><strong>~10 services on one Proxmox host:</strong> media automation, a photo/music library, DNS, a self-hosted voice assistant, a modded game server, each isolated in its own LXC container.</li>
+            <li><strong>Infra as code, deliberately split:</strong> Ansible for most stacks, GitOps (Komodo) for the ones where webhook-speed redeploys are worth the added complexity, chosen per stack, not dogmatically.</li>
+            <li><strong>80+ written ADRs:</strong> every non-trivial decision, including the ones that didn't work and had to be reverted, has a documented reason, not just a diff.</li>
+            <li><strong>Actually monitored:</strong> daily drift detection against git, automated backups, and real alerting (ntfy) for failures, not just "the container is still running."</li>
+          </ul>
+          <div class="stack-tags">
+            <span>Proxmox / LXC</span><span>Ansible</span><span>Docker Compose</span>
+            <span>Komodo (GitOps)</span><span>Cloudflare Tunnel</span><span>Home Assistant</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Experience</span>
+      <h2>Where the day job happens.</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-head">
+          <h3>Fullstack Developer (Consultant)</h3>
+          <span class="timeline-date mono">Dear Friends · Jan 2026 to Jun 2026</span>
+        </div>
+        <ul>
+          <li>Built and shipped the <strong>Nordic Wellness</strong> React Native apps with Expo, pulling live content and pricing from the Umbraco Delivery API</li>
+          <li>Owned the release process end to end: weekly builds, TestFlight, Google Play Console, on-device testing before each public release</li>
+          <li>Built and maintained Umbraco (.NET) sites for Nordic Wellness, Grand Fitness, and Fred's Food and Coffee, plus WordPress upkeep for several other agency clients</li>
+        </ul>
+        <div class="stack-tags">
+          <span>React Native</span><span>Expo</span><span>Umbraco</span><span>C# / .NET</span><span>WordPress</span><span>PHP</span><span>TypeScript</span>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-head">
+          <h3>Fullstack Developer (Consultant)</h3>
+          <span class="timeline-date mono">Nexer AB · Feb 2023 to Mar 2025</span>
+        </div>
+        <ul>
+          <li>Sole developer on a <strong>React Native app for Göteborgs Stadsmission</strong>, connecting surplus-food donors with people in need across Gothenburg</li>
+          <li>Built an internal React tool for <strong>PostNord</strong> used to plan postal delivery routes across Sweden</li>
+          <li>Contributed to <strong>Inera's 1177</strong> public health platform (Optimizely + Angular) as part of a larger development team</li>
+          <li>Worked with backend developers on REST APIs and .NET integrations, and supported junior developers on React and TypeScript</li>
+        </ul>
+        <div class="stack-tags">
+          <span>React</span><span>TypeScript</span><span>React Native</span><span>Optimizely 11/12</span><span>SASS</span><span>.NET Core</span><span>C#</span><span>SQL Server</span><span>Azure DevOps</span>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-head">
+          <h3>Front-End Developer</h3>
+          <span class="timeline-date mono">Nordic Retail Group (prev. Digital People) · Dec 2020 to Jan 2023</span>
+        </div>
+        <ul>
+          <li>Sole frontend developer on <strong>Enginio</strong>, a Vue.js platform for building advertising campaigns and brand activations, from early startup through acquisition</li>
+          <li>Built a reusable <strong>Vue.js component library in Storybook</strong>, and owned frontend architecture, tooling, and CI/CD</li>
+          <li>Cut initial load time from <strong>4.2s to 1.8s</strong> through lazy loading and bundle optimization</li>
+        </ul>
+        <div class="stack-tags">
+          <span>Vue.js</span><span>Vuex</span><span>SASS</span><span>Node.js</span><span>Express</span><span>MongoDB</span><span>Cypress</span><span>Storybook</span><span>Figma</span>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-head">
+          <h3>Front-End Developer Intern</h3>
+          <span class="timeline-date mono">Plejd AB · 2019 to 2020</span>
+        </div>
+        <ul>
+          <li>Worked in a professional, 100,000+ line Angular.js/Vue.js codebase at a Swedish smart-home hardware company, building internal tools used by 50+ employees daily. My first real production codebase, alongside studying front-end development at Medieinstitutet</li>
+        </ul>
+        <div class="stack-tags">
+          <span>Angular.js</span><span>Vue.js</span><span>Figma</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section-spaced">
+    <div class="cta-band reveal">
+      <h2>Want the fuller picture?</h2>
+      <p>The About page covers the path from Cuba to Göteborg and what I do outside of code. The blog goes deep on how Turbo and casa-verde actually work. I'm looking for a team that cares about technical quality and actually ships. If that's you, let's talk.</p>
+      <div class="btn-row">
+        <a href="about.html" class="btn btn-primary">About me</a>
+        <a href="blog.html" class="btn btn-outline">Read the blog</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand">christian<span>.</span>toledo</div>
+        <p class="mono">Full-stack engineer · Göteborg, Sweden</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Site</h4>
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="blog.html">Blog</a>
+        </div>
+        <div class="footer-col">
+          <h4>Projects</h4>
+          <a href="https://github.com/neowara/turbo" target="_blank" rel="noopener">Turbo</a>
+          <a href="https://github.com/neowara/casa-verde" target="_blank" rel="noopener">casa-verde</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="https://github.com/neowara" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/christiantm/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:christiantoledo@live.com">Email</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 Christian Toledo.</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,46 +1,67 @@
-/* Cyberpunk 2077 Theme - Inspired by Game UI */
+/* ============================================================
+   Christian Toledo — "Engineering notebook" design system
+   Dark-default, one accent color, monospace used only for
+   metadata/labels. No glow, no clip-paths, no neon.
+   ============================================================ */
 
-/* Import Cyberpunk fonts from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/atkinson-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible';
+  src: url('/fonts/atkinson-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
-  /* Simplified Color Palette - Blue and Yellow focus */
-  --neon-cyan: #00F0FF;
-  --neon-blue: #0EA5E9;
-  --neon-yellow: #FFED4E;
-  --neon-green: #39FF14;
+  --bg: #0b0d10;
+  --bg-elevated: #14171c;
+  --bg-elevated-2: #1b1f26;
+  --text: #e8e6e1;
+  --text-muted: #9aa0a6;
+  --text-dim: #6b7178;
+  --border: #262b32;
+  --border-strong: #343b44;
+  --accent: #e8930c;
+  --accent-text: #1b1300;
+  --accent-soft: rgba(232, 147, 12, 0.12);
+  --accent-soft-strong: rgba(232, 147, 12, 0.22);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.28);
 
-  /* Dark theme colors */
-  --bg-dark: #0a0e27;
-  --bg-darker: #050810;
-  --bg-darkest: #02040a;
-  --bg-card: #0f1729;
-  --text-primary: #F0F4FF;
-  --text-secondary: #A0A8B8;
-  --text-dim: #6B7280;
+  --sans: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Primary accent */
-  --accent: var(--neon-cyan);
-  --accent-secondary: var(--neon-yellow);
+  --container-width: 1080px;
+  --radius: 10px;
+  --radius-sm: 6px;
+}
 
-  /* Glows */
-  --accent-glow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
-  --accent-glow-strong: 0 0 5px var(--neon-cyan), 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
-  --yellow-glow: 0 0 10px var(--neon-yellow), 0 0 20px var(--neon-yellow);
-
-  /* Spacing */
-  --container-width: 1200px;
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 6rem;
+[data-theme='light'] {
+  --bg: #faf8f5;
+  --bg-elevated: #ffffff;
+  --bg-elevated-2: #f2efe9;
+  --text: #1c1e21;
+  --text-muted: #565c63;
+  --text-dim: #7a7f85;
+  --border: #e3ded5;
+  --border-strong: #d2ccc0;
+  --accent: #b4650a;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(180, 101, 10, 0.09);
+  --accent-soft-strong: rgba(180, 101, 10, 0.16);
+  --shadow: 0 1px 2px rgba(20, 15, 5, 0.06), 0 8px 24px rgba(20, 15, 5, 0.08);
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -49,399 +70,195 @@ html {
 }
 
 body {
-  font-family: "Rajdhani", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--sans);
   margin: 0;
   padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-darkest);
-  background-image:
-    linear-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 240, 255, 0.15) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: 0 0;
-  color: var(--text-primary);
-  font-size: 18px;
-  line-height: 1.7;
-  font-weight: 500;
-  overflow-x: hidden;
-  animation: gridPulse 4s ease-in-out infinite, gridMove 60s linear infinite;
-}
-
-@keyframes gridPulse {
-  0%, 100% {
-    background-image:
-      linear-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.15) 1px, transparent 1px);
-  }
-  50% {
-    background-image:
-      linear-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 237, 78, 0.2) 1px, transparent 1px);
-  }
-}
-
-@keyframes gridMove {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 50px 50px;
-  }
-}
-
-/* Cyberpunk laser scanning effect */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(0, 240, 255, 0.1) 45%,
-    rgba(0, 240, 255, 0.15) 50%,
-    rgba(0, 240, 255, 0.1) 55%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-  animation: laserScan 8s ease-in-out infinite;
-  opacity: 0.6;
-}
-
-@keyframes laserScan {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100vh);
-  }
-}
-
-/* Ensure footer stays at bottom */
-body > * {
-  position: relative;
-  z-index: 1;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 main {
   width: var(--container-width);
-  max-width: calc(100% - 2em);
+  max-width: calc(100% - 3em);
   margin: auto;
-  padding: 3em 1em;
+  padding: 3em 0;
   flex: 1;
 }
 
-/* Typography - Using Orbitron for headings */
-h1, h2, h3, h4, h5, h6 {
-  margin: 0 0 1rem 0;
-  color: var(--text-primary);
-  line-height: 1.2;
-  font-weight: 700;
-  font-family: "Orbitron", sans-serif;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  color: var(--neon-cyan);
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
-  font-weight: 900;
-  letter-spacing: 1px;
-}
-
-h2 {
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  color: var(--neon-cyan);
-  text-shadow: 0 0 15px var(--neon-cyan);
-  position: relative;
-  display: inline-block;
-  font-weight: 800;
-}
-
-h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--neon-cyan), transparent);
-  box-shadow: 0 0 10px var(--neon-cyan);
-}
-
-h3 {
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  color: var(--neon-cyan);
-  text-shadow: 0 0 10px var(--neon-cyan);
-  font-weight: 700;
-}
-
-h4 {
-  font-size: 1.4rem;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-strong, b {
-  font-weight: 700;
-  color: var(--neon-yellow);
-}
-
-/* Links */
-a {
-  color: var(--neon-cyan);
-  text-decoration: none;
-  position: relative;
-  transition: all 0.3s ease;
-  font-weight: 600;
-}
-
-a:hover {
-  color: var(--neon-yellow);
-  text-shadow: 0 0 10px var(--neon-yellow);
-}
-
-a::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  background: var(--neon-yellow);
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
-}
-
-a:hover::before {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-  box-shadow: 0 0 10px var(--neon-yellow);
-}
-
-p {
-  margin-bottom: 1.5em;
-  color: var(--text-secondary);
-  font-size: 1.05rem;
-  font-weight: 500;
-}
-
-.prose p {
-  margin-bottom: 2em;
-}
-
-/* Form elements */
-textarea, input {
-  width: 100%;
-  font-size: 16px;
-  font-family: "Rajdhani", sans-serif;
-  background: var(--bg-card);
-  border: 2px solid rgba(0, 240, 255, 0.3);
-  color: var(--text-primary);
-  padding: 0.75rem;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-}
-
-textarea:focus, input:focus {
-  outline: none;
-  border-color: var(--neon-cyan);
-  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-}
-
-/* Images */
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-  border: 2px solid rgba(0, 240, 255, 0.3);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 240, 255, 0.2);
+  display: block;
+  border-radius: var(--radius-sm);
 }
 
-/* Code blocks */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+h1 { font-size: clamp(2.1rem, 4.5vw, 3.1rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: 1.2rem; }
+
+strong, b {
+  font-weight: 700;
+  color: var(--text);
+}
+
+p {
+  margin-bottom: 1.1em;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.mono {
+  font-family: var(--mono);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.9rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.4em;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* form elements */
+textarea, input {
+  width: 100%;
+  font-size: 16px;
+  font-family: var(--sans);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+}
+textarea:focus, input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
 code {
-  padding: 3px 8px;
-  background: rgba(255, 237, 78, 0.1);
-  border: 1px solid rgba(255, 237, 78, 0.3);
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-strong);
+  padding: 0.1em 0.4em;
   border-radius: 4px;
-  color: var(--neon-yellow);
-  font-family: 'Courier New', monospace;
-  font-size: 0.9em;
-  font-weight: 600;
+  color: var(--accent);
 }
-
 pre {
-  padding: 1.5em;
-  border-radius: 8px;
-  background: var(--bg-card);
-  border: 2px solid rgba(0, 240, 255, 0.3);
+  padding: 1.2em;
+  border-radius: var(--radius-sm);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   overflow-x: auto;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 240, 255, 0.05);
 }
-
 pre > code {
   all: unset;
-  color: var(--neon-yellow);
-  font-family: 'Courier New', monospace;
+  font-family: var(--mono);
+  color: var(--text);
 }
 
-/* Blockquotes */
 blockquote {
-  border-left: 4px solid var(--neon-cyan);
-  padding: 0 0 0 20px;
-  margin: 2em 0;
-  font-size: 1.2em;
-  color: var(--text-secondary);
+  margin: 1.8em 0;
+  padding: 0.2rem 0 0.2rem 1.3rem;
+  border-left: 3px solid var(--accent);
+  color: var(--text-muted);
   font-style: italic;
-  box-shadow: -4px 0 15px rgba(0, 240, 255, 0.4);
 }
 
-/* Horizontal rule */
 hr {
   border: none;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-  margin: 3em 0;
-  box-shadow: 0 0 10px var(--neon-cyan);
+  border-top: 1px solid var(--border);
+  margin: 2.5em 0;
 }
 
-/* Lists */
 ul, ol {
   margin: 1em 0;
-  padding-left: 2em;
-  color: var(--text-secondary);
+  padding-left: 1.3em;
+  color: var(--text-muted);
 }
-
 li {
   margin-bottom: 0.5em;
-  font-weight: 500;
 }
-
 li::marker {
-  color: var(--neon-cyan);
+  color: var(--accent);
 }
 
-/* Cards and sections - Cyberpunk corner brackets */
+/* cards */
 .card {
-  background: var(--bg-card);
-  border: 2px solid rgba(0, 240, 255, 0.3);
-  border-radius: 0px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   padding: 2rem;
   margin: 2rem 0;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    inset 0 0 40px rgba(0, 240, 255, 0.03);
-  transition: all 0.3s ease;
-  position: relative;
-  clip-path: polygon(
-    0 12px, 12px 0, calc(100% - 12px) 0, 100% 12px,
-    100% calc(100% - 12px), calc(100% - 12px) 100%, 12px 100%, 0 calc(100% - 12px)
-  );
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
-
-/* Corner decorations */
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-yellow));
-  opacity: 0.6;
-}
-
 .card:hover {
-  border-color: var(--neon-cyan);
-  box-shadow:
-    0 12px 48px rgba(0, 0, 0, 0.7),
-    0 0 40px rgba(0, 240, 255, 0.3),
-    inset 0 0 40px rgba(0, 240, 255, 0.05);
-  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
 }
 
-/* Buttons - Cyberpunk style */
+/* buttons */
 .btn {
-  display: inline-block;
-  padding: 0.75rem 2rem;
-  background: transparent;
-  border: 2px solid var(--neon-cyan);
-  color: var(--neon-cyan);
-  text-decoration: none;
-  border-radius: 0px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-family: "Orbitron", sans-serif;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
   cursor: pointer;
-  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  text-decoration: none;
 }
-
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--neon-cyan);
-  transition: left 0.3s ease;
-  z-index: -1;
-}
-
 .btn:hover {
-  color: var(--bg-darkest);
-  box-shadow: 0 0 30px var(--neon-cyan), inset 0 0 20px rgba(0, 240, 255, 0.3);
-  text-shadow: none;
+  filter: brightness(1.08);
+}
+.btn-secondary {
+  background: transparent;
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  filter: none;
 }
 
-.btn:hover::before {
-  left: 0;
-}
-
-/* Utility classes */
 .text-center {
   text-align: center;
 }
 
-.text-glow {
-  text-shadow: 0 0 15px currentColor;
-}
-
-.neon-border {
-  border: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 15px var(--neon-cyan), inset 0 0 15px rgba(0, 240, 255, 0.1);
-}
-
-/* Warning banner style from Cyberpunk template */
-.warning-banner {
-  background: rgba(0, 240, 255, 0.1);
-  border: 2px solid var(--neon-cyan);
-  border-left: 4px solid var(--neon-cyan);
-  padding: 0.75rem 1rem;
-  font-family: "Orbitron", monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--neon-cyan);
-  font-weight: 600;
-  margin: 1rem 0;
-  box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
-}
-
-/* Accessibility */
 .sr-only {
   border: 0;
   padding: 0;
@@ -450,50 +267,23 @@ li::marker {
   height: 1px;
   width: 1px;
   overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-
-  main {
-    padding: 2em 1em;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  h2 {
-    font-size: 2rem;
-  }
-
-  .card {
-    padding: 1.5rem;
-  }
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
 }
 
-@media (max-width: 480px) {
-  body {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.6rem;
-  }
-
-  .btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.8rem;
-  }
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  main { padding: 2em 0; }
+  .card { padding: 1.5rem; }
 }
