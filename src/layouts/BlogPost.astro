@@ -61,21 +61,69 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				position: fixed;
 				inset: 0;
 				display: none;
-				align-items: center;
-				justify-content: center;
-				background: rgba(0, 0, 0, 0.85);
+				background: rgba(0, 0, 0, 0.9);
 				z-index: 1000;
-				padding: 3vh 3vw;
-				cursor: zoom-out;
 			}
 			.lightbox.is-open {
+				display: block;
+			}
+			.lightbox-stage {
+				width: 100%;
+				height: 100%;
+				overflow: auto;
 				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 3vh 3vw;
+				cursor: zoom-in;
+			}
+			.lightbox-stage.is-zoomed {
+				cursor: grab;
+				align-items: flex-start;
+				justify-content: flex-start;
+			}
+			.lightbox-stage.is-panning {
+				cursor: grabbing;
 			}
 			.lightbox img {
-				max-width: 100%;
-				max-height: 100%;
+				max-width: 90vw;
+				max-height: 90vh;
 				border-radius: var(--radius-sm);
 				box-shadow: var(--shadow);
+				user-select: none;
+			}
+			.lightbox-stage.is-zoomed img {
+				max-width: none;
+				max-height: none;
+			}
+			.lightbox-controls {
+				position: fixed;
+				bottom: 1.2rem;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				align-items: center;
+				gap: 0.4rem;
+				background: var(--bg-elevated);
+				border: 1px solid var(--border-strong);
+				border-radius: var(--radius);
+				padding: 0.4rem;
+				z-index: 1002;
+			}
+			.lightbox-controls button {
+				font-family: var(--mono);
+				font-size: 1rem;
+				line-height: 1;
+				color: var(--text);
+				background: none;
+				border: none;
+				cursor: pointer;
+				padding: 0.5rem 0.8rem;
+				border-radius: var(--radius-sm);
+			}
+			.lightbox-controls button:hover {
+				background: var(--accent-soft);
+				color: var(--accent);
 			}
 			.lightbox-close {
 				position: fixed;
@@ -88,6 +136,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				background: none;
 				border: none;
 				cursor: pointer;
+				z-index: 1002;
 			}
 			.title {
 				margin-bottom: 1em;
@@ -145,19 +194,77 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		</main>
 		<div class="lightbox" id="lightbox">
 			<button class="lightbox-close" id="lightbox-close" aria-label="Close image">&times;</button>
-			<img id="lightbox-img" src="" alt="" />
+			<div class="lightbox-stage" id="lightbox-stage">
+				<img id="lightbox-img" src="" alt="" />
+			</div>
+			<div class="lightbox-controls">
+				<button id="lightbox-zoom-out" aria-label="Zoom out">&minus;</button>
+				<button id="lightbox-zoom-reset" aria-label="Reset zoom">Reset</button>
+				<button id="lightbox-zoom-in" aria-label="Zoom in">&plus;</button>
+			</div>
 		</div>
 		<Footer />
 	</body>
 </html>
 <script>
 	const lightbox = document.getElementById('lightbox') as HTMLDivElement;
+	const stage = document.getElementById('lightbox-stage') as HTMLDivElement;
 	const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+
+	const MIN_SCALE = 1;
+	const MAX_SCALE = 6;
+	let scale = 1;
+	let isPanning = false;
+	let panStartX = 0;
+	let panStartY = 0;
+	let scrollStartX = 0;
+	let scrollStartY = 0;
+
+	function applyZoom(newScale: number, anchorClientX?: number, anchorClientY?: number) {
+		newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale));
+		if (newScale === scale) return;
+
+		if (newScale > MIN_SCALE) {
+			const rect = lightboxImg.getBoundingClientRect();
+			const ax = anchorClientX ?? rect.left + rect.width / 2;
+			const ay = anchorClientY ?? rect.top + rect.height / 2;
+			const ratioX = (ax - rect.left) / rect.width;
+			const ratioY = (ay - rect.top) / rect.height;
+
+			const baseWidth = lightboxImg.naturalWidth
+				? Math.min(lightboxImg.naturalWidth, window.innerWidth * 0.9)
+				: rect.width;
+			const targetWidth = baseWidth * newScale;
+
+			stage.classList.add('is-zoomed');
+			lightboxImg.style.width = `${targetWidth}px`;
+			lightboxImg.style.height = 'auto';
+
+			requestAnimationFrame(() => {
+				const newRect = lightboxImg.getBoundingClientRect();
+				const targetX = ratioX * newRect.width - (ax - stage.getBoundingClientRect().left) + stage.scrollLeft;
+				const targetY = ratioY * newRect.height - (ay - stage.getBoundingClientRect().top) + stage.scrollTop;
+				stage.scrollLeft = targetX;
+				stage.scrollTop = targetY;
+			});
+		} else {
+			stage.classList.remove('is-zoomed');
+			lightboxImg.style.width = '';
+			lightboxImg.style.height = '';
+			stage.scrollLeft = 0;
+			stage.scrollTop = 0;
+		}
+		scale = newScale;
+	}
 
 	function openLightbox(src: string, alt: string) {
 		lightboxImg.src = src;
 		lightboxImg.alt = alt;
 		lightbox.classList.add('is-open');
+		scale = 1;
+		stage.classList.remove('is-zoomed');
+		lightboxImg.style.width = '';
+		lightboxImg.style.height = '';
 	}
 
 	function closeLightbox() {
@@ -171,9 +278,50 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		});
 	});
 
-	lightbox.addEventListener('click', closeLightbox);
 	document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+	document.getElementById('lightbox-zoom-in')?.addEventListener('click', () => applyZoom(scale + 1));
+	document.getElementById('lightbox-zoom-out')?.addEventListener('click', () => applyZoom(scale - 1));
+	document.getElementById('lightbox-zoom-reset')?.addEventListener('click', () => applyZoom(MIN_SCALE));
+
+	stage.addEventListener('click', (e) => {
+		if (isPanning) return;
+		if (e.target === lightboxImg) {
+			applyZoom(scale >= MAX_SCALE ? MIN_SCALE : scale + 2, e.clientX, e.clientY);
+		} else {
+			closeLightbox();
+		}
+	});
+
+	stage.addEventListener('wheel', (e) => {
+		if (!lightboxImg.src) return;
+		e.preventDefault();
+		applyZoom(scale + (e.deltaY < 0 ? 1 : -1), e.clientX, e.clientY);
+	}, { passive: false });
+
+	stage.addEventListener('mousedown', (e) => {
+		if (scale <= MIN_SCALE) return;
+		isPanning = true;
+		stage.classList.add('is-panning');
+		panStartX = e.clientX;
+		panStartY = e.clientY;
+		scrollStartX = stage.scrollLeft;
+		scrollStartY = stage.scrollTop;
+		e.preventDefault();
+	});
+	window.addEventListener('mousemove', (e) => {
+		if (!isPanning) return;
+		stage.scrollLeft = scrollStartX - (e.clientX - panStartX);
+		stage.scrollTop = scrollStartY - (e.clientY - panStartY);
+	});
+	window.addEventListener('mouseup', () => {
+		isPanning = false;
+		stage.classList.remove('is-panning');
+	});
+
 	document.addEventListener('keydown', (e) => {
+		if (!lightbox.classList.contains('is-open')) return;
 		if (e.key === 'Escape') closeLightbox();
+		if (e.key === '+' || e.key === '=') applyZoom(scale + 1);
+		if (e.key === '-') applyZoom(scale - 1);
 	});
 </script>
