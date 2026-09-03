@@ -20,16 +20,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				margin: 0;
 				padding: 0;
 			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				width: 100%;
-				max-height: 46vh;
-				object-fit: cover;
-				object-position: top center;
-				border: 1px solid var(--border);
-				box-shadow: var(--shadow);
-			}
 			.prose {
 				width: var(--container-width);
 				max-width: calc(100% - 3em);
@@ -134,11 +124,6 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<Header />
 		<main>
 			<article>
-				{heroImage && (
-					<div class="hero-image">
-						<img width={1200} height={600} src={heroImage} alt="" />
-					</div>
-				)}
 				<div class="prose">
 					<a href="/blog" class="back-link mono">&larr; Back to blog</a>
 					<div class="title">
