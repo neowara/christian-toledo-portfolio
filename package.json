@@ -1,6 +1,6 @@
 {
   "name": "christian-toledo-portfolio",
-  "description": "Christian Toledo's personal portfolio - Full-stack developer showcasing web development projects and self-hosted infrastructure.",
+  "description": "Christian Toledo's personal portfolio: selected work (Turbo, casa-verde), experience, about, and a technical blog.",
   "cloudflare": {
     "label": "Astro Framework Starter",
     "products": [
