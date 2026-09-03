@@ -1,25 +1,25 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import BaseHead from '../../../components/BaseHead.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION_SV } from '../../../consts';
 import { getCollection } from 'astro:content';
-import FormattedDate from '../../components/FormattedDate.astro';
-import { t } from '../../i18n/ui';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import { t } from '../../../i18n/ui';
 
-const strings = t('en');
-const posts = (await getCollection('blog', ({ id }) => id.startsWith('en/'))).sort(
+const strings = t('sv');
+const posts = (await getCollection('blog', ({ id }) => id.startsWith('sv/'))).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="sv">
 	<head>
-		<BaseHead title={`Blog | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Blogg | ${SITE_TITLE}`} description={SITE_DESCRIPTION_SV} />
 	</head>
 	<body>
-		<Header lang="en" />
+		<Header lang="sv" />
 		<main>
 			<section class="section-head">
 				<span class="eyebrow">{strings.blogList.eyebrow}</span>
@@ -29,7 +29,7 @@ const posts = (await getCollection('blog', ({ id }) => id.startsWith('en/'))).so
 
 			<section class="post-list">
 				{posts.map((post) => (
-					<a class="post-row card" href={`/blog/${post.id.replace(/^en\//, '')}/`}>
+					<a class="post-row card" href={`/sv/blog/${post.id.replace(/^sv\//, '')}/`}>
 						{post.data.heroImage && (
 							<div class="post-thumb">
 								<img src={post.data.heroImage} alt="" />
@@ -40,13 +40,13 @@ const posts = (await getCollection('blog', ({ id }) => id.startsWith('en/'))).so
 							<p class="post-desc">{post.data.description}</p>
 						</div>
 						<span class="post-date mono">
-							<FormattedDate date={post.data.pubDate} />
+							<FormattedDate date={post.data.pubDate} lang="sv" />
 						</span>
 					</a>
 				))}
 			</section>
 		</main>
-		<Footer />
+		<Footer lang="sv" />
 	</body>
 </html>
 

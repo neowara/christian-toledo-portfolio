@@ -1,15 +1,30 @@
 ---
-import HeaderLink from './HeaderLink.astro';
 import { GITHUB_URL, LINKEDIN_URL } from '../consts';
+import { localizedPath, type Lang } from '../i18n/paths';
+import { t } from '../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang);
+
+// Path with any /sv prefix stripped, used to compute both nav hrefs and the toggle targets.
+const neutralPath = lang === 'sv' ? Astro.url.pathname.replace(/^\/sv/, '') || '/' : Astro.url.pathname;
+const isBlogActive = neutralPath.startsWith('/blog');
+const isAboutActive = neutralPath.startsWith('/about');
+const enHref = localizedPath(neutralPath, 'en');
+const svHref = localizedPath(neutralPath, 'sv');
 ---
 
 <header class="site">
 	<nav class="wrap">
-		<a href="/" class="brand">christian<span>.</span>toledo</a>
+		<a href={localizedPath('/', lang)} class="brand">christian<span>.</span>toledo</a>
 		<div class="nav-links">
-			<a href="/#work">Work</a>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<a href={`${localizedPath('/', lang)}#work`}>{strings.nav.work}</a>
+			<a href={localizedPath('/blog', lang)} class:list={{ active: isBlogActive }}>{strings.nav.blog}</a>
+			<a href={localizedPath('/about', lang)} class:list={{ active: isAboutActive }}>{strings.nav.about}</a>
 		</div>
 		<div class="nav-right">
 			<a class="icon-link" href={GITHUB_URL} target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
@@ -21,9 +36,9 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 				<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
 			</a>
 			<div class="lang-toggle" role="group" aria-label="Language">
-				<button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+				<a href={enHref} class:list={{ active: lang === 'en' }} aria-label="English">EN</a>
 				<span class="lang-sep">|</span>
-				<button class="lang-btn" data-lang="sv" aria-label="Svenska">SV</button>
+				<a href={svHref} class:list={{ active: lang === 'sv' }} aria-label="Svenska">SV</a>
 			</div>
 			<button class="theme-toggle" aria-label="Toggle color theme">
 				<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
@@ -32,8 +47,6 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		</div>
 	</nav>
 </header>
-
-<div id="google_translate_element" class="sr-only"></div>
 
 <script>
 	const toggle = document.querySelector('.theme-toggle');
@@ -44,50 +57,6 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 		root.setAttribute('data-theme', next);
 		localStorage.setItem('theme', next);
 	});
-</script>
-
-<script is:inline>
-	function googleTranslateElementInit() {
-		new google.translate.TranslateElement(
-			{ pageLanguage: 'en', includedLanguages: 'sv', autoDisplay: false },
-			'google_translate_element'
-		);
-	}
-</script>
-<script is:inline src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<script>
-	function currentGoogTransLang(): string {
-		const match = document.cookie.match(/googtrans=\/en\/(\w+)/);
-		return match ? match[1] : 'en';
-	}
-
-	function setLangCookie(lang: string) {
-		const host = window.location.hostname;
-		const expire = lang === 'en' ? 'expires=Thu, 01 Jan 1970 00:00:00 UTC;' : '';
-		const value = lang === 'en' ? '' : `/en/${lang}`;
-		document.cookie = `googtrans=${value}; ${expire} path=/;`;
-		document.cookie = `googtrans=${value}; ${expire} path=/; domain=${host};`;
-		document.cookie = `googtrans=${value}; ${expire} path=/; domain=.${host};`;
-	}
-
-	function updateLangButtons() {
-		const active = currentGoogTransLang();
-		document.querySelectorAll('.lang-btn').forEach((btn) => {
-			btn.classList.toggle('active', (btn as HTMLElement).dataset.lang === active);
-		});
-	}
-
-	document.querySelectorAll('.lang-btn').forEach((btn) => {
-		btn.addEventListener('click', () => {
-			const lang = (btn as HTMLElement).dataset.lang ?? 'en';
-			if (lang === currentGoogTransLang()) return;
-			setLangCookie(lang);
-			window.location.reload();
-		});
-	});
-
-	updateLangButtons();
 </script>
 
 <style>
@@ -163,20 +132,16 @@ import { GITHUB_URL, LINKEDIN_URL } from '../consts';
 	.lang-sep {
 		color: var(--border-strong);
 	}
-	.lang-btn {
-		background: none;
-		border: none;
-		padding: 0;
+	.lang-toggle a {
 		color: var(--text-dim);
-		cursor: pointer;
 		font-family: var(--mono);
 		font-size: 0.78rem;
 		font-weight: 600;
 	}
-	.lang-btn:hover {
+	.lang-toggle a:hover {
 		color: var(--text);
 	}
-	.lang-btn.active {
+	.lang-toggle a.active {
 		color: var(--accent);
 	}
 	.theme-toggle {

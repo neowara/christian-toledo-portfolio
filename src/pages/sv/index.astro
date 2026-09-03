@@ -1,58 +1,58 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../consts';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } from '../../consts';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="sv">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION_SV} />
 	</head>
 	<body>
-		<Header lang="en" />
+		<Header lang="sv" />
 		<main>
 			<section class="hero">
-				<span class="eyebrow">Göteborg, Sweden</span>
-				<h1>Christian Toledo.<br>Full-stack engineer who ships and operates his own systems.</h1>
-				<p class="lead">Close to 7 years building production web and mobile apps across product companies and consultancies. The more interesting proof of how I work is what I build when nobody's asking: an Android app that talks directly to hardware over Bluetooth, and a home lab run with the documentation discipline of a production team.</p>
-				<p class="sub">Most recently a fullstack developer at Dear Friends and Nexer AB, working across clients including PostNord, Nordic Wellness, and Inera (1177). Originally from Cuba, based in Göteborg since 2011.</p>
+				<span class="eyebrow">Göteborg, Sverige</span>
+				<h1>Christian Toledo.<br>Fullstackutvecklare som bygger och driver sina egna system.</h1>
+				<p class="lead">Nästan sju års erfarenhet av att bygga produktionswebb- och mobilappar på både produktbolag och konsultbolag. Det mer intressanta beviset på hur jag arbetar är det jag bygger när ingen frågar: en Android-app som pratar direkt med hårdvara över Bluetooth, och ett hemmalabb som drivs med samma dokumentationsdisciplin som ett produktionsbolag.</p>
+				<p class="sub">Senast fullstackutvecklare på Dear Friends och Nexer AB, med kunder som PostNord, Nordic Wellness och Inera (1177). Ursprungligen från Kuba, bosatt i Göteborg sedan 2011.</p>
 				<div class="btn-row">
-					<a href="#work" class="btn">See my work →</a>
-					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Get in touch</a>
+					<a href="#work" class="btn">Se mitt arbete →</a>
+					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Kontakta mig</a>
 				</div>
 			</section>
 
 			<section id="work">
 				<div class="section-head">
-					<span class="eyebrow">Selected work</span>
-					<h2>Two systems I built, ship, and keep running.</h2>
-					<p>Not demos. Both are live, in daily personal use, with real users (me, and whoever's in the house), real failure modes, and a written history of the decisions behind them.</p>
+					<span class="eyebrow">Utvalda projekt</span>
+					<h2>Två system jag byggt, levererat och håller igång.</h2>
+					<p>Inte demos. Båda är live, i daglig personlig användning, med riktiga användare (jag, och den som råkar vara hemma), riktiga felmönster, och en skriven historik över besluten bakom dem.</p>
 				</div>
 
 				<div class="projects-grid">
 					<article class="project-card card">
 						<div class="project-col-a">
-							<div class="project-icon"><img src={PROJECTS.turbo.icon} alt="Turbo logo" /></div>
-							<span class="project-tag mono">{PROJECTS.turbo.tag}</span>
-							<h3 class="project-name">{PROJECTS.turbo.name}</h3>
-							<p class="project-pitch">{PROJECTS.turbo.pitch}</p>
+							<div class="project-icon"><img src={PROJECTS_SV.turbo.icon} alt="Turbo logotyp" /></div>
+							<span class="project-tag mono">{PROJECTS_SV.turbo.tag}</span>
+							<h3 class="project-name">{PROJECTS_SV.turbo.name}</h3>
+							<p class="project-pitch">{PROJECTS_SV.turbo.pitch}</p>
 							<div class="project-links">
-								{PROJECTS.turbo.repoLinks.map((link) => (
+								{PROJECTS_SV.turbo.repoLinks.map((link) => (
 									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
 								))}
-								<a href={`/blog/${PROJECTS.turbo.blogSlug}/`}>Read the deep dive →</a>
+								<a href={`/sv/blog/${PROJECTS_SV.turbo.blogSlug}/`}>Läs djupdykningen →</a>
 							</div>
 						</div>
 						<div class="project-col-b">
 							<ul class="detail-list">
-								{PROJECTS.turbo.details.map((d) => (
+								{PROJECTS_SV.turbo.details.map((d) => (
 									<li><strong>{d.title}:</strong> {d.body}</li>
 								))}
 							</ul>
 							<div class="stack-tags">
-								{PROJECTS.turbo.stack.map((s) => <span>{s}</span>)}
+								{PROJECTS_SV.turbo.stack.map((s) => <span>{s}</span>)}
 							</div>
 						</div>
 					</article>
@@ -66,24 +66,24 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 									<path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"></path>
 								</svg>
 							</div>
-							<span class="project-tag mono">{PROJECTS.casaVerde.tag}</span>
-							<h3 class="project-name">{PROJECTS.casaVerde.name}</h3>
-							<p class="project-pitch">{PROJECTS.casaVerde.pitch}</p>
+							<span class="project-tag mono">{PROJECTS_SV.casaVerde.tag}</span>
+							<h3 class="project-name">{PROJECTS_SV.casaVerde.name}</h3>
+							<p class="project-pitch">{PROJECTS_SV.casaVerde.pitch}</p>
 							<div class="project-links">
-								{PROJECTS.casaVerde.repoLinks.map((link) => (
+								{PROJECTS_SV.casaVerde.repoLinks.map((link) => (
 									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
 								))}
-								<a href={`/blog/${PROJECTS.casaVerde.blogSlug}/`}>Read the deep dive →</a>
+								<a href={`/sv/blog/${PROJECTS_SV.casaVerde.blogSlug}/`}>Läs djupdykningen →</a>
 							</div>
 						</div>
 						<div class="project-col-b">
 							<ul class="detail-list">
-								{PROJECTS.casaVerde.details.map((d) => (
+								{PROJECTS_SV.casaVerde.details.map((d) => (
 									<li><strong>{d.title}:</strong> {d.body}</li>
 								))}
 							</ul>
 							<div class="stack-tags">
-								{PROJECTS.casaVerde.stack.map((s) => <span>{s}</span>)}
+								{PROJECTS_SV.casaVerde.stack.map((s) => <span>{s}</span>)}
 							</div>
 						</div>
 					</article>
@@ -92,12 +92,12 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 
 			<section>
 				<div class="section-head">
-					<span class="eyebrow">Experience</span>
-					<h2>Where the day job happens.</h2>
+					<span class="eyebrow">Erfarenhet</span>
+					<h2>Där jobbet på dagarna sker.</h2>
 				</div>
 
 				<div class="timeline">
-					{EXPERIENCE.map((job) => (
+					{EXPERIENCE_SV.map((job) => (
 						<div class="timeline-item card">
 							<div class="timeline-head">
 								<h3>{job.role}</h3>
@@ -114,16 +114,16 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 
 			<section class="section-spaced">
 				<div class="cta-band card">
-					<h2>Want the fuller picture?</h2>
-					<p>The About page covers the path from Cuba to Göteborg and what I do outside of code. The blog goes deep on how Turbo and casa-verde actually work. I'm looking for a team that cares about technical quality and actually ships. If that's you, let's talk.</p>
+					<h2>Vill du ha hela bilden?</h2>
+					<p>Om-sidan täcker vägen från Kuba till Göteborg och vad jag gör utanför kod. Bloggen går på djupet om hur Turbo och casa-verde faktiskt fungerar. Jag letar efter ett team som bryr sig om teknisk kvalitet och faktiskt levererar. Om det är du, låt oss prata.</p>
 					<div class="btn-row">
-						<a href="/about" class="btn">About me</a>
-						<a href="/blog" class="btn btn-secondary">Read the blog</a>
+						<a href="/sv/about" class="btn">Om mig</a>
+						<a href="/sv/blog" class="btn btn-secondary">Läs bloggen</a>
 					</div>
 				</div>
 			</section>
 		</main>
-		<Footer lang="en" />
+		<Footer lang="sv" />
 	</body>
 </html>
 

@@ -1,5 +1,14 @@
 ---
 import { GITHUB_URL, LINKEDIN_URL, EMAIL } from '../consts';
+import { localizedPath, type Lang } from '../i18n/paths';
+import { t } from '../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang);
 const year = new Date().getFullYear();
 ---
 
@@ -8,29 +17,29 @@ const year = new Date().getFullYear();
 		<div class="footer-grid">
 			<div class="footer-brand">
 				<div class="brand">christian<span>.</span>toledo</div>
-				<p class="mono">Full-stack engineer · Göteborg, Sweden</p>
+				<p class="mono">{strings.footer.tagline}</p>
 			</div>
 			<div class="footer-links">
 				<div class="footer-col">
-					<h4>Site</h4>
-					<a href="/">Home</a>
-					<a href="/about">About</a>
-					<a href="/blog">Blog</a>
+					<h4>{strings.footer.site}</h4>
+					<a href={localizedPath('/', lang)}>{strings.footer.home}</a>
+					<a href={localizedPath('/about', lang)}>{strings.footer.about}</a>
+					<a href={localizedPath('/blog', lang)}>{strings.footer.blog}</a>
 				</div>
 				<div class="footer-col">
-					<h4>Projects</h4>
+					<h4>{strings.footer.projects}</h4>
 					<a href="https://github.com/neowara/turbo" target="_blank" rel="noopener noreferrer">Turbo</a>
 					<a href="https://github.com/neowara/casa-verde" target="_blank" rel="noopener noreferrer">casa-verde</a>
 				</div>
 				<div class="footer-col">
-					<h4>Connect</h4>
+					<h4>{strings.footer.connect}</h4>
 					<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
 					<a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-					<a href={`mailto:${EMAIL}`}>Email</a>
+					<a href={`mailto:${EMAIL}`}>{strings.footer.email}</a>
 				</div>
 			</div>
 		</div>
-		<div class="footer-bottom">&copy; {year} Christian Toledo.</div>
+		<div class="footer-bottom">{strings.footer.copyright(year)}</div>
 	</div>
 </footer>
 

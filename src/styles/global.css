@@ -282,26 +282,6 @@ li::marker {
   transform: none;
 }
 
-/* Suppress Google Website Translator's default chrome — we drive it with our own EN | SV toggle */
-#google_translate_element {
-  display: none !important;
-}
-.goog-te-banner-frame,
-.goog-te-gadget,
-.goog-tooltip,
-.goog-tooltip:hover,
-.goog-text-highlight {
-  display: none !important;
-  background: none !important;
-  box-shadow: none !important;
-}
-body {
-  top: 0 !important;
-}
-body.skiptranslate {
-  top: 0 !important;
-}
-
 @media (max-width: 768px) {
   body { font-size: 16px; }
   main { padding: 2em 0; }
