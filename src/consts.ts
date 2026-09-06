@@ -2,8 +2,8 @@
 // You can import this data from anywhere in your site by using the `import` keyword.
 
 export const SITE_TITLE = "Christian Toledo";
-export const SITE_DESCRIPTION = "Full-stack engineer based in Göteborg, Sweden. I build production frontends by day, and build and operate real systems, hardware-connected apps and a homelab run like production, on my own time.";
-export const SITE_DESCRIPTION_SV = "Fullstackutvecklare baserad i Göteborg. Jag bygger produktionsfrontend på dagarna, och bygger och driver riktiga system, hårdvarukopplade appar och ett hemmalabb som körs som en produktionsmiljö, på min fritid.";
+export const SITE_DESCRIPTION = "Full-stack engineer based in Göteborg, Sweden. React, React Native, Vue, Angular, and .NET by day; reverse-engineered Bluetooth protocols, physics-based range models, and a homelab run like production on my own time.";
+export const SITE_DESCRIPTION_SV = "Fullstackutvecklare baserad i Göteborg. React, React Native, Vue, Angular och .NET på dagarna; reverse-engineerade Bluetooth-protokoll, fysikbaserade räckviddsmodeller och ett hemmalabb som körs som en produktionsmiljö, på min fritid.";
 export const GITHUB_URL = "https://github.com/neowara";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/christiantm/";
 export const EMAIL = "christiantoledo@live.com";
@@ -13,20 +13,21 @@ export const PROJECTS = {
   turbo: {
     name: "Turbo",
     tag: "// mobile + backend",
-    pitch: "An Android app and self-hosted backend for tracking rides on a modified electric skateboard, with direct Bluetooth control of the board itself, not just GPS logging.",
+    pitch: "An Android app and self-hosted backend for tracking rides on an electric skateboard, with the board's proprietary Bluetooth protocol reimplemented from scratch, no vendor SDK, no cloud account required to ride.",
     icon: "/blog/turbo-logo.png",
     repoLinks: [
       { label: "App repo", url: "https://github.com/neowara/turbo" },
       { label: "Backend repo", url: "https://github.com/neowara/turbo-backend" },
+      { label: "Website", url: "https://turboapp.casa-verde.casa" },
     ],
     blogSlug: "turbo",
     details: [
-      { title: "Direct BLE, no cloud dependency", body: "reverse-engineered the board's Bluetooth protocol to read and write live telemetry and settings directly, battery, voltage, ride mode, acceleration curves, bypassing Tuya Cloud entirely." },
-      { title: "Physics-based range estimation", body: "the backend fits a per-mode model of rolling resistance, aerodynamic drag, and drivetrain efficiency from real ride history, instead of a linear battery-percent guess." },
-      { title: "Clean GPS from noisy hardware", body: "raw phone GPS gets road-snapped through a self-hosted OSRM instance and enriched with weather, so a route doesn't visibly cut through buildings." },
-      { title: "Real auth, not a shared token", body: "per-user accounts, argon2id password hashing, session-based API access, and an admin panel for account and data management." },
+      { title: "A vendor SDK reverse-engineered and deleted", body: "went from wrapping Tuya's Direct BLE SDK to a from-scratch Kotlin GATT client, verified against a Python reference byte-for-byte, no SDK left in the APK at all." },
+      { title: "Physics fitted to your own rides", body: "the backend fits per-mode rolling resistance, drag, and drivetrain efficiency by regression over real trip history, not a fixed manufacturer number or a linear battery-percent guess." },
+      { title: "Clean GPS from noisy hardware", body: "raw phone GPS gets road-snapped through a self-hosted OSRM instance and enriched with weather sampled across the whole route, not just the start point." },
+      { title: "Real auth and a real marketing site", body: "per-user accounts with argon2id hashing and session auth, plus a hand-built Astro landing page shipping its own touch-interaction and lightbox code." },
     ],
-    stack: ["Expo / React Native", "TypeScript", "Bluetooth LE", "FastAPI", "SQLModel", "Alembic", "OSRM", "Docker"],
+    stack: ["Expo / React Native", "Kotlin", "TypeScript", "Bluetooth LE", "FastAPI", "SQLModel", "Alembic", "OSRM", "Astro", "Docker"],
   },
   casaVerde: {
     name: "casa-verde",
@@ -52,20 +53,21 @@ export const PROJECTS_SV = {
   turbo: {
     name: "Turbo",
     tag: "// mobil + backend",
-    pitch: "En Android-app och självhostad backend för att logga åkturer på en modifierad elskateboard, med direkt Bluetooth-kontroll av brädan själv, inte bara GPS-loggning.",
+    pitch: "En Android-app och självhostad backend för att logga åkturer på en elskateboard, med brädans proprietära Bluetooth-protokoll återimplementerat från grunden, inget leverantörs-SDK, inget molnkonto krävs för att åka.",
     icon: "/blog/turbo-logo.png",
     repoLinks: [
       { label: "App-repo", url: "https://github.com/neowara/turbo" },
       { label: "Backend-repo", url: "https://github.com/neowara/turbo-backend" },
+      { label: "Webbplats", url: "https://turboapp.casa-verde.casa" },
     ],
     blogSlug: "turbo",
     details: [
-      { title: "Direkt BLE, inget molnberoende", body: "reverse-engineerade brädans Bluetooth-protokoll för att läsa och skriva live-telemetri och inställningar direkt, batteri, spänning, körläge, accelerationskurvor, helt utan Tuya Cloud." },
-      { title: "Fysikbaserad räckviddsberäkning", body: "backenden anpassar en modell per körläge för rullmotstånd, luftmotstånd och drivlineeffektivitet utifrån verklig körhistorik, istället för en linjär gissning baserad på batteriprocent." },
-      { title: "Ren GPS från brusig hårdvara", body: "rå GPS-data från telefonen vägsnäpps genom en självhostad OSRM-instans och berikas med väderdata, så att en rutt inte synligt skär genom byggnader." },
-      { title: "Riktig autentisering, inte en delad token", body: "individuella konton, lösenordshashning med argon2id, sessionsbaserad API-åtkomst, och en adminpanel för konto- och datahantering." },
+      { title: "Ett leverantörs-SDK reverse-engineerat och borttaget", body: "gick från att wrappa Tuyas Direct BLE SDK till en Kotlin GATT-klient byggd från grunden, verifierad mot en Python-referens byte för byte, inget SDK kvar i APK:n alls." },
+      { title: "Fysik anpassad till dina egna åkturer", body: "backenden anpassar rullmotstånd, luftmotstånd och drivlineeffektivitet per läge genom regression över verklig resehistorik, inte ett fast tillverkartal eller en linjär batteriprocent-gissning." },
+      { title: "Ren GPS från brusig hårdvara", body: "rå GPS-data från telefonen vägsnäpps genom en självhostad OSRM-instans och berikas med väderdata samplad över hela rutten, inte bara startpunkten." },
+      { title: "Riktig autentisering och en riktig marknadsföringssajt", body: "individuella konton med argon2id-hashning och sessionsautentisering, plus en handbyggd Astro-landningssida med egen touch-interaktion och lightbox-kod." },
     ],
-    stack: ["Expo / React Native", "TypeScript", "Bluetooth LE", "FastAPI", "SQLModel", "Alembic", "OSRM", "Docker"],
+    stack: ["Expo / React Native", "Kotlin", "TypeScript", "Bluetooth LE", "FastAPI", "SQLModel", "Alembic", "OSRM", "Astro", "Docker"],
   },
   casaVerde: {
     name: "casa-verde",
