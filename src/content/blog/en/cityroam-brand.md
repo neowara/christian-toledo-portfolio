@@ -2,7 +2,7 @@
 title: 'Why Cityroam is a better brand than Turbo'
 description: 'The product rebrand from Turbo to Cityroam was a naming problem, a trust problem, and a clarity problem. The fix was to describe the real behavior of the app instead of borrowing a noisy, generic performance brand.'
 pubDate: 'Sep 07 2026'
-heroImage: '/blog/cityroam-mark.svg'
+heroImage: '/blog/cityroam-live-hero.png'
 ---
 
 A lot of product names feel fine in the abstract and fail the moment you put them in the real world. Turbo had the classic problem of sounding fast, loud, and punchy, but also colliding with a crowded category: there were already scooter brands and trackers using similar names. On paper it was a strong "performance" cue. In practice, it made the product feel less precise and less ownable.
@@ -33,6 +33,16 @@ The motion system follows the same logic. A skyline loops behind the letters, an
 
 That is the difference between a brand that decorates a product and one that emerges from it.
 
+## The live page makes a concrete promise
+
+The homepage turns the brand idea into a very specific product promise: “Pair it once, ride.” Cityroam reads a board or scooter's telemetry directly over Bluetooth, keeps the ride data on the phone first, and avoids putting a vendor cloud between the rider and the hardware.
+
+That promise is reinforced by the closed-beta language. This is not presented as a finished mass-market product pretending to know everything. It is invite-only while real-world rides are collected and the range model becomes genuinely useful. The brand is confident, but honest about where the product is in its lifecycle.
+
+## A name with room to grow
+
+The page also makes the scope clear without making the identity narrow. Cityroam supports Tynee products today, while NAVEE support is still in production. It is independent from Tynee, NAVEE, and Tuya, and the manufacturer's own app continues to work alongside it. That combination of independence and compatibility gives the name room to grow beyond one board or scooter.
+
 ## Why this matters more than a logo
 
 A product name and a logo are not a marketing layer layered on top of the app. They are the first statement of how the app thinks about itself. If the brand says “speed” while the product is actually about route quality and urban movement, you create a mismatch. People start noticing the gap.
@@ -42,6 +52,11 @@ Cityroam closes that gap. It makes the product feel honest: a tool for moving th
 The real lesson is simple: when a brand is built around the actual behavior of the product, it becomes easier to trust, easier to remember, and easier to explain. The icon, the palette, and the wordmark all point to the same truth. And in a product category full of noisy names, that clarity is a real advantage.
 
 <figure>
+  <img src="/blog/cityroam-live-hero.png" alt="Live Cityroam homepage hero with the cityroam wordmark, route illustration, and ride computer messaging" />
+  <figcaption>The live Cityroam homepage brings the wordmark, route language, and night-city visual system together.</figcaption>
+</figure>
+
+<figure>
   <img src="/blog/cityroam-mark.svg" alt="Cityroam wordmark and route-style logo mark" />
-  <figcaption>The Cityroam identity finally says what the product does: move through a city, record the route, and arrive at an intentional destination.</figcaption>
+  <figcaption>The route-based Cityroam mark is the compact identity behind the live page.</figcaption>
 </figure>

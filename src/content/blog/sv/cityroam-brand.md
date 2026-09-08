@@ -2,7 +2,7 @@
 title: 'Varför Cityroam är ett bättre varumärke än Turbo'
 description: 'Rebrandingen från Turbo till Cityroam var inte bara ett namnbyte. Det var en lösning på ett verkligt problem: produkten behövde beskriva vad den faktiskt gör, inte bara låta kraftfull ut.'
 pubDate: 'Sep 07 2026'
-heroImage: '/blog/cityroam-mark.svg'
+heroImage: '/blog/cityroam-live-hero.png'
 ---
 
 Många produktnamn fungerar i teorin men fallerar direkt i verkligheten. Turbo hade det klassiska problemet med att låta snabbt, högt och kraftfullt, samtidigt som det kolliderade med en trång kategori där det redan fanns liknande namn på scootrar och tracker-produkter. På papperet var det ett starkt "prestanda"-signal. I praktiken gjorde det produkten mindre precis och mindre egen.
@@ -33,6 +33,16 @@ Rörelsesystemet följer samma logik. En skyline loopar bakom bokstäverna, och 
 
 Det är skillnaden mellan ett varumärke som dekorerar en produkt och ett som växer fram ur den.
 
+## Den riktiga sidan ger ett konkret löfte
+
+Hemsidan gör varumärkesidén till ett mycket konkret produktlöfte: "Pair it once, ride." Cityroam läser brädans eller scooterns telemetri direkt över Bluetooth, håller åkturens data på telefonen först och undviker att lägga ett leverantörsmoln mellan föraren och hårdvaran.
+
+Det löftet förstärks av språket kring closed beta. Produkten presenteras inte som en färdig massmarknadsprodukt som låtsas veta allt. Den är invite-only medan riktiga åkturer samlas in och räckviddsmodellen blir verkligt användbar. Varumärket är självsäkert, men ärligt om var produkten befinner sig.
+
+## Ett namn med utrymme att växa
+
+Sidan gör också omfattningen tydlig utan att göra identiteten smal. Cityroam stöder Tynee-produkter idag, medan NAVEE-stöd fortfarande är under produktion. Appen är oberoende av Tynee, NAVEE och Tuya, och tillverkarens egen app fortsätter fungera bredvid den. Den kombinationen av oberoende och kompatibilitet ger namnet utrymme att växa bortom en enda bräda eller scooter.
+
 ## Varför detta spelar roll mer än själva logotypen
 
 Ett produktnamn och en logotyp är inte bara ett försäljningslager ovanpå appen. De är det första uttalandet om hur appen tänker om sig själv. Om varumärket säger "hastighet" medan produkten faktiskt handlar om ruttkvalitet och rörelse i staden, så skapas en mismatch. Folk börjar märka gapet.
@@ -42,6 +52,11 @@ Cityroam stänger det gapet. Det gör produkten känns ärlig: ett verktyg för 
 Den verkliga lärdomen är enkel: när ett varumärke byggs kring produktens faktiska beteende blir det lättare att lita på, lättare att komma ihåg och lättare att förklara. Ikonen, paletten och ordmärket pekar alla mot samma sanning. Och i en produktkategori full av högljudda namn är den tydligheten en riktig fördel.
 
 <figure>
+  <img src="/blog/cityroam-live-hero.png" alt="Live Cityroam-hemsida med cityroam-ordmärket, ruttillustration och ride computer-budskap" />
+  <figcaption>Den riktiga Cityroam-hemsidan samlar ordmärket, ruttlogiken och det nattliga stadsuttrycket.</figcaption>
+</figure>
+
+<figure>
   <img src="/blog/cityroam-mark.svg" alt="Cityroam-ordmärke och ruttbaserad logotyp" />
-  <figcaption>Cityroam-identiteten säger till slut vad produkten gör: att röra sig genom en stad, registrera rutten och nå en medveten destination.</figcaption>
+  <figcaption>Det ruttbaserade Cityroam-märket är den kompakta identiteten bakom den riktiga sidan.</figcaption>
 </figure>

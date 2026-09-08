@@ -2,7 +2,7 @@
 title: 'Cityroam’s design system: route, skyline, and night-rider clarity'
 description: 'The Cityroam brand system turns a GPS ride tracker into a crisp product identity: a route glyph, a skyline, and a restrained dark palette designed for night riding and urban movement.'
 pubDate: 'Sep 08 2026'
-heroImage: '/blog/hero-dashboard.jpg'
+heroImage: '/blog/cityroam-live-features.png'
 ---
 
 A strong product identity is often less about decoration and more about discipline. The Cityroam design system is a good example of that: it does not try to be everything at once. It picks a few strong ideas and repeats them consistently.
@@ -41,7 +41,19 @@ That is why the visual system is strong. It does not rely on a generic startup a
 
 That clarity is probably the most important feature of all.
 
+## The live interface proves the system
+
+The actual Cityroam page shows the system in use rather than leaving it as a moodboard. The features section presents board settings, trip detail, mode cost, route planning, range verdicts, activity history, ride history, a home-screen widget, and one settings hub. The screenshots sit inside the same dark visual world as the wordmark and city illustration.
+
+The product details also give the visual system substance. Range is described as “Doable,” “Cutting it close,” or “Not enough charge,” calculated from rolling resistance, aerodynamic drag, drivetrain efficiency, elevation, wind, and current battery. That is a much more memorable product story than a generic dashboard full of numbers.
+
+## Privacy is part of the design language
+
+The site gives local-first behavior the same prominence as the feature list. Connection keys stay on the device in Android's hardware-backed keystore. There are no ads, analytics SDKs, data brokers, or data sales. GPS is used when a ride is active, finished rides are stored before any network call, and syncing waits until a connection is available.
+
+That is not only a technical policy. It shapes the product's character: calm, direct, and respectful of the rider's attention.
+
 <figure>
-  <img src="/blog/route-planner.jpg" alt="Cityroam route-planning view showing a city route and destination markers" />
-  <figcaption>Route planning is the product's real story. The visual identity is built to say that clearly, instead of hiding it under an unrelated performance brand.</figcaption>
+  <img src="/blog/cityroam-live-features.png" alt="Live Cityroam features section showing product screenshots and dark interface styling" />
+  <figcaption>The live features section shows how the dark palette, amber accents, and product screenshots work together.</figcaption>
 </figure>

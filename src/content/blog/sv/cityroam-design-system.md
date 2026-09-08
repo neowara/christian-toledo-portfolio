@@ -2,7 +2,7 @@
 title: 'Cityroams designsystem: rutt, skyline och tydlighet för natten'
 description: 'Cityroams varumärkesystem gör ett GPS-åktspårningsverktyg till en tydlig produktidentitet: en ruttmark, en skyline och en avhållsam mörk palett byggd för nattkörning och stadsrörelse.'
 pubDate: 'Sep 08 2026'
-heroImage: '/blog/hero-dashboard.jpg'
+heroImage: '/blog/cityroam-live-features.png'
 ---
 
 Ett starkt produktidentitet handlar ofta mindre om dekoration och mer om disciplin. Cityroams designsystem är ett bra exempel på det: det försöker inte vara allt på en gång. Det väljer några få starka idéer och upprepar dem konsekvent.
@@ -41,7 +41,19 @@ Det är därför designsystemet är starkt. Det litar inte på en generisk start
 
 Den tydligheten är antagligen den viktigaste egenskapen av allt.
 
+## Den riktiga sidan bevisar systemet
+
+Den riktiga Cityroam-sidan visar designsystemet i användning istället för att lämna det som en moodboard. Funktionssektionen presenterar brädinställningar, åkturdetaljer, kostnad per läge, ruttplanering, räckviddsbesked, aktivitetshistorik, åkturshistorik, en hemskärmswidget och ett samlat inställningsnav. Skärmbilderna ligger i samma mörka visuella värld som ordmärket och stadsillustrationen.
+
+Produktdetaljerna ger också designsystemet substans. Räckvidd beskrivs som "Doable", "Cutting it close" eller "Not enough charge", beräknat från rullmotstånd, luftmotstånd, drivlineeffektivitet, höjdskillnad, vind och aktuellt batteri. Det är en mycket mer minnesvärd produktberättelse än en generisk dashboard full av siffror.
+
+## Integritet är en del av designspråket
+
+Sidan ger local-first-beteende samma plats som funktionslistan. Anslutningsnycklar stannar på enheten i Androids hårdvarubaserade keystore. Det finns inga annonser, analytics-SDK:er, dataförmedlare eller försäljning av data. GPS används när en åktur pågår, färdiga åkturer sparas före nätverksanrop och synkning väntar tills en anslutning är tillgänglig.
+
+Det är inte bara en teknisk policy. Det formar produktens karaktär: lugn, direkt och respektfull mot förarens uppmärksamhet.
+
 <figure>
-  <img src="/blog/route-planner.jpg" alt="Cityroam-ruttplanering med stadsväg och destinationsmarkörer" />
-  <figcaption>Ruttplanering är produktens verkliga historia. Visuell identitet byggs för att säga det tydligt, istället för att gömma det bakom ett orelaterat prestandavarumärke.</figcaption>
+  <img src="/blog/cityroam-live-features.png" alt="Live Cityroam-funktionssektion med produktskärmar och mörk gränssnittsstil" />
+  <figcaption>Den riktiga funktionssektionen visar hur mörk palett, amber-accenter och produktskärmar fungerar tillsammans.</figcaption>
 </figure>
