@@ -2,7 +2,7 @@
 //
 // Both repos are private, deliberately. That used to be papered over with "Repo ↗"
 // links that 404'd for every visitor; now each project carries a `sourceNote` that
-// says so plainly and points at the thing that actually is readable — the deep dive.
+// says so plainly and points at the thing that actually is readable, the deep dive.
 // Every link in `links` must resolve for a logged-out stranger.
 
 export interface ProjectLink {
@@ -30,7 +30,7 @@ export const PROJECTS: Record<"cityroam" | "casaVerde", Project> = {
     name: "Cityroam",
     tag: "// mobile + backend",
     pitch:
-      "A ride computer for electric boards and scooters: an Android app and a self-hosted backend that talk to the hardware directly over Bluetooth. Two different manufacturers' proprietary protocols, both reverse-engineered and reimplemented from scratch — no vendor SDK, no cloud account needed to ride.",
+      "A ride computer for electric boards and scooters: an Android app and a self-hosted backend that talk to the hardware directly over Bluetooth. Two different manufacturers' proprietary protocols, both reverse-engineered and reimplemented from scratch. No vendor SDK, and no cloud account needed to ride.",
     icon: "/projects/cityroam-mark.svg",
     links: [
       {
@@ -41,12 +41,12 @@ export const PROJECTS: Record<"cityroam" | "casaVerde", Project> = {
       { label: "Read the deep dive", url: "/blog/cityroam/" },
     ],
     sourceNote:
-      "In closed beta. The source is private, so the deep dives are the readable version — protocol notes, the physics model, and the decisions behind both.",
+      "In closed beta. The source is private, so the deep dives are the readable version: protocol notes, the physics model, and the decisions behind both.",
     blogSlug: "cityroam",
     details: [
       {
         title: "Two vendor protocols, neither of them documented",
-        body: "the Tynee board's Tuya SDK was reverse-engineered and deleted outright, replaced by a from-scratch Kotlin GATT client verified byte-for-byte against a Python reference. The NAVEE scooter had no SDK to remove in the first place — its encrypted challenge-response handshake had to be worked out from a real capture of the official app.",
+        body: "the Tynee board's Tuya SDK was reverse-engineered and deleted outright, replaced by a from-scratch Kotlin GATT client verified byte-for-byte against a Python reference. The NAVEE scooter had no SDK to remove in the first place, so its encrypted challenge-response handshake had to be worked out from a real capture of the official app.",
       },
       {
         title: "Physics fitted to your own rides",
@@ -77,15 +77,15 @@ export const PROJECTS: Record<"cityroam" | "casaVerde", Project> = {
     name: "casa-verde",
     tag: "// platform",
     pitch:
-      "The Proxmox host and deploy pipeline that five separate systems run on. Not a pile of Docker containers — a platform with infrastructure as code, encrypted secrets in git, drift detection against live state, and a written record of every real decision behind it.",
+      "The Proxmox host and deploy pipeline that five separate systems run on. Not a pile of Docker containers, but a platform with infrastructure as code, encrypted secrets in git, drift detection against live state, and a written record of every real decision behind it.",
     links: [{ label: "Read the deep dive", url: "/blog/casa-verde/" }],
     sourceNote:
-      "Source is private — it holds the encrypted secrets and the network layout for a house I live in. The deep dive covers the architecture and the decisions.",
+      "Source is private, since it holds the encrypted secrets and the network layout for a house I live in. The deep dive covers the architecture and the decisions.",
     blogSlug: "casa-verde",
     details: [
       {
         title: "Push to main is the deploy",
-        body: "a self-hosted GitHub Actions runner applies the repo to the host and every container. Ansible for most stacks, GitOps for the ones where a webhook-speed redeploy earns its extra complexity — chosen per stack, not dogmatically.",
+        body: "a self-hosted GitHub Actions runner applies the repo to the host and every container. Ansible for most stacks, GitOps for the ones where a webhook-speed redeploy earns its extra complexity. Chosen per stack, not dogmatically.",
       },
       {
         title: "82 written decision records",
@@ -93,11 +93,11 @@ export const PROJECTS: Record<"cityroam" | "casaVerde", Project> = {
       },
       {
         title: "Actually monitored",
-        body: "a daily drift check runs the playbook against live state and alerts if anything was hand-edited outside the pipeline, plus automated backups and real failure alerting — not just “the container is still running.”",
+        body: "a daily drift check runs the playbook against live state and alerts if anything was hand-edited outside the pipeline, plus automated backups and real failure alerting, not just “the container is still running.”",
       },
       {
         title: "It hosts the other project",
-        body: "Cityroam's backend runs on this platform, deployed by the same pipeline. The two projects on this page aren't independent — one runs on the other.",
+        body: "Cityroam's backend runs on this platform, deployed by the same pipeline. The two projects on this page aren't independent. One runs on the other.",
       },
     ],
     stack: [
@@ -116,7 +116,7 @@ export const PROJECTS_SV: Record<"cityroam" | "casaVerde", Project> = {
     name: "Cityroam",
     tag: "// mobil + backend",
     pitch:
-      "En färddator för elbrädor och elsparkcyklar: en Android-app och en självhostad backend som pratar direkt med hårdvaran över Bluetooth. Två olika tillverkares proprietära protokoll, båda reverse-engineerade och återimplementerade från grunden — inget leverantörs-SDK, inget molnkonto som krävs för att åka.",
+      "En färddator för elbrädor och elsparkcyklar: en Android-app och en självhostad backend som pratar direkt med hårdvaran över Bluetooth. Två olika tillverkares proprietära protokoll, båda reverse-engineerade och återimplementerade från grunden. Inget leverantörs-SDK, och inget molnkonto som krävs för att åka.",
     icon: "/projects/cityroam-mark.svg",
     links: [
       {
@@ -127,12 +127,12 @@ export const PROJECTS_SV: Record<"cityroam" | "casaVerde", Project> = {
       { label: "Läs djupdykningen", url: "/sv/blog/cityroam/" },
     ],
     sourceNote:
-      "I stängd beta. Källkoden är privat, så djupdykningarna är den läsbara versionen — protokollanteckningar, fysikmodellen och besluten bakom båda.",
+      "I stängd beta. Källkoden är privat, så djupdykningarna är den läsbara versionen: protokollanteckningar, fysikmodellen och besluten bakom båda.",
     blogSlug: "cityroam",
     details: [
       {
         title: "Två leverantörsprotokoll, inget av dem dokumenterat",
-        body: "Tynee-brädans Tuya-SDK reverse-engineerades och togs bort helt, ersatt av en Kotlin GATT-klient byggd från grunden och verifierad byte för byte mot en Python-referens. NAVEE-sparkcykeln hade inget SDK att ta bort över huvud taget — dess krypterade utmaning-svar-handskakning fick räknas ut från en riktig capture av tillverkarens egen app.",
+        body: "Tynee-brädans Tuya-SDK reverse-engineerades och togs bort helt, ersatt av en Kotlin GATT-klient byggd från grunden och verifierad byte för byte mot en Python-referens. NAVEE-sparkcykeln hade inget SDK att ta bort över huvud taget, så dess krypterade utmaning-svar-handskakning fick räknas ut från en riktig capture av tillverkarens egen app.",
       },
       {
         title: "Fysik anpassad till dina egna åkturer",
@@ -163,15 +163,15 @@ export const PROJECTS_SV: Record<"cityroam" | "casaVerde", Project> = {
     name: "casa-verde",
     tag: "// plattform",
     pitch:
-      "Proxmox-värden och deploypipelinen som fem separata system körs på. Inte en hög Docker-containrar — en plattform med infrastruktur som kod, krypterade hemligheter i git, driftkontroll mot livemiljön och en nedskriven historik över varje verkligt beslut bakom den.",
+      "Proxmox-värden och deploypipelinen som fem separata system körs på. Inte en hög Docker-containrar, utan en plattform med infrastruktur som kod, krypterade hemligheter i git, driftkontroll mot livemiljön och en nedskriven historik över varje verkligt beslut bakom den.",
     links: [{ label: "Läs djupdykningen", url: "/sv/blog/casa-verde/" }],
     sourceNote:
-      "Källkoden är privat — den innehåller krypterade hemligheter och nätverksupplägget för ett hus jag bor i. Djupdykningen täcker arkitekturen och besluten.",
+      "Källkoden är privat, eftersom den innehåller krypterade hemligheter och nätverksupplägget för ett hus jag bor i. Djupdykningen täcker arkitekturen och besluten.",
     blogSlug: "casa-verde",
     details: [
       {
         title: "Push till main är deployen",
-        body: "en självhostad GitHub Actions-runner applicerar repot på värden och varje container. Ansible för de flesta stackar, GitOps för dem där en webhook-snabb omdistribution är värd sin extra komplexitet — valt per stack, inte dogmatiskt.",
+        body: "en självhostad GitHub Actions-runner applicerar repot på värden och varje container. Ansible för de flesta stackar, GitOps för dem där en webhook-snabb omdistribution är värd sin extra komplexitet. Valt per stack, inte dogmatiskt.",
       },
       {
         title: "82 skrivna beslutsdokument",
@@ -179,11 +179,11 @@ export const PROJECTS_SV: Record<"cityroam" | "casaVerde", Project> = {
       },
       {
         title: "Faktiskt övervakat",
-        body: "en daglig driftkontroll kör playbooken mot livemiljön och larmar om något handredigerats utanför pipelinen, plus automatiska säkerhetskopior och riktiga felnotiser — inte bara ”containern körs fortfarande”.",
+        body: "en daglig driftkontroll kör playbooken mot livemiljön och larmar om något handredigerats utanför pipelinen, plus automatiska säkerhetskopior och riktiga felnotiser, inte bara ”containern körs fortfarande”.",
       },
       {
         title: "Den kör det andra projektet",
-        body: "Cityroams backend körs på den här plattformen, deployad av samma pipeline. De två projekten på den här sidan är inte oberoende — det ena körs på det andra.",
+        body: "Cityroams backend körs på den här plattformen, deployad av samma pipeline. De två projekten på den här sidan är inte oberoende. Det ena körs på det andra.",
       },
     ],
     stack: [

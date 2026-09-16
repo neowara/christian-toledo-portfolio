@@ -12,7 +12,7 @@
 //     traffic. "National · millions of users" is a true statement about 1177 itself.
 //   - `role` on a client says exactly how involved Christian was. "Sole developer"
 //     and "part of a larger team" are both used, and the honest one is always the
-//     right one — inflating a team contribution is the fastest way to lose an
+//     right one, inflating a team contribution is the fastest way to lose an
 //     interview.
 //   - `logo` is optional. When set it points at a real monochrome SVG wordmark in
 //     /public/logos/ (currentColor, so both themes work). When absent the tile falls
@@ -31,11 +31,16 @@ export type ClientIcon =
 export interface Client {
   name: string;
   icon: ClientIcon;
-  /** Optional real wordmark in /public/logos/, monochrome + currentColor. */
+  /**
+   * Optional wordmark: the filename (without .svg) of a monochrome,
+   * currentColor SVG in src/assets/logos/. Inlined at build time so it can
+   * inherit the page colour, an <img> can't, which is why these live in
+   * src/ rather than public/.
+   */
   logo?: string;
   /** What kind of organisation/product it is. Rendered as a mono eyebrow. */
   kind: string;
-  /** Scale of the client or platform — never a personal traffic claim. */
+  /** Scale of the client or platform, never a personal traffic claim. */
   scale: string;
   /** What Christian actually did, scoped honestly. */
   role: string;
@@ -127,7 +132,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "PostNord",
         icon: "parcel",
-        logo: "/logos/postnord.svg",
+        logo: "postnord",
         kind: "Postal operator",
         scale: "Nordic · nationwide logistics",
         role: "Internal React tool for planning delivery routes, in a larger team",
@@ -137,7 +142,7 @@ export const EXPERIENCE: Job[] = [
         icon: "community",
         kind: "Non-profit, social services",
         scale: "Gothenburg",
-        role: "React Native app connecting food donors with people in need — sole developer",
+        role: "React Native app connecting food donors with people in need, as sole developer",
       },
     ],
     stack: [
@@ -169,7 +174,7 @@ export const EXPERIENCE: Job[] = [
         icon: "megaphone",
         kind: "The product, not a client",
         scale: "B2B SaaS · advertising and brand activations",
-        role: "Sole frontend developer — architecture, component library, CI/CD",
+        role: "Sole frontend developer: architecture, component library, CI/CD",
       },
     ],
     stack: [
@@ -205,7 +210,7 @@ export const EXPERIENCE: Job[] = [
   },
 ];
 
-// Swedish translation. Org names, product names, and stack tags stay untranslated —
+// Swedish translation. Org names, product names, and stack tags stay untranslated ,
 // they're proper nouns and reading "Göteborg's City Mission" in Swedish would be odd.
 export const EXPERIENCE_SV: Job[] = [
   {
@@ -282,7 +287,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "PostNord",
         icon: "parcel",
-        logo: "/logos/postnord.svg",
+        logo: "postnord",
         kind: "Postoperatör",
         scale: "Nordisk · rikstäckande logistik",
         role: "Internt React-verktyg för ruttplanering, i ett större team",
@@ -292,7 +297,7 @@ export const EXPERIENCE_SV: Job[] = [
         icon: "community",
         kind: "Ideell verksamhet, socialt arbete",
         scale: "Göteborg",
-        role: "React Native-app som kopplar matgivare till människor i behov — ensam utvecklare",
+        role: "React Native-app som kopplar matgivare till människor i behov, som ensam utvecklare",
       },
     ],
     stack: [
@@ -324,7 +329,7 @@ export const EXPERIENCE_SV: Job[] = [
         icon: "megaphone",
         kind: "Produkten, inte en kund",
         scale: "B2B SaaS · annonsering och varumärkesaktivering",
-        role: "Ensam frontendutvecklare — arkitektur, komponentbibliotek, CI/CD",
+        role: "Ensam frontendutvecklare: arkitektur, komponentbibliotek, CI/CD",
       },
     ],
     stack: [

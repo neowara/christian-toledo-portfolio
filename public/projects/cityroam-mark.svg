@@ -5,7 +5,7 @@
 		(cityroam-website/prototype/cityroam-icons/glyph-mono.svg): a start dot, a
 		dashed route trail, and an X destination marker.
 
-		Brand colors are kept rather than currentColor-ed — this is a real product
+		Brand colors are kept rather than currentColor-ed, this is a real product
 		logo, not a UI icon. Amber #ffa63d is close enough to the site accent
 		(#e8930c) that it reads as part of the palette either way.
 	-->

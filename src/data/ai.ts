@@ -1,4 +1,4 @@
-// How I work with AI — homepage #ai section.
+// How I work with AI, homepage #ai section.
 //
 // The point of this section is NOT a logo wall. Naming models is what everyone does
 // and it proves nothing. What's actually differentiating here is operating evidence:
@@ -39,7 +39,7 @@ export const AI_PRACTICE: AiPractice = {
   pillars: [
     {
       title: "Local, on my own hardware",
-      body: "Seven models pulled locally through Ollama — general, coding, and embedding — running on my own GPU. Before any of that, I checked whether the home voice assistant actually needed a GPU at all, and it didn't: speech-to-text runs about six times faster than real time on CPU alone. The research came before the purchase.",
+      body: "Seven models pulled locally through Ollama (general, coding, and embedding), running on my own GPU. Before any of that, I checked whether the home voice assistant actually needed a GPU at all, and it didn't: speech-to-text runs about six times faster than real time on CPU alone. The research came before the purchase.",
     },
     {
       title: "Cloud, chosen per job",
@@ -54,7 +54,7 @@ export const AI_PRACTICE: AiPractice = {
     {
       figure: "45–57s → ~5–6s",
       caption:
-        "voice assistant latency, fixed by scoping the model and prompt correctly — not by buying hardware",
+        "voice assistant latency, fixed by scoping the model and prompt correctly, not by buying hardware",
     },
     {
       figure: "768 candidates",
@@ -79,7 +79,7 @@ export const AI_PRACTICE: AiPractice = {
     {
       figure: "1 problem still open",
       caption:
-        "a local model that fabricates rather than admits uncertainty — documented, partly mitigated, not solved",
+        "a local model that fabricates rather than admits uncertainty: documented, partly mitigated, not solved",
     },
   ],
   toolGroups: [
@@ -101,7 +101,7 @@ export const AI_PRACTICE_SV: AiPractice = {
   pillars: [
     {
       title: "Lokalt, på min egen hårdvara",
-      body: "Sju modeller hämtade lokalt via Ollama — generella, kodinriktade och embedding — som körs på mitt eget grafikkort. Innan något av det kollade jag om röstassistenten i hemmet ens behövde ett grafikkort, och det gjorde den inte: tal-till-text går ungefär sex gånger snabbare än realtid på enbart CPU. Efterforskningen kom före inköpet.",
+      body: "Sju modeller hämtade lokalt via Ollama (generella, kodinriktade och embedding), som körs på mitt eget grafikkort. Innan något av det kollade jag om röstassistenten i hemmet ens behövde ett grafikkort, och det gjorde den inte: tal-till-text går ungefär sex gånger snabbare än realtid på enbart CPU. Efterforskningen kom före inköpet.",
     },
     {
       title: "Moln, valt per uppgift",
@@ -116,7 +116,7 @@ export const AI_PRACTICE_SV: AiPractice = {
     {
       figure: "45–57s → ~5–6s",
       caption:
-        "latensen i röstassistenten, löst genom att skala modellen och prompten rätt — inte genom att köpa hårdvara",
+        "latensen i röstassistenten, löst genom att skala modellen och prompten rätt, inte genom att köpa hårdvara",
     },
     {
       figure: "768 kandidater",
@@ -141,7 +141,7 @@ export const AI_PRACTICE_SV: AiPractice = {
     {
       figure: "1 kvarstående problem",
       caption:
-        "en lokal modell som hittar på i stället för att erkänna osäkerhet — dokumenterat, delvis mildrat, inte löst",
+        "en lokal modell som hittar på i stället för att erkänna osäkerhet: dokumenterat, delvis mildrat, inte löst",
     },
   ],
   toolGroups: [

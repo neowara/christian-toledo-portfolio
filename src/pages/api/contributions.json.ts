@@ -3,7 +3,7 @@ import snapshot from "../../data/contributions-snapshot.json";
 import { GITHUB_USERNAME } from "../../consts";
 
 // The only on-demand route on the site. Everything else stays statically prerendered
-// (Astro 5 removed `output: 'hybrid'` — with an adapter configured you opt individual
+// (Astro 5 removed `output: 'hybrid'`, with an adapter configured you opt individual
 // routes in, which is exactly what this is).
 export const prerender = false;
 
@@ -82,7 +82,7 @@ export const GET: APIRoute = async ({ request }) => {
       contributions?: Day[];
     };
 
-    // Guard against a 200 that isn't the shape we expect — an empty graph would be
+    // Guard against a 200 that isn't the shape we expect, an empty graph would be
     // worse than a slightly old one.
     if (!Array.isArray(data.contributions) || data.contributions.length === 0) {
       return json(fallback(), false);
@@ -103,7 +103,7 @@ export const GET: APIRoute = async ({ request }) => {
     if (cache) await cache.put(cacheKey, response.clone());
     return response;
   } catch {
-    // Timeout, DNS failure, malformed JSON — all the same from here: serve the
+    // Timeout, DNS failure, malformed JSON, all the same from here: serve the
     // committed snapshot with HTTP 200. This section must never render an error.
     return json(fallback(), false);
   }

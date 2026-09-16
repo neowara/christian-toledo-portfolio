@@ -7,7 +7,7 @@ heroImage: '/blog/cityroam-dashboard.jpg'
 ---
 
 > **Uppdaterad september 2026.** Det här skrevs när appen hette **Turbo**. Den heter
-> **Cityroam** nu — det gamla namnet krockade med två befintliga varumärken i samma
+> **Cityroam** nu, eftersom det gamla namnet krockade med två befintliga varumärken i samma
 > nisch, vilket är en dålig sak att upptäcka sent. Den gör också en hel
 > del mer än när texten först publicerades: en andra tillverkares elsparkcykel,
 > offline-först-inspelning av turer, och en stängd beta med användare som inte är jag.

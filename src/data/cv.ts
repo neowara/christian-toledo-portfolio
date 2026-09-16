@@ -1,6 +1,6 @@
 // Structured résumé data backing /cv and /sv/cv.
 //
-// Experience is NOT duplicated here — the /cv page renders EXPERIENCE/EXPERIENCE_SV
+// Experience is NOT duplicated here, the /cv page renders EXPERIENCE/EXPERIENCE_SV
 // from ./experience.ts directly, so the homepage timeline and the CV page cannot
 // drift apart. This file holds only what the CV needs and the homepage doesn't:
 // profile, skills, education, internships, languages.
@@ -8,12 +8,12 @@
 // Two corrections applied here relative to the source PDFs (user-approved 2026-09-16,
 // "update the CVs to match"):
 //
-//   1. ED Insights — the Swedish PDF's entry wrongly describes Posifon, duplicating
+//   1. ED Insights, the Swedish PDF's entry wrongly describes Posifon, duplicating
 //      the Posifon entry below it. The English PDF is correct and is what's used here
 //      for both languages.
-//   2. Medieinstitutet — the PDFs disagree (EN says 2017, SV says 2018). Using
+//   2. Medieinstitutet, the PDFs disagree (EN says 2017, SV says 2018). Using
 //      Aug 2018: it matches the two-year length of the programme and follows on from
-//      Ljungskile ending Jan 2017. FLAGGED FOR CONFIRMATION — if 2017 is correct this
+//      Ljungskile ending Jan 2017. FLAGGED FOR CONFIRMATION, if 2017 is correct this
 //      is a one-line change.
 //
 // Both PDFs in /public/cv/ still contain the uncorrected text; they're generated
@@ -34,7 +34,7 @@ export interface SkillGroup {
 }
 
 export interface CvData {
-  /** Shown at the top of /cv. City + email only — no street address or phone. */
+  /** Shown at the top of /cv. City + email only, no street address or phone. */
   headline: string;
   profile: string[];
   skillGroups: SkillGroup[];
@@ -55,7 +55,7 @@ export const CV: CvData = {
   headline: "Web Developer · Gothenburg, Sweden",
   profile: [
     "Web developer with close to seven years in the JavaScript and TypeScript ecosystem, after studying web development in Gothenburg. I've worked across both ends of the industry: product companies building one thing over years, and consultancies moving between several clients at once.",
-    "I work across the whole stack — React, Vue and Angular on the front end, Node, .NET and PHP on the back end, React Native for mobile — and I'm comfortable owning a feature from the first commit through to production. That range runs from small static sites to large web applications, for clients including PostNord, Nordic Wellness, and Inera (the 1177 healthcare platform).",
+    "I work across the whole stack: React, Vue and Angular on the front end, Node, .NET and PHP on the back end, and React Native for mobile. I'm comfortable owning a feature from the first commit through to production. That range runs from small static sites to large web applications, for clients including PostNord, Nordic Wellness, and Inera (the 1177 healthcare platform).",
     "On the frontend I care about design and UX, not only how things work. Outside work I run a home lab for the tools I actually use, and spend a lot of my free time following new tech, especially AI. Originally from Cuba, based in Gothenburg.",
   ],
   skillGroups: [
@@ -202,7 +202,7 @@ export const CV_SV: CvData = {
   headline: "Webbutvecklare · Göteborg, Sverige",
   profile: [
     "Webbutvecklare med närmare sju års erfarenhet i JavaScript- och TypeScript-ekosystemet, efter studier inom webbutveckling i Göteborg. Jag har arbetat i båda ändar av branschen: produktbolag som bygger en och samma sak över år, och konsultverksamhet där man växlar mellan flera kunder samtidigt.",
-    "Jag arbetar i hela stacken — React, Vue och Angular i frontend, Node, .NET och PHP i backend, React Native för mobil — och är van att äga en funktion hela vägen från första commit till produktion. Det spänner från små statiska sajter till stora webbapplikationer, för kunder som PostNord, Nordic Wellness och Inera (1177-plattformen).",
+    "Jag arbetar i hela stacken: React, Vue och Angular i frontend, Node, .NET och PHP i backend, och React Native för mobil. Jag är van att äga en funktion hela vägen från första commit till produktion. Det spänner från små statiska sajter till stora webbapplikationer, för kunder som PostNord, Nordic Wellness och Inera (1177-plattformen).",
     "I frontend bryr jag mig om design och UX, inte bara hur saker fungerar. Vid sidan av jobbet driver jag ett hemmalabb för de verktyg jag faktiskt använder, och lägger en stor del av min fritid på att följa ny teknik, särskilt AI. Ursprungligen från Kuba, bosatt i Göteborg.",
   ],
   skillGroups: [

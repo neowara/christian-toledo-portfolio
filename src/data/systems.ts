@@ -3,7 +3,7 @@
 // casa-verde used to be presented as a single "// infrastructure" card, which hid a
 // media pipeline, a smart-home + local-AI stack, a game server, a DNS/proxy/access
 // layer, and a GitOps deploy platform behind one word. These are genuinely separate
-// systems with their own stacks and failure modes — but they share one Proxmox host,
+// systems with their own stacks and failure modes, but they share one Proxmox host,
 // one Ansible repo, one deploy pipeline, and one ADR log, so they're framed as
 // "five systems, one platform" rather than five unrelated side projects. That's both
 // the honest framing and the more impressive one.
@@ -55,11 +55,11 @@ export const SYSTEMS: System[] = [
     tag: "// home automation + local AI",
     icon: "home",
     pitch:
-      "Home Assistant running the house, with a voice assistant whose speech recognition, speech synthesis, and language model all run on my own hardware — and a deliberate split to a cloud model for everything that isn't about the house.",
+      "Home Assistant running the house, with a voice assistant whose speech recognition, speech synthesis, and language model all run on my own hardware, plus a deliberate split to a cloud model for everything that isn't about the house.",
     highlights: [
       "Whisper for speech-to-text, Piper for text-to-speech, and Ollama for the language model, all self-hosted and all originally proven viable on CPU alone before any GPU was bought",
       "A hard privacy boundary: anything touching the home stays local by design; open-ended questions go to a separate cloud pipeline on a different wake word",
-      "Lights, blinds and motion sensors migrated onto Matter — while the dimmer switches deliberately stayed where they were, because moving them would have made things worse",
+      "Lights, blinds and motion sensors migrated onto Matter, while the dimmer switches stayed where they were, because moving them would have made things worse",
     ],
     stack: [
       "Home Assistant",
@@ -81,7 +81,7 @@ export const SYSTEMS: System[] = [
       "A Project Zomboid dedicated server for me and my friends, running about fifty mods with fully automated mod and update management.",
     highlights: [
       "The interesting constraint is that a mod update can break an existing save, so the automation has to be careful about when it applies one rather than just pulling latest",
-      "Provisioned and updated from the same Ansible repo as everything else — no hand-configured server that only I know how to rebuild",
+      "Provisioned and updated from the same Ansible repo as everything else, so there's no hand-configured server that only I know how to rebuild",
     ],
     stack: ["Ansible", "Docker", "Project Zomboid", "systemd"],
     href: "/blog/casa-verde/#game-server",
@@ -92,7 +92,7 @@ export const SYSTEMS: System[] = [
     tag: "// network + access",
     icon: "shield",
     pitch:
-      "Local DNS with real hostnames and network-wide ad blocking, a reverse proxy in front of every service, and no open inbound ports at all — remote access goes through a Cloudflare tunnel with authentication in front of it.",
+      "Local DNS with real hostnames and network-wide ad blocking, a reverse proxy in front of every service, and no open inbound ports at all. Remote access goes through a Cloudflare tunnel with authentication in front of it.",
     highlights: [
       "Nothing is port-forwarded. Every externally reachable service sits behind Cloudflare Tunnel with Cloudflare Access authenticating in front of it",
       "AdGuard Home as the local resolver, giving every service a real .lan hostname and blocking ads network-wide",
@@ -160,11 +160,11 @@ export const SYSTEMS_SV: System[] = [
     tag: "// hemautomation + lokal AI",
     icon: "home",
     pitch:
-      "Home Assistant styr huset, med en röstassistent där taligenkänning, talsyntes och språkmodell alla körs på min egen hårdvara — och en medveten uppdelning mot en molnmodell för allt som inte handlar om hemmet.",
+      "Home Assistant styr huset, med en röstassistent där taligenkänning, talsyntes och språkmodell alla körs på min egen hårdvara, plus en medveten uppdelning mot en molnmodell för allt som inte handlar om hemmet.",
     highlights: [
       "Whisper för tal-till-text, Piper för text-till-tal och Ollama för språkmodellen, allt självhostat och allt ursprungligen bevisat fungera på enbart CPU innan något grafikkort köptes",
       "En tydlig integritetsgräns: allt som rör hemmet stannar lokalt, medvetet; öppna frågor går till en separat molnpipeline på ett annat väckningsord",
-      "Lampor, persienner och rörelsesensorer migrerade till Matter — medan dimmerknapparna medvetet fick stanna kvar, eftersom en flytt hade gjort det sämre",
+      "Lampor, persienner och rörelsesensorer migrerade till Matter, medan dimmerknapparna fick stanna kvar, eftersom en flytt hade gjort det sämre",
     ],
     stack: [
       "Home Assistant",
@@ -186,7 +186,7 @@ export const SYSTEMS_SV: System[] = [
       "En dedikerad Project Zomboid-server för mig och mina vänner, med ett femtiotal mods och helt automatiserad hantering av mods och uppdateringar.",
     highlights: [
       "Den intressanta begränsningen är att en moduppdatering kan förstöra en pågående sparfil, så automationen måste vara försiktig med när den appliceras i stället för att bara hämta senaste",
-      "Provisioneras och uppdateras från samma Ansible-repo som allt annat — ingen handkonfigurerad server som bara jag vet hur man bygger om",
+      "Provisioneras och uppdateras från samma Ansible-repo som allt annat, så det finns ingen handkonfigurerad server som bara jag vet hur man bygger om",
     ],
     stack: ["Ansible", "Docker", "Project Zomboid", "systemd"],
     href: "/sv/blog/casa-verde/#spelserver",
@@ -197,7 +197,7 @@ export const SYSTEMS_SV: System[] = [
     tag: "// nätverk + åtkomst",
     icon: "shield",
     pitch:
-      "Lokal DNS med riktiga hostnamn och nätverksövergripande annonsblockering, en reverse proxy framför varje tjänst, och inga öppna inkommande portar alls — fjärråtkomst går genom en Cloudflare-tunnel med autentisering framför.",
+      "Lokal DNS med riktiga hostnamn och nätverksövergripande annonsblockering, en reverse proxy framför varje tjänst, och inga öppna inkommande portar alls. Fjärråtkomst går genom en Cloudflare-tunnel med autentisering framför.",
     highlights: [
       "Ingenting är port-forwardat. Varje externt nåbar tjänst ligger bakom Cloudflare Tunnel med Cloudflare Access som autentiserar framför",
       "AdGuard Home som lokal resolver, vilket ger varje tjänst ett riktigt .lan-hostnamn och blockerar annonser i hela nätverket",

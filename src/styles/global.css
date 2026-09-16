@@ -1,5 +1,5 @@
 /* ============================================================
-   Christian Toledo — "Engineering notebook" design system
+   Christian Toledo, "Engineering notebook" design system
    Dark-default, one accent color, monospace used only for
    metadata/labels. No glow, no clip-paths, no neon.
    ============================================================ */
@@ -314,7 +314,7 @@ li::marker {
    Scrollbars
 
    The OS default renders as a white/light track that ignores the theme
-   completely — very obvious against the dark background on anything that
+   completely, very obvious against the dark background on anything that
    scrolls horizontally (the contribution graph, wide code blocks in posts).
    Themed once here, globally, so no component has to remember to do it.
 

@@ -9,7 +9,7 @@
 //
 // Data comes from github-contributions-api.jogruber.de, which scrapes the public
 // profile page. That means it includes private-repo contributions as long as
-// "Include private contributions on my profile" is enabled on the GitHub account —
+// "Include private contributions on my profile" is enabled on the GitHub account ,
 // which it is, verified by the totals matching the profile exactly.
 
 import { writeFile } from "node:fs/promises";
@@ -30,7 +30,7 @@ if (!res.ok) {
 const data = await res.json();
 
 if (!Array.isArray(data?.contributions) || data.contributions.length === 0) {
-  console.error("Unexpected payload — no contributions array. Refusing to overwrite.");
+  console.error("Unexpected payload, no contributions array. Refusing to overwrite.");
   process.exit(1);
 }
 

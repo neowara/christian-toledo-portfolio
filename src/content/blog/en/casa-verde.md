@@ -21,11 +21,11 @@ deploy pipeline and one decision log.
 
 ### Media automation
 
-A sixteen-container Compose stack that finds, sorts, subtitles and serves media —
+A sixteen-container Compose stack that finds, sorts, subtitles and serves media:
 Sonarr, Radarr, Lidarr, Prowlarr and Bazarr on the acquisition side, Jellyfin and
 Navidrome for playback, Immich as a self-hosted Google Photos replacement. Jellyfin
 runs directly on the host rather than in a container, specifically so it can get direct
-iGPU passthrough for hardware transcoding — the same integrated GPU Immich uses for
+iGPU passthrough for hardware transcoding, the same integrated GPU Immich uses for
 face recognition.
 
 The one I'd point at is a recurring Bazarr out-of-memory crash. The easy fix is a
@@ -35,9 +35,9 @@ root-caused instead, and written up.
 ### Smart home and a local voice assistant
 
 Home Assistant runs the house; a self-hosted pipeline gives it a voice. Whisper for
-speech-to-text, Piper for text-to-speech, and a local language model through Ollama —
-all of which was first proven to run acceptably on CPU alone, before any GPU was
-bought for it.
+speech-to-text, Piper for text-to-speech, and a local language model through Ollama.
+All of it was first proven to run acceptably on CPU alone, before any GPU was bought
+for it.
 
 There's a deliberate split here. Anything touching the home stays on local models, for
 privacy reasons I didn't want to compromise for convenience. Open-ended questions that
@@ -45,7 +45,7 @@ have nothing to do with the house go to a cloud model on a separate wake word. T
 one boundary, decided once, rather than a judgement call per query.
 
 Lights, blinds and motion sensors were migrated onto Matter. The dimmer switches
-deliberately weren't — moving them would have made them worse, and the record says so.
+deliberately weren't, because moving them would have made them worse, and the record says so.
 
 Two incidents from this system are worth more than the architecture: a round trip that
 went from 45–57 seconds down to about 5–6 by scoping the model and prompt properly
@@ -57,7 +57,7 @@ reverted within hours. Both are covered below.
 A Project Zomboid dedicated server for me and my friends, with around fifty mods and
 automated mod and update management. The constraint that makes it interesting is that
 a mod update can break an existing save, so "just pull latest" is exactly the wrong
-default. It's provisioned from the same Ansible repo as everything else — there's no
+default. It's provisioned from the same Ansible repo as everything else, so there's no
 hand-configured box that only I know how to rebuild.
 
 ### Network, DNS and remote access
@@ -103,5 +103,5 @@ Because the failure modes of "it's just a hobby, it'll be fine" are the same fai
 
 One of the containers on this host is the backend for [Cityroam](/blog/cityroam/), the
 ride-tracking app that's the other project on my homepage. The two aren't independent
-side projects that happen to sit next to each other — one is deployed by, monitored by,
+side projects that happen to sit next to each other. One is deployed by, monitored by,
 and backed up by the other, through the same pipeline described above.

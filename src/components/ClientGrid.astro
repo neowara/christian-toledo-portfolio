@@ -3,7 +3,7 @@
 //
 // Each tile identifies a client factually: an icon (or a real monochrome wordmark
 // where one is available), the name as text, what kind of organisation it is, its
-// scale, and — importantly — exactly how involved Christian was. "Sole developer"
+// scale, and, importantly, exactly how involved Christian was. "Sole developer"
 // and "part of a larger team" both appear, because the honest one is always the
 // right one.
 
@@ -16,23 +16,46 @@ interface Props {
 }
 
 const { clients, label } = Astro.props;
+
+/*
+	Wordmarks are inlined, not <img src>.
+
+	An SVG loaded through <img> is an isolated document: it can't see the page's
+	`color`, so `fill="currentColor"` inside it resolves to the initial value ,
+	black. That's why the PostNord mark rendered as a black wordmark on a dark
+	tile no matter what colour the CSS set. Inlining puts the SVG in the same
+	document, so currentColor inherits and one rule covers both themes.
+*/
+const logos = import.meta.glob<string>('../assets/logos/*.svg', {
+	query: '?raw',
+	import: 'default',
+	eager: true,
+});
+
+function logoMarkup(name: string): string | undefined {
+	const entry = Object.entries(logos).find(([path]) =>
+		path.endsWith(`/${name}.svg`),
+	);
+	return entry?.[1];
+}
 ---
 
 <div class="clients">
 	<span class="clients-label eyebrow">{label}</span>
 	<div class="client-grid">
-		{clients.map((client) => (
+		{clients.map((client) => {
+			const wordmark = client.logo ? logoMarkup(client.logo) : undefined;
+			return (
 			<div class="client-tile">
 				<div class="client-head">
-					{client.logo ? (
-						// Real wordmark: it already contains the company name, so the
-						// text label would be a duplicate. alt is empty and the name
-						// lives in aria-label on the wrapper instead.
-						<img class="client-logo" src={client.logo} alt="" aria-hidden="true" />
+					{wordmark ? (
+						// The wordmark already spells the company name, so the visible
+						// text label would duplicate it, it stays for screen readers.
+						<span class="client-logo" set:html={wordmark} />
 					) : (
 						<Icon name={client.icon} size={20} class="client-icon" />
 					)}
-					<span class="client-name" class:list={{ 'sr-only': !!client.logo }}>
+					<span class="client-name" class:list={{ 'sr-only': !!wordmark }}>
 						{client.name}
 					</span>
 				</div>
@@ -40,7 +63,8 @@ const { clients, label } = Astro.props;
 				<p class="client-scale">{client.scale}</p>
 				<p class="client-role">{client.role}</p>
 			</div>
-		))}
+			);
+		})}
 	</div>
 </div>
 
@@ -87,16 +111,25 @@ const { clients, label } = Astro.props;
 	.client-tile:hover .client-icon {
 		color: var(--accent);
 	}
-	/* Wordmarks are currentColor, so one rule covers both themes. */
+	/*
+		Inlined wordmarks inherit currentColor, so one rule covers both themes:
+		near-white on the dark theme, near-black on the light one.
+	*/
 	.client-logo {
-		height: 17px;
-		width: auto;
-		max-width: 100%;
-		color: var(--text-muted);
-		transition: color 0.15s ease;
+		display: inline-flex;
+		align-items: center;
+		color: var(--text);
+		opacity: 0.85;
+		transition: opacity 0.15s ease;
 	}
 	.client-tile:hover .client-logo {
-		color: var(--text);
+		opacity: 1;
+	}
+	.client-logo :global(svg) {
+		height: 15px;
+		width: auto;
+		max-width: 100%;
+		display: block;
 	}
 	.client-name {
 		font-size: 0.92rem;

@@ -21,11 +21,11 @@ deploy-pipeline och en beslutslogg.
 
 ### Mediaautomation
 
-En Compose-stack på sexton containrar som hittar, sorterar, textar och serverar media —
+En Compose-stack på sexton containrar som hittar, sorterar, textar och serverar media:
 Sonarr, Radarr, Lidarr, Prowlarr och Bazarr på hämtningssidan, Jellyfin och Navidrome
 för uppspelning, Immich som självhostad ersättare för Google Photos. Jellyfin körs
 direkt på värden i stället för i en container, just för att få direkt iGPU-passthrough
-för hårdvarutranskodning — samma integrerade grafikkrets som Immich använder för
+för hårdvarutranskodning, samma integrerade grafikkrets som Immich använder för
 ansiktsigenkänning.
 
 Den jag skulle peka på är en återkommande minneskrasch i Bazarr. Den enkla lösningen är
@@ -35,9 +35,9 @@ rotorsaksanalyserades i stället, och skrevs ner.
 ### Smart hem och en lokal röstassistent
 
 Home Assistant styr huset; en självhostad pipeline ger det en röst. Whisper för
-tal-till-text, Piper för text-till-tal, och en lokal språkmodell via Ollama — allt
-sådant som först bevisades kunna köras acceptabelt på enbart CPU, innan något
-grafikkort köptes för ändamålet.
+tal-till-text, Piper för text-till-tal, och en lokal språkmodell via Ollama. Allt
+sådant bevisades först kunna köras acceptabelt på enbart CPU, innan något grafikkort
+köptes för ändamålet.
 
 Det finns en medveten uppdelning här. Allt som rör hemmet stannar på lokala modeller,
 av integritetsskäl jag inte ville kompromissa med för bekvämlighets skull. Öppna frågor
@@ -45,7 +45,7 @@ som inte har med huset att göra går till en molnmodell på ett separat väckni
 är en gräns, beslutad en gång, i stället för en bedömning per fråga.
 
 Lampor, persienner och rörelsesensorer migrerades till Matter. Dimmerknapparna gjorde
-medvetet inte det — en flytt hade gjort dem sämre, och loggen säger varför.
+medvetet inte det, eftersom en flytt hade gjort dem sämre, och loggen säger varför.
 
 Två incidenter från det här systemet är värda mer än arkitekturen: en rundtur som gick
 från 45–57 sekunder ner till ungefär 5–6 genom att skala modellen och prompten rätt i
@@ -57,7 +57,7 @@ mestadels rullade tillbaka samma dag. Båda täcks nedan.
 En dedikerad Project Zomboid-server för mig och mina vänner, med ett femtiotal mods och
 automatiserad hantering av mods och uppdateringar. Begränsningen som gör den intressant
 är att en moduppdatering kan förstöra en pågående sparfil, så "hämta bara senaste" är
-precis fel standardval. Den provisioneras från samma Ansible-repo som allt annat — det
+precis fel standardval. Den provisioneras från samma Ansible-repo som allt annat, så det
 finns ingen handkonfigurerad låda som bara jag vet hur man bygger om.
 
 ### Nätverk, DNS och fjärråtkomst
@@ -102,5 +102,5 @@ Därför att felmönstren i "det är bara en hobby, det löser sig" är samma fe
 
 En av containrarna på den här värden är backenden för [Cityroam](/sv/blog/cityroam/),
 färdappen som är det andra projektet på min startsida. De två är inte oberoende
-sidoprojekt som råkar ligga bredvid varandra — det ena deployas av, övervakas av och
+sidoprojekt som råkar ligga bredvid varandra. Det ena deployas av, övervakas av och
 säkerhetskopieras av det andra, genom samma pipeline som beskrivs ovan.

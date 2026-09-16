@@ -36,7 +36,7 @@ for (let i = 0; i < days.length; i += 7) {
 }
 
 // One month label per column where that column contains the first week of a new
-// month — same rule GitHub uses, which keeps labels from bunching up.
+// month, same rule GitHub uses, which keeps labels from bunching up.
 const monthLabels = weeks.map((week, i) => {
 	const first = week[0];
 	if (!first) return null;
@@ -56,7 +56,7 @@ const dateFormatter = new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB',
 
 function tooltip(day: Day): string {
 	const when = dateFormatter.format(new Date(day.date));
-	return `${day.count} — ${when}`;
+	return `${day.count} on ${when}`;
 }
 ---
 
@@ -91,7 +91,7 @@ function tooltip(day: Day): string {
 				</div>
 
 				{/*
-					role="img" + a single label rather than 368 focusable cells — a screen
+					role="img" + a single label rather than 368 focusable cells, a screen
 					reader shouldn't have to walk a year of squares one at a time.
 				*/}
 				<div class="grid" role="img" aria-label={strings.graphLabel(total)}>
@@ -159,7 +159,7 @@ function tooltip(day: Day): string {
 						month: 'short',
 						year: 'numeric',
 					}).format(new Date(cell.dataset.date!));
-					cell.title = `${next.count} — ${when}`;
+					cell.title = `${next.count} on ${when}`;
 				});
 
 				const liveTotal = data.total?.lastYear;
@@ -257,7 +257,7 @@ function tooltip(day: Day): string {
 		justify-content: space-around;
 		padding: 0.1rem 0;
 		/*
-			Pinned so the row labels survive horizontal scrolling — the graph opens
+			Pinned so the row labels survive horizontal scrolling, the graph opens
 			scrolled to the most recent week, which would otherwise leave the grid
 			with no indication of which row is which day.
 		*/

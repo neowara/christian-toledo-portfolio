@@ -1,8 +1,8 @@
 ---
 // The body of the /cv page, shared by both locales.
 //
-// Experience is rendered from EXPERIENCE/EXPERIENCE_SV — the same data the homepage
-// timeline uses — specifically so the CV page and the homepage cannot drift apart.
+// Experience is rendered from EXPERIENCE/EXPERIENCE_SV, the same data the homepage
+// timeline uses, specifically so the CV page and the homepage cannot drift apart.
 // Only what the CV needs and the homepage doesn't (profile, skills, education,
 // early roles, languages) comes from CV/CV_SV.
 
@@ -70,7 +70,7 @@ const downloads = lang === 'sv' ? [CV_FILES.sv, CV_FILES.en] : [CV_FILES.en, CV_
 							{job.clients.map((client) => (
 								<li>
 									<Icon name={client.icon} size={16} />
-									<span><strong>{client.name}</strong> — {client.role}</span>
+									<span><strong>{client.name}</strong>: {client.role}</span>
 								</li>
 							))}
 						</ul>

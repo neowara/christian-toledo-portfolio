@@ -7,7 +7,7 @@ heroImage: '/blog/cityroam-dashboard.jpg'
 ---
 
 > **Updated September 2026.** This was written when the app was called **Turbo**. It's
-> **Cityroam** now — the old name collided with two existing brands in the same niche,
+> **Cityroam** now, because the old name collided with two existing brands in the same niche,
 > which is a bad thing to find out late. It also does rather more than
 > it did when this was first published: a second manufacturer's scooter, offline-first
 > trip recording, and a closed beta with users who aren't me. The names below have been

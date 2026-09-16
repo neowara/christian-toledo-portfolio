@@ -35,7 +35,7 @@ export const ui = {
     clients: {
       label: "Clients & platforms",
       disclaimer:
-        "Client work delivered through Nexer AB and Dear Friends. Logos and names are trademarks of their respective owners, shown to identify projects I contributed to — not an endorsement.",
+        "Client work delivered through Nexer AB and Dear Friends. Logos and names are trademarks of their respective owners, shown to identify projects I contributed to, not as an endorsement.",
     },
     ai: {
       eyebrow: "AI",
@@ -49,14 +49,14 @@ export const ui = {
       eyebrow: "Activity",
       title: "Still building, most days.",
       description:
-        "Client work, my own products, and open source — across public and private repositories.",
+        "Client work, my own products, and open source, across public and private repositories.",
       contributions: (n: number) =>
         `${n.toLocaleString("en-GB")} contributions in the last year`,
       /** Same string with an {n} placeholder, for client-side re-rendering. */
       contributionsTemplate: "{n} contributions in the last year",
       locale: "en-GB",
       profileLink: "View GitHub profile ↗",
-      stale: "Showing the last saved snapshot — live data is temporarily unavailable.",
+      stale: "Showing the last saved snapshot. Live data is temporarily unavailable.",
       months: [
         "Jan",
         "Feb",
@@ -133,7 +133,7 @@ export const ui = {
     clients: {
       label: "Kunder och plattformar",
       disclaimer:
-        "Kunduppdrag utförda via Nexer AB och Dear Friends. Logotyper och namn tillhör respektive varumärkesinnehavare och visas för att identifiera projekt jag bidragit till — inte som något godkännande.",
+        "Kunduppdrag utförda via Nexer AB och Dear Friends. Logotyper och namn tillhör respektive varumärkesinnehavare och visas för att identifiera projekt jag bidragit till, inte som något godkännande.",
     },
     ai: {
       eyebrow: "AI",
@@ -147,14 +147,14 @@ export const ui = {
       eyebrow: "Aktivitet",
       title: "Bygger fortfarande, de flesta dagar.",
       description:
-        "Kunduppdrag, egna produkter och öppen källkod — i både publika och privata repon.",
+        "Kunduppdrag, egna produkter och öppen källkod, i både publika och privata repon.",
       contributions: (n: number) =>
         `${n.toLocaleString("sv-SE")} bidrag det senaste året`,
       /** Samma sträng med en {n}-platshållare, för omrendering på klienten. */
       contributionsTemplate: "{n} bidrag det senaste året",
       locale: "sv-SE",
       profileLink: "Visa GitHub-profilen ↗",
-      stale: "Visar senast sparade ögonblicksbild — livedata är tillfälligt otillgänglig.",
+      stale: "Visar senast sparade ögonblicksbild. Livedata är tillfälligt otillgänglig.",
       months: [
         "jan",
         "feb",
