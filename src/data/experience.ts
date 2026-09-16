@@ -32,12 +32,17 @@ export interface Client {
   name: string;
   icon: ClientIcon;
   /**
-   * Optional wordmark: the filename (without .svg) of a monochrome,
-   * currentColor SVG in src/assets/logos/. Inlined at build time so it can
-   * inherit the page colour, an <img> can't, which is why these live in
-   * src/ rather than public/.
+   * Optional wordmark: the filename (without extension) of a logo in
+   * src/assets/logos/. SVGs are inlined so they inherit the page colour; PNGs
+   * are pre-baked black silhouettes that the dark theme inverts.
    */
   logo?: string;
+  /**
+   * Set when the logo is a monogram or a number rather than a wordmark, so the
+   * company name stays visible next to it instead of only in the accessible
+   * name. "1177", a lone "p" or a lone "G" don't identify anything on sight.
+   */
+  logoNeedsLabel?: boolean;
   /** What kind of organisation/product it is. Rendered as a mono eyebrow. */
   kind: string;
   /** Scale of the client or platform, never a personal traffic claim. */
@@ -73,6 +78,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Nordic Wellness",
         icon: "fitness",
+        logo: "nordic-wellness",
         kind: "Gym chain",
         scale: "Largest in the Nordics · 300+ clubs",
         role: "React Native apps (Expo) and the Umbraco site behind them",
@@ -80,6 +86,8 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Grand Fitness",
         icon: "fitness",
+        logo: "grandfitness",
+        logoNeedsLabel: true,
         kind: "Gym operator",
         scale: "Sweden",
         role: "Umbraco (.NET) site, built and maintained",
@@ -87,6 +95,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Fred's Food and Coffee",
         icon: "cms",
+        logo: "freds",
         kind: "Hospitality",
         scale: "Gothenburg",
         role: "Umbraco (.NET) site, built and maintained",
@@ -94,6 +103,8 @@ export const EXPERIENCE: Job[] = [
       {
         name: "IEMS, BabySlides, Doxa Bostad, Hagab",
         icon: "cms",
+        logo: "wordpress",
+        logoNeedsLabel: true,
         kind: "WordPress upkeep",
         scale: "Four agency clients",
         role: "Maintenance, dependency updates, and content work",
@@ -125,6 +136,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "1177 Vårdguiden",
         icon: "health",
+        logo: "1177",
         kind: "Public healthcare platform",
         scale: "National · millions of users",
         role: "Angular frontend on Optimizely, as part of one of several teams",
@@ -140,6 +152,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Göteborgs Stadsmission",
         icon: "community",
+        logo: "stadsmission",
         kind: "Non-profit, social services",
         scale: "Gothenburg",
         role: "React Native app connecting food donors with people in need, as sole developer",
@@ -172,6 +185,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Enginio",
         icon: "megaphone",
+        logo: "enginio",
         kind: "The product, not a client",
         scale: "B2B SaaS · advertising and brand activations",
         role: "Sole frontend developer: architecture, component library, CI/CD",
@@ -201,6 +215,7 @@ export const EXPERIENCE: Job[] = [
       {
         name: "Plejd",
         icon: "lightbulb",
+        logo: "plejd",
         kind: "Smart-home hardware",
         scale: "Swedish · listed company",
         role: "Internal tools used daily by 50+ employees",
@@ -228,6 +243,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Nordic Wellness",
         icon: "fitness",
+        logo: "nordic-wellness",
         kind: "Gymkedja",
         scale: "Nordens största · 300+ anläggningar",
         role: "React Native-appar (Expo) och Umbraco-sajten bakom dem",
@@ -235,6 +251,8 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Grand Fitness",
         icon: "fitness",
+        logo: "grandfitness",
+        logoNeedsLabel: true,
         kind: "Gymaktör",
         scale: "Sverige",
         role: "Umbraco (.NET)-sajt, byggd och underhållen",
@@ -242,6 +260,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Fred's Food and Coffee",
         icon: "cms",
+        logo: "freds",
         kind: "Restaurang och café",
         scale: "Göteborg",
         role: "Umbraco (.NET)-sajt, byggd och underhållen",
@@ -249,6 +268,8 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "IEMS, BabySlides, Doxa Bostad, Hagab",
         icon: "cms",
+        logo: "wordpress",
+        logoNeedsLabel: true,
         kind: "WordPress-underhåll",
         scale: "Fyra byråkunder",
         role: "Underhåll, uppdatering av beroenden och innehållsarbete",
@@ -280,6 +301,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "1177 Vårdguiden",
         icon: "health",
+        logo: "1177",
         kind: "Offentlig vårdplattform",
         scale: "Nationell · miljontals användare",
         role: "Angular-frontend på Optimizely, som del av ett av flera team",
@@ -295,6 +317,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Göteborgs Stadsmission",
         icon: "community",
+        logo: "stadsmission",
         kind: "Ideell verksamhet, socialt arbete",
         scale: "Göteborg",
         role: "React Native-app som kopplar matgivare till människor i behov, som ensam utvecklare",
@@ -327,6 +350,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Enginio",
         icon: "megaphone",
+        logo: "enginio",
         kind: "Produkten, inte en kund",
         scale: "B2B SaaS · annonsering och varumärkesaktivering",
         role: "Ensam frontendutvecklare: arkitektur, komponentbibliotek, CI/CD",
@@ -356,6 +380,7 @@ export const EXPERIENCE_SV: Job[] = [
       {
         name: "Plejd",
         icon: "lightbulb",
+        logo: "plejd",
         kind: "Smarta hem-hårdvara",
         scale: "Svenskt · börsnoterat",
         role: "Interna verktyg som användes dagligen av 50+ anställda",

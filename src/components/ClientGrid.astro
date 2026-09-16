@@ -18,25 +18,37 @@ interface Props {
 const { clients, label } = Astro.props;
 
 /*
-	Wordmarks are inlined, not <img src>.
+	Client wordmarks come in two shapes, and both end up monochrome.
 
-	An SVG loaded through <img> is an isolated document: it can't see the page's
-	`color`, so `fill="currentColor"` inside it resolves to the initial value ,
-	black. That's why the PostNord mark rendered as a black wordmark on a dark
-	tile no matter what colour the CSS set. Inlining puts the SVG in the same
-	document, so currentColor inherits and one rule covers both themes.
+	SVG ones are inlined rather than used as <img src>. An SVG loaded through
+	<img> is an isolated document: it can't see the page's `color`, so
+	`fill="currentColor"` inside it resolves to the initial value, black. That is
+	why the PostNord mark first rendered as a black wordmark on a dark tile no
+	matter what the CSS said. Inlining puts it in the same document, so
+	currentColor inherits and one rule covers both themes.
+
+	PNG ones are pre-baked to a black silhouette on transparency, because those
+	logos were only available as raster. The dark theme inverts them to white in
+	CSS and the light theme leaves them black, which lands in the same place.
 */
-const logos = import.meta.glob<string>('../assets/logos/*.svg', {
+const svgLogos = import.meta.glob<string>('../assets/logos/*.svg', {
 	query: '?raw',
 	import: 'default',
 	eager: true,
 });
 
-function logoMarkup(name: string): string | undefined {
-	const entry = Object.entries(logos).find(([path]) =>
-		path.endsWith(`/${name}.svg`),
-	);
-	return entry?.[1];
+const pngLogos = import.meta.glob<{ default: { src: string } }>(
+	'../assets/logos/*.png',
+	{ eager: true },
+);
+
+function svgMarkup(name: string): string | undefined {
+	return Object.entries(svgLogos).find(([p]) => p.endsWith(`/${name}.svg`))?.[1];
+}
+
+function pngSrc(name: string): string | undefined {
+	const hit = Object.entries(pngLogos).find(([p]) => p.endsWith(`/${name}.png`));
+	return hit?.[1]?.default?.src;
 }
 ---
 
@@ -44,18 +56,20 @@ function logoMarkup(name: string): string | undefined {
 	<span class="clients-label eyebrow">{label}</span>
 	<div class="client-grid">
 		{clients.map((client) => {
-			const wordmark = client.logo ? logoMarkup(client.logo) : undefined;
+			const svg = client.logo ? svgMarkup(client.logo) : undefined;
+			const png = client.logo && !svg ? pngSrc(client.logo) : undefined;
+			const hasLogo = !!(svg || png);
+			// A wordmark spells the company name out, so repeating it as text is
+			// noise. A monogram (Plejd's "p", Stadsmission's "G") does not, and
+			// neither does "1177" out of context, so those keep the visible label.
+			const hideName = hasLogo && !client.logoNeedsLabel;
 			return (
 			<div class="client-tile">
 				<div class="client-head">
-					{wordmark ? (
-						// The wordmark already spells the company name, so the visible
-						// text label would duplicate it, it stays for screen readers.
-						<span class="client-logo" set:html={wordmark} />
-					) : (
-						<Icon name={client.icon} size={20} class="client-icon" />
-					)}
-					<span class="client-name" class:list={{ 'sr-only': !!wordmark }}>
+					{svg && <span class="client-logo" set:html={svg} />}
+					{png && <img class="client-logo client-logo-raster" src={png} alt="" aria-hidden="true" />}
+					{!hasLogo && <Icon name={client.icon} size={20} class="client-icon" />}
+					<span class="client-name" class:list={{ 'sr-only': hideName }}>
 						{client.name}
 					</span>
 				</div>
@@ -96,12 +110,22 @@ function logoMarkup(name: string): string | undefined {
 	.client-tile:hover {
 		border-color: var(--border-strong);
 	}
+	/*
+		Logo on top, name underneath. Side by side worked for a short label but
+		wrapped badly for the long one ("IEMS, BabySlides, Doxa Bostad, Hagab"),
+		which pushed the logo off-centre and left the row looking lopsided.
+		Tiles whose logo already spells the name hide it via .sr-only, which is
+		absolutely positioned and so adds no height here.
+	*/
 	.client-head {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		gap: 0.55rem;
-		margin-bottom: 0.5rem;
-		min-height: 22px;
+		justify-content: center;
+		gap: 0.5rem;
+		margin-bottom: 0.7rem;
+		min-height: 34px;
+		text-align: center;
 	}
 	.client-icon {
 		color: var(--text-muted);
@@ -125,11 +149,41 @@ function logoMarkup(name: string): string | undefined {
 	.client-tile:hover .client-logo {
 		opacity: 1;
 	}
+	/*
+		Bounded by a box rather than a fixed height. These lockups have wildly
+		different proportions, from PostNord's long single line to Nordic
+		Wellness and Fred's, which stack two lines and turn illegible if the
+		whole thing is squeezed to one line's height.
+	*/
 	.client-logo :global(svg) {
-		height: 15px;
 		width: auto;
-		max-width: 100%;
+		height: auto;
+		max-height: 32px;
+		max-width: 140px;
 		display: block;
+	}
+	/*
+		Raster logos ship as black silhouettes. The dark theme inverts them to
+		white; the light theme uses them as-is, so both themes get the same
+		monochrome treatment as the inlined SVGs.
+	*/
+	.client-logo-raster {
+		width: auto;
+		height: auto;
+		max-height: 32px;
+		max-width: 140px;
+		object-fit: contain;
+		display: block;
+		filter: invert(1);
+		/*
+			global.css rounds every <img> by --radius-sm, which is fine for photos
+			and very much not fine here: on a 28px-tall wordmark a 6px radius eats
+			the corners of the letterforms. Logos are not cards.
+		*/
+		border-radius: 0;
+	}
+	:global([data-theme='light']) .client-logo-raster {
+		filter: none;
 	}
 	.client-name {
 		font-size: 0.92rem;
@@ -139,6 +193,7 @@ function logoMarkup(name: string): string | undefined {
 	}
 	.client-kind {
 		display: block;
+		text-align: center;
 		font-size: 0.68rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;

@@ -341,3 +341,12 @@ li::marker {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-dim);
 }
+
+/* Anchor targets sit below the sticky header rather than under it. Without this,
+   following an in-page link (#work, #ai, a blog heading) scrolls the target to
+   y=0, where the header covers it. */
+:target,
+section[id],
+main :is(h2, h3)[id] {
+  scroll-margin-top: 92px;
+}
