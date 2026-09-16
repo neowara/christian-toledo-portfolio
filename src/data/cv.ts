@@ -52,7 +52,7 @@ export interface CvData {
 }
 
 export const CV: CvData = {
-  headline: "Web Developer · Göteborg, Sweden",
+  headline: "Web Developer · Gothenburg, Sweden",
   profile: [
     "Web developer with close to seven years in the JavaScript and TypeScript ecosystem, after studying web development in Gothenburg. I've worked across both ends of the industry: product companies building one thing over years, and consultancies moving between several clients at once.",
     "I work across the whole stack — React, Vue and Angular on the front end, Node, .NET and PHP on the back end, React Native for mobile — and I'm comfortable owning a feature from the first commit through to production. That range runs from small static sites to large web applications, for clients including PostNord, Nordic Wellness, and Inera (the 1177 healthcare platform).",

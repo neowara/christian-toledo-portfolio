@@ -58,7 +58,12 @@ const downloads =
 	.cv-band h2 {
 		margin-bottom: 0.6rem;
 	}
-	.cv-band > p {
+	/*
+		:not(.cv-meta) matters — a bare `.cv-band > p` outranks `.cv-meta` on
+		specificity and silently flattened the meta line's top margin against the
+		buttons.
+	*/
+	.cv-band > p:not(.cv-meta) {
 		max-width: 52ch;
 		margin: 0 auto 1.7rem;
 	}
@@ -69,7 +74,7 @@ const downloads =
 		justify-content: center;
 	}
 	.cv-meta {
-		margin: 1.4rem 0 0;
+		margin: 2.2rem 0 0;
 		font-size: 0.76rem;
 		color: var(--text-dim);
 	}

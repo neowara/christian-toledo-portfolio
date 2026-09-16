@@ -2,7 +2,7 @@
 title: 'How the Cityroam website turns product reality into a landing page'
 description: 'A marketing site is only as good as its ability to represent the truth of the product. Cityroam does that by making the route, the city, and the rider experience the center of the story.'
 pubDate: 'Sep 09 2026'
-heroImage: '/blog/cityroam-live-homepage.png'
+heroImage: '/blog/cityroam-site-hero.png'
 ---
 
 The best product websites do not just explain a feature list. They frame the product around the real human problem it solves.
@@ -55,11 +55,11 @@ The Cityroam site does both. It makes the route, the destination, and the city t
 That is what good product marketing should do: turn product truth into a clear, memorable story.
 
 <figure>
-  <img src="/blog/cityroam-live-homepage.png" alt="Full-page screenshot of the live Cityroam marketing website" />
+  <img src="/blog/cityroam-site-hero.png" alt="Full-page screenshot of the live Cityroam marketing website" />
   <figcaption>The live Cityroam website carries the route, city, and night-riding story from the hero through the rest of the page.</figcaption>
 </figure>
 
 <figure>
-  <img src="/blog/cityroam-live-about.png" alt="Live Cityroam about section showing the project story and privacy information" />
+  <img src="/blog/cityroam-site-about.png" alt="Live Cityroam about section showing the project story and privacy information" />
   <figcaption>The about section keeps the product story personal and transparent instead of hiding it behind generic marketing copy.</figcaption>
 </figure>

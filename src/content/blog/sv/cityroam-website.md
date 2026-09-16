@@ -2,7 +2,7 @@
 title: 'Hur Cityroam-sajten gör produktens verklighet till en landningssida'
 description: 'En marknadsföringssida är bara så bra som den är på att representera produktens sanning. Cityroam gör det genom att göra rutt, stad och åkupplevelse till navet i berättelsen.'
 pubDate: 'Sep 09 2026'
-heroImage: '/blog/cityroam-live-homepage.png'
+heroImage: '/blog/cityroam-site-hero.png'
 ---
 
 De bästa produktwebbplatserna gör inte bara en lista över funktioner. De ramlar in produkten i ett riktigt mänskligt problem som den löser.
@@ -55,11 +55,11 @@ Cityroam-sajten klarar båda. Den gör rutt, destination och stad till den organ
 Det är det god produktmarknadsföring borde göra: förvandla produktens sanning till en tydlig, minnesvärd historia.
 
 <figure>
-  <img src="/blog/cityroam-live-homepage.png" alt="Fullständig skärmbild av den riktiga Cityroam-marknadsföringssidan" />
+  <img src="/blog/cityroam-site-hero.png" alt="Fullständig skärmbild av den riktiga Cityroam-marknadsföringssidan" />
   <figcaption>Den riktiga Cityroam-sidan bär berättelsen om rutt, stad och nattkörning genom hela upplevelsen.</figcaption>
 </figure>
 
 <figure>
-  <img src="/blog/cityroam-live-about.png" alt="Live Cityroam-aboutsektion med projektberättelse och integritetsinformation" />
+  <img src="/blog/cityroam-site-about.png" alt="Live Cityroam-aboutsektion med projektberättelse och integritetsinformation" />
   <figcaption>About-sektionen håller produktberättelsen personlig och transparent istället för att gömma den bakom generisk marknadsföring.</figcaption>
 </figure>

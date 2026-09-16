@@ -3,7 +3,7 @@
 
 export const SITE_TITLE = "Christian Toledo";
 export const SITE_DESCRIPTION =
-  "Full-stack engineer based in Göteborg, Sweden. React, React Native, Vue, Angular, and .NET for clients including PostNord, Nordic Wellness, and 1177; reverse-engineered Bluetooth protocols, physics-based range models, and a home lab run like production on my own time.";
+  "Full-stack engineer based in Gothenburg, Sweden. React, React Native, Vue, Angular, and .NET for clients including PostNord, Nordic Wellness, and 1177; reverse-engineered Bluetooth protocols, physics-based range models, and a home lab run like production on my own time.";
 export const SITE_DESCRIPTION_SV =
   "Fullstackutvecklare baserad i Göteborg. React, React Native, Vue, Angular och .NET för kunder som PostNord, Nordic Wellness och 1177; reverse-engineerade Bluetooth-protokoll, fysikbaserade räckviddsmodeller och ett hemmalabb som körs som en produktionsmiljö, på min fritid.";
 

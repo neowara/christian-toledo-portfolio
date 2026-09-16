@@ -2,7 +2,7 @@
 title: 'Cityroams designsystem: rutt, skyline och tydlighet för natten'
 description: 'Cityroams varumärkesystem gör ett GPS-åktspårningsverktyg till en tydlig produktidentitet: en ruttmark, en skyline och en avhållsam mörk palett byggd för nattkörning och stadsrörelse.'
 pubDate: 'Sep 08 2026'
-heroImage: '/blog/cityroam-live-features.png'
+heroImage: '/blog/cityroam-site-skyline.png'
 ---
 
 Ett starkt produktidentitet handlar ofta mindre om dekoration och mer om disciplin. Cityroams designsystem är ett bra exempel på det: det försöker inte vara allt på en gång. Det väljer några få starka idéer och upprepar dem konsekvent.
@@ -54,6 +54,6 @@ Sidan ger local-first-beteende samma plats som funktionslistan. Anslutningsnyckl
 Det är inte bara en teknisk policy. Det formar produktens karaktär: lugn, direkt och respektfull mot förarens uppmärksamhet.
 
 <figure>
-  <img src="/blog/cityroam-live-features.png" alt="Live Cityroam-funktionssektion med produktskärmar och mörk gränssnittsstil" />
+  <img src="/blog/cityroam-site-skyline.png" alt="Live Cityroam-funktionssektion med produktskärmar och mörk gränssnittsstil" />
   <figcaption>Den riktiga funktionssektionen visar hur mörk palett, amber-accenter och produktskärmar fungerar tillsammans.</figcaption>
 </figure>

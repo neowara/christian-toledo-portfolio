@@ -2,7 +2,7 @@
 title: 'Cityroam’s design system: route, skyline, and night-rider clarity'
 description: 'The Cityroam brand system turns a GPS ride tracker into a crisp product identity: a route glyph, a skyline, and a restrained dark palette designed for night riding and urban movement.'
 pubDate: 'Sep 08 2026'
-heroImage: '/blog/cityroam-live-features.png'
+heroImage: '/blog/cityroam-site-skyline.png'
 ---
 
 A strong product identity is often less about decoration and more about discipline. The Cityroam design system is a good example of that: it does not try to be everything at once. It picks a few strong ideas and repeats them consistently.
@@ -54,6 +54,6 @@ The site gives local-first behavior the same prominence as the feature list. Con
 That is not only a technical policy. It shapes the product's character: calm, direct, and respectful of the rider's attention.
 
 <figure>
-  <img src="/blog/cityroam-live-features.png" alt="Live Cityroam features section showing product screenshots and dark interface styling" />
+  <img src="/blog/cityroam-site-skyline.png" alt="Live Cityroam features section showing product screenshots and dark interface styling" />
   <figcaption>The live features section shows how the dark palette, amber accents, and product screenshots work together.</figcaption>
 </figure>

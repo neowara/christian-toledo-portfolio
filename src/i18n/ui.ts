@@ -4,7 +4,7 @@ export const ui = {
   en: {
     nav: { work: "Work", blog: "Blog", about: "About", cv: "CV" },
     footer: {
-      tagline: "Full-stack engineer · Göteborg, Sweden",
+      tagline: "Full-stack engineer · Gothenburg, Sweden",
       site: "Site",
       home: "Home",
       about: "About",
@@ -49,7 +49,7 @@ export const ui = {
       eyebrow: "Activity",
       title: "Still building, most days.",
       description:
-        "Most of this is private-repo work on Cityroam and casa-verde. The graph shows the volume; the blog posts are the part you can actually read.",
+        "A year of commits across the mobile app, its backend, and the infrastructure underneath them.",
       contributions: (n: number) =>
         `${n.toLocaleString("en-GB")} contributions in the last year`,
       /** Same string with an {n} placeholder, for client-side re-rendering. */
@@ -147,7 +147,7 @@ export const ui = {
       eyebrow: "Aktivitet",
       title: "Bygger fortfarande, de flesta dagar.",
       description:
-        "Det mesta av det här är arbete i privata repon för Cityroam och casa-verde. Grafen visar volymen; blogginläggen är den del du faktiskt kan läsa.",
+        "Ett år av commits i mobilappen, dess backend och infrastrukturen under dem.",
       contributions: (n: number) =>
         `${n.toLocaleString("sv-SE")} bidrag det senaste året`,
       /** Samma sträng med en {n}-platshållare, för omrendering på klienten. */
