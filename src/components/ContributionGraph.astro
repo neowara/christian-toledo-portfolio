@@ -1,0 +1,314 @@
+---
+// GitHub contribution graph.
+//
+// Renders the committed snapshot server-side so it's correct on first paint, with no
+// layout shift and no dependency on JS. On the client it fetches /api/contributions.json
+// (a Worker route, cached ~6h) and patches the squares in place if the data moved on.
+//
+// Colors are derived from --accent rather than GitHub's green: the site has a
+// one-accent rule and a green grid would be the only green thing on the page.
+
+import snapshot from '../data/contributions-snapshot.json';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/paths';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang).github;
+
+interface Day {
+	date: string;
+	count: number;
+	level: number;
+}
+
+const days = snapshot.contributions as Day[];
+const total = snapshot.total?.lastYear ?? 0;
+
+// GitHub's grid is one column per week, Sunday at the top. The API returns a flat run
+// of days starting on a Sunday, so chunking by 7 reproduces the same layout.
+const weeks: Day[][] = [];
+for (let i = 0; i < days.length; i += 7) {
+	weeks.push(days.slice(i, i + 7));
+}
+
+// One month label per column where that column contains the first week of a new
+// month — same rule GitHub uses, which keeps labels from bunching up.
+const monthLabels = weeks.map((week, i) => {
+	const first = week[0];
+	if (!first) return null;
+	const d = new Date(first.date);
+	const prev = i > 0 ? new Date(weeks[i - 1][0].date) : null;
+	if (prev && prev.getMonth() === d.getMonth()) return null;
+	// Skip a label in the very last column; there's no room for it.
+	if (i > weeks.length - 3) return null;
+	return { index: i, label: strings.months[d.getMonth()] };
+}).filter(Boolean) as { index: number; label: string }[];
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'sv' ? 'sv-SE' : 'en-GB', {
+	day: 'numeric',
+	month: 'short',
+	year: 'numeric',
+});
+
+function tooltip(day: Day): string {
+	const when = dateFormatter.format(new Date(day.date));
+	return `${day.count} — ${when}`;
+}
+---
+
+<div class="graph-wrap" data-contribution-graph>
+	<div class="graph-head">
+		{/*
+			The template carries an {n} placeholder so the client can re-render the
+			label for a new total without regexing a formatted number back out of it.
+		*/}
+		<span
+			class="graph-total mono"
+			data-total
+			data-template={strings.contributionsTemplate}
+			data-locale={strings.locale}
+		>{strings.contributions(total)}</span>
+		<p class="graph-stale mono" data-stale hidden>{strings.stale}</p>
+	</div>
+
+	<div class="graph-scroll">
+		<div class="graph-inner">
+			<div class="month-row" aria-hidden="true">
+				{monthLabels.map((m) => (
+					<span class="month mono" style={`grid-column: ${m.index + 1}`}>{m.label}</span>
+				))}
+			</div>
+
+			<div class="graph-body">
+				<div class="weekday-col" aria-hidden="true">
+					<span class="mono">{strings.weekdays[0]}</span>
+					<span class="mono">{strings.weekdays[1]}</span>
+					<span class="mono">{strings.weekdays[2]}</span>
+				</div>
+
+				{/*
+					role="img" + a single label rather than 368 focusable cells — a screen
+					reader shouldn't have to walk a year of squares one at a time.
+				*/}
+				<div class="grid" role="img" aria-label={strings.graphLabel(total)}>
+					{weeks.map((week) => (
+						<div class="week">
+							{week.map((day) => (
+								<span
+									class="day"
+									data-level={day.level}
+									data-date={day.date}
+									title={tooltip(day)}
+								></span>
+							))}
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="graph-legend" aria-hidden="true">
+		<span class="mono">{strings.less}</span>
+		<span class="day" data-level="0"></span>
+		<span class="day" data-level="1"></span>
+		<span class="day" data-level="2"></span>
+		<span class="day" data-level="3"></span>
+		<span class="day" data-level="4"></span>
+		<span class="mono">{strings.more}</span>
+	</div>
+</div>
+
+<script>
+	// Progressive enhancement only: the snapshot above is already rendered and
+	// correct. This just moves it forward if the Worker has fresher data.
+	const root = document.querySelector('[data-contribution-graph]');
+	if (root) {
+		const totalEl = root.querySelector<HTMLElement>('[data-total]');
+		const locale = totalEl?.dataset.locale ?? 'en-GB';
+		fetch('/api/contributions.json')
+			.then((r) => (r.ok ? r.json() : null))
+			.then((data) => {
+				if (!data?.contributions?.length) return;
+
+				const byDate = new Map<string, { count: number; level: number }>(
+					data.contributions.map((d: { date: string; count: number; level: number }) => [
+						d.date,
+						{ count: d.count, level: d.level },
+					]),
+				);
+
+				root.querySelectorAll<HTMLElement>('.day[data-date]').forEach((cell) => {
+					const next = byDate.get(cell.dataset.date ?? '');
+					if (!next) return;
+					cell.dataset.level = String(next.level);
+					const when = new Intl.DateTimeFormat(locale, {
+						day: 'numeric',
+						month: 'short',
+						year: 'numeric',
+					}).format(new Date(cell.dataset.date!));
+					cell.title = `${next.count} — ${when}`;
+				});
+
+				const liveTotal = data.total?.lastYear;
+				if (totalEl?.dataset.template && typeof liveTotal === 'number') {
+					totalEl.textContent = totalEl.dataset.template.replace(
+						'{n}',
+						liveTotal.toLocaleString(locale),
+					);
+				}
+
+				const staleEl = root.querySelector('[data-stale]');
+				if (staleEl && data.stale) staleEl.removeAttribute('hidden');
+			})
+			.catch(() => {
+				/* Snapshot stays on screen. Nothing to do. */
+			});
+
+		// Start scrolled to the most recent week on narrow screens.
+		const scroller = root.querySelector('.graph-scroll');
+		if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+	}
+</script>
+
+<style>
+	.graph-wrap {
+		border: 1px solid var(--border);
+		border-radius: var(--radius);
+		background: var(--bg-elevated);
+		padding: 1.4rem 1.5rem 1.2rem;
+	}
+	.graph-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.6rem 1rem;
+		margin-bottom: 1.1rem;
+	}
+	.graph-total {
+		font-size: 0.95rem;
+		font-weight: 600;
+		color: var(--text);
+	}
+	.graph-stale {
+		margin: 0;
+		font-size: 0.74rem;
+		color: var(--text-dim);
+	}
+
+	.graph-scroll {
+		overflow-x: auto;
+		overflow-y: hidden;
+		scrollbar-width: thin;
+		padding-bottom: 0.4rem;
+	}
+	.graph-inner {
+		/* Declared here so both .month-row and .graph-body can align to it. */
+		--weekday-w: 1.9rem;
+		min-width: 720px;
+	}
+
+	.month-row {
+		display: grid;
+		grid-template-columns: repeat(53, 1fr);
+		margin-left: calc(var(--weekday-w) + 0.4rem);
+		margin-bottom: 0.35rem;
+	}
+	.month {
+		font-size: 0.68rem;
+		color: var(--text-dim);
+		white-space: nowrap;
+	}
+
+	.graph-body {
+		display: flex;
+		gap: 0.4rem;
+	}
+	.weekday-col {
+		width: var(--weekday-w);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		padding: 0.1rem 0;
+	}
+	.weekday-col span {
+		font-size: 0.66rem;
+		color: var(--text-dim);
+		line-height: 1;
+	}
+
+	.grid {
+		display: flex;
+		gap: 3px;
+		flex: 1;
+	}
+	.week {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		flex: 1;
+	}
+
+	.day {
+		display: block;
+		aspect-ratio: 1;
+		min-height: 9px;
+		border-radius: 2px;
+		background: var(--bg-elevated-2);
+		border: 1px solid transparent;
+	}
+	/*
+		Tints derived from the site accent rather than GitHub green. color-mix is
+		already used in Header.astro, so this is an established pattern here.
+	*/
+	.day[data-level='1'] {
+		background: color-mix(in srgb, var(--accent) 25%, var(--bg-elevated-2));
+	}
+	.day[data-level='2'] {
+		background: color-mix(in srgb, var(--accent) 45%, var(--bg-elevated-2));
+	}
+	.day[data-level='3'] {
+		background: color-mix(in srgb, var(--accent) 70%, var(--bg-elevated-2));
+	}
+	.day[data-level='4'] {
+		background: var(--accent);
+	}
+	/* Level 0 needs a visible edge in light mode, where the tile is near-white. */
+	:global([data-theme='light']) .day[data-level='0'] {
+		border-color: var(--border);
+	}
+
+	.graph-legend {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 3px;
+		margin-top: 0.9rem;
+	}
+	.graph-legend .day {
+		width: 10px;
+		height: 10px;
+		min-height: 0;
+		aspect-ratio: auto;
+	}
+	.graph-legend .mono {
+		font-size: 0.68rem;
+		color: var(--text-dim);
+	}
+	.graph-legend .mono:first-child {
+		margin-right: 0.3rem;
+	}
+	.graph-legend .mono:last-child {
+		margin-left: 0.3rem;
+	}
+
+	@media (max-width: 640px) {
+		.graph-wrap {
+			padding: 1.1rem 1rem 1rem;
+		}
+	}
+</style>

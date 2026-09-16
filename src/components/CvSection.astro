@@ -1,0 +1,82 @@
+---
+// #cv — CV download.
+//
+// No email gate and no form: a gated CV is the fastest way to lose a recruiter who
+// was otherwise about to read it. The HTML version is listed first because it's the
+// most current and the most readable on a phone.
+//
+// On the Swedish page the Swedish PDF is listed first, since that's the one a Swedish
+// recruiter is most likely to want.
+
+import { CV, CV_SV, CV_FILES } from '../consts';
+import { t } from '../i18n/ui';
+import { localizedPath, type Lang } from '../i18n/paths';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang).cv;
+const cv = lang === 'sv' ? CV_SV : CV;
+
+const downloads =
+	lang === 'sv' ? [CV_FILES.sv, CV_FILES.en] : [CV_FILES.en, CV_FILES.sv];
+---
+
+<section id="cv">
+	<div class="cv-band card">
+		<span class="eyebrow">{strings.eyebrow}</span>
+		<h2>{strings.title}</h2>
+		<p>{strings.description}</p>
+
+		<div class="btn-row">
+			<a class="btn" href={localizedPath('/cv', lang)}>{strings.viewOnline}</a>
+			{downloads.map((file) => (
+				<a class="btn btn-secondary" href={file.href} download>
+					{strings.download(file.label)}
+				</a>
+			))}
+		</div>
+
+		<p class="cv-meta mono">{cv.updated} · {strings.meta}</p>
+	</div>
+</section>
+
+<style>
+	section {
+		padding: 3.5rem 0 1rem;
+	}
+	.cv-band {
+		padding: 2.6rem;
+		text-align: center;
+	}
+	.cv-band .eyebrow {
+		display: block;
+		margin-bottom: 0.7rem;
+	}
+	.cv-band h2 {
+		margin-bottom: 0.6rem;
+	}
+	.cv-band > p {
+		max-width: 52ch;
+		margin: 0 auto 1.7rem;
+	}
+	.btn-row {
+		display: flex;
+		gap: 0.9rem;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+	.cv-meta {
+		margin: 1.4rem 0 0;
+		font-size: 0.76rem;
+		color: var(--text-dim);
+	}
+
+	@media (max-width: 640px) {
+		.cv-band {
+			padding: 1.8rem 1.3rem;
+		}
+	}
+</style>

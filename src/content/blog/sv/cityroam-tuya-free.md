@@ -1,14 +1,15 @@
 ---
 title: 'Att ta bort Tuya SDK:t: att återimplementera ett proprietärt BLE-protokoll från grunden'
-description: 'Hur Turbo gick från att wrappa Tuyas Direct BLE SDK till en Kotlin GATT-klient byggd från grunden, utan SDK, utan molnberoende, och utan något pågående Tuya-krav alls, och vad som faktiskt krävdes för att få ramformatet, krypteringen och handskakningen rätt.'
+description: 'Hur Cityroam gick från att wrappa Tuyas Direct BLE SDK till en Kotlin GATT-klient byggd från grunden, utan SDK, utan molnberoende, och utan något pågående Tuya-krav alls, och vad som faktiskt krävdes för att få ramformatet, krypteringen och handskakningen rätt.'
 pubDate: 'Sep 06 2026'
-heroImage: '/blog/turbo-tuya-settings.jpg'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-settings.jpg'
 ---
 
-Tidigare inlägg om Turbo beskriver den som att använda "Direct BLE, Tuya SDK:ns lokala Bluetooth-väg" för att prata med brädan utan att gå via Tuyas moln. Det var sant, och det var också inte hela historien. Appen länkar inte Tuya SDK:t alls längre. `grep -ri thingclips mobile/` i appens källkod returnerar ingenting. Det som ersatte det är en Kotlin-implementation byggd från grunden av brädans faktiska trådprotokoll, reverse-engineerat och återimplementerat en opcode i taget.
+Tidigare inlägg om Cityroam beskriver den som att använda "Direct BLE, Tuya SDK:ns lokala Bluetooth-väg" för att prata med brädan utan att gå via Tuyas moln. Det var sant, och det var också inte hela historien. Appen länkar inte Tuya SDK:t alls längre. `grep -ri thingclips mobile/` i appens källkod returnerar ingenting. Det som ersatte det är en Kotlin-implementation byggd från grunden av brädans faktiska trådprotokoll, reverse-engineerat och återimplementerat en opcode i taget.
 
 <figure>
-  <img src="/blog/turbo-tuya-settings.jpg" alt="Turbos inställningshubb med rutor för brädanslutning, körspårning och utseende" />
+  <img src="/blog/cityroam-settings.jpg" alt="Turbos inställningshubb med rutor för brädanslutning, körspårning och utseende" />
   <figcaption>Brädanslutning är en inställningsruta nu, inget SDK, inget pågående kontokrav för att åka</figcaption>
 </figure>
 
@@ -44,7 +45,7 @@ Brädans firmware svarar på fel opcode genom att tyst släppa ramen, aldrig med
 Att få tag i brädans `localKey` (och, beroende på vilken härledning den accepterar, `secKey`) betyder fortfarande att fråga Tuya, för det nyckelmaterialet genereras vid bindningstillfället och skrivs aldrig ut någonstans en användare kunde skriva in det för hand. Så onboarding-flödet loggar in i användarens befintliga Tuya-konto genom Tuyas odokumenterade mobil-API, samma HMAC-signerade, AES-GCM-krypterade API som Home Assistants egen integration beror på, hämtar enhetslistan och dess nycklar en gång, och kallar aldrig Tuya igen. Ingen bindning eller avbindning sker, så brädan lämnar aldrig Tuya Smart-appens kontroll. Från den punkten pratar telefonen direkt med brädan, fungerar i flygplansläge, och har ingen väg tillbaka till Tuyas servrar alls.
 
 <figure>
-  <img src="/blog/turbo-tuya-board-settings.jpg" alt="Turbos brädinställningsskärm med snabbkontroller för lås, lampa, och accelerations-/bromskurvor per läge" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Turbos brädinställningsskärm med snabbkontroller för lås, lampa, och accelerations-/bromskurvor per läge" />
   <figcaption>Varenda en av de här skrivningarna går nu bara telefon-till-bräda, verifierat mot riktig hårdvara efter att SDK:t var borta</figcaption>
 </figure>
 

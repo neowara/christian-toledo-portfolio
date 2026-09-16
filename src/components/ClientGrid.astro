@@ -1,0 +1,127 @@
+---
+// The client tiles inside a timeline entry.
+//
+// Each tile identifies a client factually: an icon (or a real monochrome wordmark
+// where one is available), the name as text, what kind of organisation it is, its
+// scale, and — importantly — exactly how involved Christian was. "Sole developer"
+// and "part of a larger team" both appear, because the honest one is always the
+// right one.
+
+import Icon from './Icon.astro';
+import type { Client } from '../data/experience';
+
+interface Props {
+	clients: Client[];
+	label: string;
+}
+
+const { clients, label } = Astro.props;
+---
+
+<div class="clients">
+	<span class="clients-label eyebrow">{label}</span>
+	<div class="client-grid">
+		{clients.map((client) => (
+			<div class="client-tile">
+				<div class="client-head">
+					{client.logo ? (
+						// Real wordmark: it already contains the company name, so the
+						// text label would be a duplicate. alt is empty and the name
+						// lives in aria-label on the wrapper instead.
+						<img class="client-logo" src={client.logo} alt="" aria-hidden="true" />
+					) : (
+						<Icon name={client.icon} size={20} class="client-icon" />
+					)}
+					<span class="client-name" class:list={{ 'sr-only': !!client.logo }}>
+						{client.name}
+					</span>
+				</div>
+				<span class="client-kind mono">{client.kind}</span>
+				<p class="client-scale">{client.scale}</p>
+				<p class="client-role">{client.role}</p>
+			</div>
+		))}
+	</div>
+</div>
+
+<style>
+	.clients {
+		margin-top: 1.5rem;
+	}
+	.clients-label {
+		display: block;
+		margin-bottom: 0.9rem;
+	}
+	.client-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 0.9rem;
+	}
+	.client-tile {
+		background: var(--bg-elevated-2);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		padding: 0.95rem 1rem 1rem;
+		transition: border-color 0.15s ease;
+	}
+	.client-tile:hover {
+		border-color: var(--border-strong);
+	}
+	.client-head {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		margin-bottom: 0.5rem;
+		min-height: 22px;
+	}
+	.client-icon {
+		color: var(--text-muted);
+		flex-shrink: 0;
+		transition: color 0.15s ease;
+	}
+	.client-tile:hover .client-icon {
+		color: var(--accent);
+	}
+	/* Wordmarks are currentColor, so one rule covers both themes. */
+	.client-logo {
+		height: 17px;
+		width: auto;
+		max-width: 100%;
+		color: var(--text-muted);
+		transition: color 0.15s ease;
+	}
+	.client-tile:hover .client-logo {
+		color: var(--text);
+	}
+	.client-name {
+		font-size: 0.92rem;
+		font-weight: 700;
+		color: var(--text);
+		line-height: 1.25;
+	}
+	.client-kind {
+		display: block;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--text-dim);
+		margin-bottom: 0.45rem;
+	}
+	.client-scale {
+		margin: 0 0 0.35rem;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+	}
+	.client-role {
+		margin: 0;
+		font-size: 0.85rem;
+		color: var(--text-muted);
+		line-height: 1.5;
+	}
+
+	@media (max-width: 640px) {
+		.client-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

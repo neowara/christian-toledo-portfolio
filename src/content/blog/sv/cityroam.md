@@ -1,27 +1,38 @@
 ---
 title: 'Reverse-engineering av en Bluetooth-skateboard, och modellering av dess fysik istället för att gissa'
-description: 'Hur Turbo pratar direkt med brädan över BLE, varför en linjär uppskattning av räckvidd baserad på batteriprocent inte var tillräckligt bra, och vad en självhostad OSRM-instans gör i ett hobbyprojekt.'
+description: 'Hur Cityroam pratar direkt med brädan över BLE, varför en linjär uppskattning av räckvidd baserad på batteriprocent inte var tillräckligt bra, och vad en självhostad OSRM-instans gör i ett personligt projekt.'
 pubDate: 'Sep 03 2026'
-heroImage: '/blog/turbo-dashboard.png'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-dashboard.jpg'
 ---
 
-Jag åker elskateboard, en Tuya-uppkopplad bräda som ur kartongen är designad att styras genom en telefonapp som pratar med Tuyas moln. Det är helt okej för att slå på den och välja ett läge. Det är inte okej om man faktiskt vill förstå åkturen: hur mycket räckvidd som verkligen är kvar, vilket läge man var i när batteriet sjönk snabbast, eller om de där "23 km/h" som appen visade i två sekunder var på riktigt eller en Bluetooth-hicka. Så jag byggde **Turbo**, en Android-app plus en självhostad backend, för att äga den datan från början till slut.
+> **Uppdaterad september 2026.** Det här skrevs när appen hette **Turbo**. Den heter
+> **Cityroam** nu — det gamla namnet krockade med två befintliga varumärken i samma
+> nisch ([hela resonemanget finns här](/sv/blog/cityroam-brand/)). Den gör också en hel
+> del mer än när texten först publicerades: en andra tillverkares elsparkcykel,
+> offline-först-inspelning av turer, och en stängd beta med användare som inte är jag.
+> Namnen nedan är uppdaterade; tekniken är som den var.
+>
+> En sak som medvetet inte ändrats: `turbo` är fortfarande namnet på brädans snabbaste
+> **körläge**, vilket är vad det betyder överallt nedan.
+
+Jag åker elskateboard, en Tuya-uppkopplad bräda som ur kartongen är designad att styras genom en telefonapp som pratar med Tuyas moln. Det är helt okej för att slå på den och välja ett läge. Det är inte okej om man faktiskt vill förstå åkturen: hur mycket räckvidd som verkligen är kvar, vilket läge man var i när batteriet sjönk snabbast, eller om de där "23 km/h" som appen visade i två sekunder var på riktigt eller en Bluetooth-hicka. Så jag byggde **Cityroam**, en Android-app plus en självhostad backend, för att äga den datan från början till slut.
 
 <figure>
-  <img src="/blog/turbo-dashboard.png" alt="Turbo-dashboardens skärm som visar batteri, spänning, körläge och senaste åkturer" />
+  <img src="/blog/cityroam-dashboard.jpg" alt="Cityroams dashboard som visar batteri, spänning, körläge och senaste åkturer" />
   <figcaption>Dashboarden: live-telemetri från brädan läst direkt över Bluetooth, ingen molnresa</figcaption>
 </figure>
 
 ## Att komma bort från Tuyas moln
 
-Standardvägen genom appen är: telefon till Tuya Cloud till bräda. Det fungerar, men det betyder att varje läsning av batteriprocent eller varje inställningsändring gör en resa genom en tredje parts servrar, med deras latens och deras tillgänglighet. Jag ville att telefonen skulle prata direkt med brädan, så Turbo använder **Direct BLE**, Tuya SDK:ns lokala Bluetooth-väg, istället för molnets API.
+Standardvägen genom appen är: telefon till Tuya Cloud till bräda. Det fungerar, men det betyder att varje läsning av batteriprocent eller varje inställningsändring gör en resa genom en tredje parts servrar, med deras latens och deras tillgänglighet. Jag ville att telefonen skulle prata direkt med brädan, så appen använder **Direct BLE**, Tuya SDK:ns lokala Bluetooth-väg, istället för molnets API.
 
 I praktiken innebar det att kartlägga brädans faktiska data point-protokoll (DP): vilken BLE-karaktäristik som bär vilket värde, hur körläge, hastighetsgränser, accelerations-/bromskurvor och motorkonfiguration är kodade, och hur man skriver tillbaka inställningar utan molnresor. När det väl var löst kom vinsten direkt: live-telemetri (batteri, spänning, vägmätare, aktivt läge) och en fullt redigerbar inställningsskärm, allt offline-kapabelt, allt under appens egen kontroll.
 
 Backenden, per design, **rör aldrig Bluetooth alls**. Den har ingen radio och ingen anslutning till brädan. Telefonen är det enda som någonsin pratar med brädan, och den skickar till backenden vilken live-avläsning en förfrågan behöver (t.ex. skickas batteriprocent och spänning som query-parametrar till räckvidds-endpointen). Den uppdelningen höll backenden enkel och testbar, och betydde att en egenhet i brädans firmware aldrig blir en backend-bugg.
 
 <figure>
-  <img src="/blog/turbo-board-config.png" alt="Skärm för brädkonfiguration med hastighetsgränser per läge, accelerations- och bromskurvor, och live-telemetri" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Skärm för brädkonfiguration med hastighetsgränser per läge, accelerations- och bromskurvor, och live-telemetri" />
   <figcaption>Fullständiga brädinställningar: hastighetsgränser, accelerations-/bromskurvor, motorkonfiguration, läst och skriven över Direct BLE</figcaption>
 </figure>
 
@@ -42,13 +53,13 @@ En detalj som spelade större roll än väntat: OSRM-datan måste byggas med **c
 Åkturer berikas också med väder (väderkoder, känns-som-temperatur, vindhastighet) genomsnittat över åktursresans tidsfönster från ett nyckelfritt väder-API, så att en åkturdetaljvy kan visa hur åkturen faktiskt kändes, inte bara vart den gick.
 
 <figure>
-  <img src="/blog/turbo-trip-detail.png" alt="Skärm för åktursdetaljer med karta, fördelning per körläge, och spänningsgraf" />
+  <img src="/blog/cityroam-trip-detail.jpg" alt="Skärm för åktursdetaljer med karta, fördelning per körläge, och spänningsgraf" />
   <figcaption>Åktursdetaljer: snäppt rutt, lägesfördelning, och en spänningsgraf hämtad från åkturens mätvärden</figcaption>
 </figure>
 
 ## Att behandla ett hobbyprojekts data som om det spelade roll
 
-Eftersom åktursstatistik är det som räckvidds- och effektivitetsmodellerna byggs från, ville jag inte ha den bakom en delad statisk token på det sätt många personliga projekt slutar med. Turbo har riktiga per-användarkonton (argon2id-hashade lösenord, sessionstokens med 90 dagars rullande giltighet) utan publik registrering; konton utfärdas av admin. Varje åktur, pågående åktur, effektivitetsprofil och loggpost är knuten till användaren som skapade den. Det finns också en liten adminpanel för kontohantering och läs-/felsökningsinspektion av datan, medvetet låst till läsning/radering för åktursstabellerna, eftersom riktiga skrivningar går genom samma berikningslogik som en normal åktursparning använder, så att ett adminformulär inte tyst kan få en åktur att avvika från vad som faktiskt hände.
+Eftersom åktursstatistik är det som räckvidds- och effektivitetsmodellerna byggs från, ville jag inte ha den bakom en delad statisk token på det sätt många personliga projekt slutar med. Cityroam har riktiga per-användarkonton (argon2id-hashade lösenord, sessionstokens med 90 dagars rullande giltighet) utan publik registrering; konton utfärdas av admin. Varje åktur, pågående åktur, effektivitetsprofil och loggpost är knuten till användaren som skapade den. Det finns också en liten adminpanel för kontohantering och läs-/felsökningsinspektion av datan, medvetet låst till läsning/radering för åktursstabellerna, eftersom riktiga skrivningar går genom samma berikningslogik som en normal åktursparning använder, så att ett adminformulär inte tyst kan få en åktur att avvika från vad som faktiskt hände.
 
 ## Vad det här till slut bevisar
 

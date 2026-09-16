@@ -2,7 +2,17 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import Icon from '../../components/Icon.astro';
+import ClientGrid from '../../components/ClientGrid.astro';
+import SystemsSection from '../../components/SystemsSection.astro';
+import AiSection from '../../components/AiSection.astro';
+import GithubSection from '../../components/GithubSection.astro';
+import CvSection from '../../components/CvSection.astro';
 import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } from '../../consts';
+import { t } from '../../i18n/ui';
+
+const strings = t('sv');
+const projects = [PROJECTS_SV.cityroam, PROJECTS_SV.casaVerde];
 ---
 
 <!doctype html>
@@ -15,86 +25,69 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 		<main>
 			<section class="hero">
 				<span class="eyebrow">Göteborg, Sverige</span>
-				<h1>Christian Toledo.<br>Fullstackutvecklare som bygger och driver sina egna system.</h1>
-				<p class="lead">Nästan sju års erfarenhet av att bygga produktionswebb- och mobilappar på både produktbolag och konsultbolag, React, React Native, Vue, Angular, .NET och mer, för kunder från nationella post- och vårdplattformar till en startup jag följde ända till förvärv. Det mer intressanta beviset på hur jag arbetar är det jag bygger när ingen frågar: reverse-engineera ett proprietärt Bluetooth-protokoll byte för byte för att ta bort ett leverantörs-SDK helt, anpassa en riktig fysikmodell till min egen körhistorik, och driva ett hemmalabb med samma dokumentationsdisciplin som ett produktionsbolag.</p>
-				<p class="sub">Senast fullstackutvecklare på Dear Friends och Nexer AB, med kunder som PostNord, Nordic Wellness och Inera (1177). Ursprungligen från Kuba, bosatt i Göteborg sedan 2011.</p>
+				<h1>Christian Toledo.<br>Fullstackutvecklare som bygger och driftar sina egna system.</h1>
+				<p class="lead">Närmare sju år av att bygga webb- och mobilappar i produktion, både på produktbolag och i konsultverksamhet — React, React Native, Vue, Angular och .NET — för kunder som <strong>PostNord</strong>, <strong>Nordic Wellness</strong> och <strong>Ineras 1177</strong>, den nationella vårdplattform som miljontals svenskar använder. Det mer intressanta beviset på hur jag arbetar är vad jag bygger när ingen ber om det: två tillverkares Bluetooth-protokoll reverse-engineerade från grunden till en färdapp som nu ligger i stängd beta, en fysikmodell anpassad efter mina egna åkturer, och ett hemmalabb som kör fem riktiga system med samma dokumentationsdisciplin som ett produktionsteam.</p>
+				<p class="sub">Senast fullstackutvecklare på Dear Friends och Nexer AB. Ursprungligen från Kuba, bosatt i Göteborg sedan 2011, och söker just nu mitt nästa team.</p>
 				<div class="btn-row">
-					<a href="#work" class="btn">Se mitt arbete →</a>
-					<a href="#experience" class="btn btn-secondary">Jobberfarenhet</a>
-					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Kontakta mig</a>
+					<a href="#work" class="btn">Se mina projekt →</a>
+					<a href="#experience" class="btn btn-secondary">Erfarenhet</a>
+					<a href="/sv/cv" class="btn btn-secondary">CV</a>
+					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Hör av dig</a>
 				</div>
 			</section>
 
 			<section id="work">
 				<div class="section-head">
 					<span class="eyebrow">Utvalda projekt</span>
-					<h2>Två system jag byggt, levererat och håller igång.</h2>
-					<p>Inte demos. Båda är live, i daglig personlig användning, med riktiga användare (jag, och den som råkar vara hemma), riktiga felmönster, och en skriven historik över besluten bakom dem, ner till protokoll-reverse-engineering, fysikregressioner och infrastrukturbeslut som gick in i varje.</p>
+					<h2>Två saker jag byggt, driftar och håller igång.</h2>
+					<p>Inga demos. Det ena är en Android-app och backend i stängd beta med riktiga användare; det andra är plattformen den körs på. Båda har verkliga felfall och en nedskriven historik över besluten bakom dem — ända ner till protokollreversering, fysikregressioner och de infrastrukturval som gjordes i vardera.</p>
 				</div>
 
 				<div class="projects-grid">
-					<article class="project-card card">
-						<div class="project-col-a">
-							<div class="project-icon"><img src={PROJECTS_SV.turbo.icon} alt="Turbo logotyp" /></div>
-							<span class="project-tag mono">{PROJECTS_SV.turbo.tag}</span>
-							<h3 class="project-name">{PROJECTS_SV.turbo.name}</h3>
-							<p class="project-pitch">{PROJECTS_SV.turbo.pitch}</p>
-							<div class="project-links">
-								{PROJECTS_SV.turbo.repoLinks.map((link) => (
-									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
-								))}
-								<a href={`/sv/blog/${PROJECTS_SV.turbo.blogSlug}/`}>Läs djupdykningen →</a>
+					{projects.map((project) => (
+						<article class="project-card card">
+							<div class="project-col-a">
+								<div class="project-icon">
+									{project.icon
+										? <img src={project.icon} alt="" />
+										: <Icon name="platform" size={24} />}
+								</div>
+								<span class="project-tag mono">{project.tag}</span>
+								<h3 class="project-name">{project.name}</h3>
+								<p class="project-pitch">{project.pitch}</p>
+								<div class="project-links">
+									{project.links.map((link) => (
+										<a
+											href={link.url}
+											target={link.external ? '_blank' : undefined}
+											rel={link.external ? 'noopener noreferrer' : undefined}
+										>{link.label}{link.external ? ' ↗' : ''}</a>
+									))}
+								</div>
+								<p class="project-source">{project.sourceNote}</p>
 							</div>
-						</div>
-						<div class="project-col-b">
-							<ul class="detail-list">
-								{PROJECTS_SV.turbo.details.map((d) => (
-									<li><strong>{d.title}:</strong> {d.body}</li>
-								))}
-							</ul>
-							<div class="stack-tags">
-								{PROJECTS_SV.turbo.stack.map((s) => <span>{s}</span>)}
+							<div class="project-col-b">
+								<ul class="detail-list">
+									{project.details.map((d) => (
+										<li><strong>{d.title}:</strong> {d.body}</li>
+									))}
+								</ul>
+								<div class="stack-tags">
+									{project.stack.map((s) => <span>{s}</span>)}
+								</div>
 							</div>
-						</div>
-					</article>
-
-					<article class="project-card card">
-						<div class="project-col-a">
-							<div class="project-icon">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-									<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect>
-									<rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>
-									<path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"></path>
-								</svg>
-							</div>
-							<span class="project-tag mono">{PROJECTS_SV.casaVerde.tag}</span>
-							<h3 class="project-name">{PROJECTS_SV.casaVerde.name}</h3>
-							<p class="project-pitch">{PROJECTS_SV.casaVerde.pitch}</p>
-							<div class="project-links">
-								{PROJECTS_SV.casaVerde.repoLinks.map((link) => (
-									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
-								))}
-								<a href={`/sv/blog/${PROJECTS_SV.casaVerde.blogSlug}/`}>Läs djupdykningen →</a>
-							</div>
-						</div>
-						<div class="project-col-b">
-							<ul class="detail-list">
-								{PROJECTS_SV.casaVerde.details.map((d) => (
-									<li><strong>{d.title}:</strong> {d.body}</li>
-								))}
-							</ul>
-							<div class="stack-tags">
-								{PROJECTS_SV.casaVerde.stack.map((s) => <span>{s}</span>)}
-							</div>
-						</div>
-					</article>
+						</article>
+					))}
 				</div>
 			</section>
+
+			<SystemsSection lang="sv" />
 
 			<section id="experience">
 				<div class="section-head">
 					<span class="eyebrow">Erfarenhet</span>
-					<h2>Där jobbet på dagarna sker.</h2>
+					<h2>Där jobbet faktiskt händer.</h2>
+					<p>Nio års anställning på produktbolag och i konsultverksamhet. Som konsult är arbetsgivaren den som betalade, men kunden är vad arbetet faktiskt var — så båda finns med.</p>
 				</div>
 
 				<div class="timeline">
@@ -106,6 +99,9 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 								<span class="timeline-date mono"><span class="timeline-org">{job.org}</span><span class="timeline-dates"> · {job.dates}</span></span>
 							</div>
 							<ul set:html={job.bullets.map((b) => `<li>${b}</li>`).join('')} />
+							{job.clients && (
+								<ClientGrid clients={job.clients} label={strings.clients.label} />
+							)}
 							<div class="stack-tags">
 								{job.stack.map((s) => <span>{s}</span>)}
 							</div>
@@ -113,15 +109,23 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 					))}
 					<div class="timeline-now">
 						<span class="timeline-now-dot" aria-hidden="true"></span>
-						<span class="timeline-now-label">Nu — letar efter nya möjligheter</span>
+						<span class="timeline-now-label">Nu — Söker nya möjligheter</span>
 					</div>
 				</div>
+
+				<p class="clients-disclaimer">{strings.clients.disclaimer}</p>
 			</section>
+
+			<AiSection lang="sv" />
+
+			<GithubSection lang="sv" />
+
+			<CvSection lang="sv" />
 
 			<section class="section-spaced">
 				<div class="cta-band card">
-					<h2>Vill du ha hela bilden?</h2>
-					<p>Om-sidan täcker vägen från Kuba till Göteborg och vad jag gör utanför kod. Bloggen går på djupet om hur Turbo och casa-verde faktiskt fungerar. Jag letar efter ett team som bryr sig om teknisk kvalitet och faktiskt levererar. Om det är du, låt oss prata.</p>
+					<h2>Vill du veta mer?</h2>
+					<p>Om mig-sidan täcker vägen från Kuba till Göteborg och vad jag gör utanför koden. Bloggen går på djupet i hur Cityroam och casa-verde faktiskt fungerar. Jag söker ett team som bryr sig om teknisk kvalitet och faktiskt levererar. Är det ni, hör av er.</p>
 					<div class="btn-row">
 						<a href="/sv/about" class="btn">Om mig</a>
 						<a href="/sv/blog" class="btn btn-secondary">Läs bloggen</a>
@@ -132,7 +136,6 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 		<Footer lang="sv" />
 	</body>
 </html>
-
 <style>
 	.hero {
 		padding: 3.5rem 0 3rem;
@@ -234,6 +237,20 @@ import { SITE_TITLE, SITE_DESCRIPTION_SV, EMAIL, PROJECTS_SV, EXPERIENCE_SV } fr
 	.project-links a:hover {
 		color: var(--accent);
 		border-color: var(--accent);
+	}
+	.project-source {
+		margin: 0.9rem 0 0;
+		font-size: 0.82rem;
+		color: var(--text-dim);
+		line-height: 1.55;
+		max-width: 46ch;
+	}
+	.clients-disclaimer {
+		margin: 1.6rem 0 0;
+		font-size: 0.78rem;
+		color: var(--text-dim);
+		max-width: 70ch;
+		line-height: 1.6;
 	}
 	.detail-list {
 		list-style: none;

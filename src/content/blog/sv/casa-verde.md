@@ -1,7 +1,8 @@
 ---
 title: 'Att driva ett hemmalabb som om det vore någon annans jobb'
-description: 'Varför vissa stackar i mitt hemmalabb körs med Ansible och andra med GitOps, vad 80 skrivna ADR:er faktiskt har fångat, och två verkliga incidenter från en självhostad röstassistent.'
+description: 'Varför vissa stackar i mitt hemmalabb körs med Ansible och andra med GitOps, vad 82 skrivna ADR:er faktiskt har fångat, och två verkliga incidenter från en självhostad röstassistent.'
 pubDate: 'Sep 03 2026'
+updatedDate: 'Sep 16 2026'
 heroImage: '/blog/casa-verde-map.svg'
 ---
 
@@ -12,6 +13,67 @@ heroImage: '/blog/casa-verde-map.svg'
   <figcaption>Den faktiska kartan över labbet, som ett redigerbart diagram i repot, automatiskt regenererat vid varje ändring</figcaption>
 </figure>
 
+## De fem systemen, ett i taget
+
+"casa-verde" är egentligen en plattform plus fem system som råkar dela den. De har
+separata stackar och separata felfall; det de delar är en värd, ett repo, en
+deploy-pipeline och en beslutslogg.
+
+### Mediaautomation
+
+En Compose-stack på sexton containrar som hittar, sorterar, textar och serverar media —
+Sonarr, Radarr, Lidarr, Prowlarr och Bazarr på hämtningssidan, Jellyfin och Navidrome
+för uppspelning, Immich som självhostad ersättare för Google Photos. Jellyfin körs
+direkt på värden i stället för i en container, just för att få direkt iGPU-passthrough
+för hårdvarutranskodning — samma integrerade grafikkrets som Immich använder för
+ansiktsigenkänning.
+
+Den jag skulle peka på är en återkommande minneskrasch i Bazarr. Den enkla lösningen är
+en omstartspolicy, som får symptomet att försvinna och orsaken att överleva. Den där
+rotorsaksanalyserades i stället, och skrevs ner.
+
+### Smart hem och en lokal röstassistent
+
+Home Assistant styr huset; en självhostad pipeline ger det en röst. Whisper för
+tal-till-text, Piper för text-till-tal, och en lokal språkmodell via Ollama — allt
+sådant som först bevisades kunna köras acceptabelt på enbart CPU, innan något
+grafikkort köptes för ändamålet.
+
+Det finns en medveten uppdelning här. Allt som rör hemmet stannar på lokala modeller,
+av integritetsskäl jag inte ville kompromissa med för bekvämlighets skull. Öppna frågor
+som inte har med huset att göra går till en molnmodell på ett separat väckningsord. Det
+är en gräns, beslutad en gång, i stället för en bedömning per fråga.
+
+Lampor, persienner och rörelsesensorer migrerades till Matter. Dimmerknapparna gjorde
+medvetet inte det — en flytt hade gjort dem sämre, och loggen säger varför.
+
+Två incidenter från det här systemet är värda mer än arkitekturen: en rundtur som gick
+från 45–57 sekunder ner till ungefär 5–6 genom att skala modellen och prompten rätt i
+stället för att köpa hårdvara, och en regression jag orsakade, diagnosticerade och
+mestadels rullade tillbaka samma dag. Båda täcks nedan.
+
+### Spelserver
+
+En dedikerad Project Zomboid-server för mig och mina vänner, med ett femtiotal mods och
+automatiserad hantering av mods och uppdateringar. Begränsningen som gör den intressant
+är att en moduppdatering kan förstöra en pågående sparfil, så "hämta bara senaste" är
+precis fel standardval. Den provisioneras från samma Ansible-repo som allt annat — det
+finns ingen handkonfigurerad låda som bara jag vet hur man bygger om.
+
+### Nätverk, DNS och fjärråtkomst
+
+AdGuard Home är den lokala resolvern, vilket ger varje tjänst ett riktigt hostnamn och
+blockerar annonser i hela nätverket. Nginx Proxy Manager ligger framför tjänsterna.
+
+Den del jag bryr mig om: **ingenting är port-forwardat.** Varje externt nåbar tjänst går
+genom en Cloudflare-tunnel med Cloudflare Access som autentiserar framför, så det finns
+ingen öppen inkommande port på nätverket alls. Push-notiser är också självhostade, så
+larmen inte är beroende av att en tredjeparts gratisnivå fortsätter existera.
+
+### Deployplattform och övervakning
+
+Pipelinen som de andra fyra körs på, vilket nästa avsnitt handlar om.
+
 ## Ett repo, och en riktig deploy-pipeline
 
 Att pusha till `main` är själva deployen. En självhostad GitHub Actions-runner på servern applicerar relevanta Ansible-roller på de containrar som en push faktiskt berör. Den där "faktiskt berör"-delen blev viktig när labbet växte förbi ett par containrar: en full deploy körde tidigare fem playbooks helt sekventiellt, i storleksordningen 5 till 6 minuter, oavsett om ändringen var infrastrukturbred eller en enradig dokumentationsfix. Numera diffas varje push mot föregående commit: playbooks som en push inte rör hoppas över helt (en ren dokumentationscommit deployas på ungefär 7 sekunder), och det som blir kvar körs samtidigt som bakgrundsprocesser inom samma jobb, eftersom det bara finns en runner att faktiskt placera arbete på. En push som rör allt tar nu ungefär lika lång tid som den långsammaste enskilda playbooken istället för summan av alla.
@@ -20,7 +82,7 @@ En handfull stackar är medvetet **inte** Ansible. Där en stack gynnas av webho
 
 ## Vanan som betyder mer än något verktygsval: att skriva en ADR
 
-Varje icke-trivialt beslut i det här repot får en kort skriven post, mer än 80 stycken vid det här laget, som förklarar vad som beslutades och varför. Det inkluderar besluten som visade sig vara fel. En migrering av alla röstkommandon till ett annat registreringssystem, gjord på en dag, orsakade en generell latensregression över hela linjen, inte bara för kommandona som migrerades; posten om det misstaget, och den partiella återställningen som fixade det, ligger precis där bredvid ändringen som orsakade det. Det är den faktiska nyttan med vanan: det är inte en changelog över lyckade satsningar, det är en logg av resonemang som är tillräckligt bra för att ett dåligt beslut fångas och förklaras istället för att tyst glömmas bort.
+Varje icke-trivialt beslut i det här repot får en kort skriven post, 82 stycken vid det här laget, som förklarar vad som beslutades och varför. Det inkluderar besluten som visade sig vara fel. En migrering av alla röstkommandon till ett annat registreringssystem, gjord på en dag, orsakade en generell latensregression över hela linjen, inte bara för kommandona som migrerades; posten om det misstaget, och den partiella återställningen som fixade det, ligger precis där bredvid ändringen som orsakade det. Det är den faktiska nyttan med vanan: det är inte en changelog över lyckade satsningar, det är en logg av resonemang som är tillräckligt bra för att ett dåligt beslut fångas och förklaras istället för att tyst glömmas bort.
 
 Ett konkret exempel: den självhostade röstassistenten kör Whisper för tal-till-text och en liten lokalt finjusterad modell (inte en generisk chattmodell) för kommando-fallback, enbart på CPU, ingen GPU. Tidigt misslyckades ett omatchat röstkommando direkt med "förlåt, jag förstod inte det": säkert, men inte hjälpsamt. Att dirigera omatchade kommandon till en lokal LLM istället verkade vara en enkel förbättring, förutom att den första versionen av det tog 45 till 57 sekunder att svara, eftersom en stor generell chattmodell ombads läsa en prompt på flera tusen tokens (varje exponerad smarta hem-enhet skrivs in i den) och sedan generera fritt. Fixen var inte mer hårdvara, det var att inse att modellen var fel för jobbet: att byta till en liten modell faktiskt finjusterad för enhetskontroll skar ner det till ungefär 5 till 6 sekunder, och att trimma (och sedan försiktigt utöka igen) hur många enheter som exponeras alls höll promptstorleken från att svälla upp igen.
 
@@ -35,3 +97,10 @@ Att en process är igång säger nästan ingenting om huruvida den faktiskt gör
 ## Varför bry sig, för ett hemmalabb
 
 Därför att felmönstren i "det är bara en hobby, det löser sig" är samma felmönster som drabbar riktiga produktionssystem, bara med lägre insatser: drift mellan det som är deployat och det som är dokumenterat, en övervakning som bekräftar fel sak, en fix som appliceras utan att skriva ner varför. Att driva casa-verde på det här sättet är medveten övning i att fånga de sakerna innan de kostar något som faktiskt spelar roll.
+
+## En sak till som den här plattformen kör
+
+En av containrarna på den här värden är backenden för [Cityroam](/sv/blog/cityroam/),
+färdappen som är det andra projektet på min startsida. De två är inte oberoende
+sidoprojekt som råkar ligga bredvid varandra — det ena deployas av, övervakas av och
+säkerhetskopieras av det andra, genom samma pipeline som beskrivs ovan.

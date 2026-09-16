@@ -1,14 +1,15 @@
 ---
 title: 'Fysiken bakom en räckviddsuppskattning: att anpassa Crr, luftmotstånd och drivlineförlust till dina egna åkturer'
-description: 'Hur Turbo-backenden går från en läroboksekvation för kraft, spårad till riktiga tekniska referenser, till en per-förare, per-läge regressionsanpassning, varför nedförsbacke inte ger regen-kredit, och vad som händer med modellen under 20% batteri.'
+description: 'Hur Cityroam-backenden går från en läroboksekvation för kraft, spårad till riktiga tekniska referenser, till en per-förare, per-läge regressionsanpassning, varför nedförsbacke inte ger regen-kredit, och vad som händer med modellen under 20% batteri.'
 pubDate: 'Sep 06 2026'
-heroImage: '/blog/turbo-physics-activity.jpg'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-activity.jpg'
 ---
 
 Jag har skrivit tidigare om varför Turbos räckviddsuppskattning behövde riktig fysik istället för ett platt km-per-procent-tal. Det här är delen jag hoppade över där: vad den fysikmodellen faktiskt är, var dess konstanter kom ifrån, och hur den går från en läroboksekvation till ett tal anpassat specifikt till hur *du* åker.
 
 <figure>
-  <img src="/blog/turbo-physics-activity.jpg" alt="Turbos aktivitetsskärm med veckovis åkdistans och effektivitetstrender" />
+  <img src="/blog/cityroam-activity.jpg" alt="Turbos aktivitetsskärm med veckovis åkdistans och effektivitetstrender" />
   <figcaption>Aktivitetsvyn den här modellen till slut matar: riktiga trendlinjer, inte ett statiskt specifikationsblad-tal</figcaption>
 </figure>
 
@@ -41,7 +42,7 @@ De anpassade talen klipps fortfarande till litteraturens rimliga gränser (`Crr`
 `climb_energy_wh()` tar bara emot ett icke-negativt klättrat-meter-tal. En nedförsbacke subtraherar inte energi från modellen, även om gravitationen gör riktigt arbete på vägen ner. Det är medvetet: de här brädorna friåker nedför istället för att regenerera laddning, så att kreditera en nedförsbacke skulle få modellen att påstå räckvidd som batteriet faktiskt inte kan leverera. Det är en liten regel, ett enda `if climb_m <= 0: return 0.0`, men det är skillnaden mellan en modell som är ärlig om hårdvaran och en som är optimistisk om den.
 
 <figure>
-  <img src="/blog/turbo-tuya-board-settings.jpg" alt="Turbos brädinställningsskärm med snabbkontroller och accelerations-/bromskurvor per läge" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Turbos brädinställningsskärm med snabbkontroller och accelerations-/bromskurvor per läge" />
   <figcaption>Inställningar per läge lästa direkt från brädan, samma lägen som fysikprofilen anpassas separat för</figcaption>
 </figure>
 
@@ -57,4 +58,4 @@ Den metodologiskt korrekta fixen är en full elektrisk modell, öppen-krets-spä
 
 ## Varför besvära sig med att anpassa istället för att leverera standardvärdena för alltid
 
-Ett läroboksstandardvärde är detsamma för varje förare på varje bräda. Ett anpassat är ett påstående om *din* bräda, *din* vikt, *din* körstil, backat av din egen resehistorik, och det blir ärligare ju mer du åker. Det är hela anledningen till att räckviddsuppskattning i Turbo existerar som en riktig regressionspipeline istället för tre konstanter hämtade från ett specifikationsblad: den intressanta frågan var aldrig "vad gör en genomsnittlig bräda," den var "vad gör min faktiskt."
+Ett läroboksstandardvärde är detsamma för varje förare på varje bräda. Ett anpassat är ett påstående om *din* bräda, *din* vikt, *din* körstil, backat av din egen resehistorik, och det blir ärligare ju mer du åker. Det är hela anledningen till att räckviddsuppskattning i Cityroam existerar som en riktig regressionspipeline istället för tre konstanter hämtade från ett specifikationsblad: den intressanta frågan var aldrig "vad gör en genomsnittlig bräda," den var "vad gör min faktiskt."

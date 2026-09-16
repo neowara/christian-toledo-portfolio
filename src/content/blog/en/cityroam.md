@@ -1,27 +1,38 @@
 ---
 title: 'Reverse-engineering a Bluetooth skateboard, and modeling its physics instead of guessing'
-description: 'How Turbo talks directly to the board over BLE, why a linear battery-percent range estimate was not good enough, and what a self-hosted OSRM instance is doing in a hobby project.'
+description: 'How Cityroam talks directly to the board over BLE, why a linear battery-percent range estimate was not good enough, and what a self-hosted OSRM instance is doing in a personal project.'
 pubDate: 'Sep 03 2026'
-heroImage: '/blog/turbo-dashboard.png'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-dashboard.jpg'
 ---
 
-I ride an electric skateboard, a Tuya-connected board that, out of the box, is designed to be controlled through a phone app talking to Tuya's cloud. That's fine for turning it on and picking a mode. It's not fine if you want to actually understand the ride: how much range is really left, what mode you were in when the battery dropped fastest, or whether that "23 km/h" the app showed you for two seconds was real or a Bluetooth hiccup. So I built **Turbo**, an Android app plus a self-hosted backend, to own that data end to end.
+> **Updated September 2026.** This was written when the app was called **Turbo**. It's
+> **Cityroam** now — the old name collided with two existing brands in the same niche
+> ([the full reasoning is here](/blog/cityroam-brand/)). It also does rather more than
+> it did when this was first published: a second manufacturer's scooter, offline-first
+> trip recording, and a closed beta with users who aren't me. The names below have been
+> updated; the engineering is as it was.
+>
+> One thing that deliberately hasn't changed: `turbo` is still the name of the board's
+> fastest **ride mode**, which is what it means everywhere below.
+
+I ride an electric skateboard, a Tuya-connected board that, out of the box, is designed to be controlled through a phone app talking to Tuya's cloud. That's fine for turning it on and picking a mode. It's not fine if you want to actually understand the ride: how much range is really left, what mode you were in when the battery dropped fastest, or whether that "23 km/h" the app showed you for two seconds was real or a Bluetooth hiccup. So I built **Cityroam**, an Android app plus a self-hosted backend, to own that data end to end.
 
 <figure>
-  <img src="/blog/turbo-dashboard.png" alt="Turbo dashboard screen showing battery, voltage, ride mode, and recent trips" />
+  <img src="/blog/cityroam-dashboard.jpg" alt="Cityroam dashboard screen showing battery, voltage, ride mode, and recent trips" />
   <figcaption>The dashboard: live board telemetry read directly over Bluetooth, no cloud round-trip</figcaption>
 </figure>
 
 ## Getting off Tuya's cloud
 
-The stock app path is: phone to Tuya Cloud to board. That works, but it means every read of battery percentage or every settings change round-trips through a third party's servers, with their latency and their availability. I wanted the phone talking to the board directly, so Turbo uses **Direct BLE**, the Tuya SDK's local Bluetooth path, instead of the cloud API.
+The stock app path is: phone to Tuya Cloud to board. That works, but it means every read of battery percentage or every settings change round-trips through a third party's servers, with their latency and their availability. I wanted the phone talking to the board directly, so the app uses **Direct BLE**, the Tuya SDK's local Bluetooth path, instead of the cloud API.
 
 In practice that meant working out the board's actual data-point (DP) protocol: which BLE characteristic carries which value, how ride mode, speed limits, acceleration/braking curves, and motor configuration are encoded, and how to write settings back without cloud round-trips. Once that was solved, the payoff was direct: live telemetry (battery, voltage, odometer, active mode) and a fully editable settings screen, all offline-capable, all under the app's own control.
 
 The backend, by design, **never touches Bluetooth at all**. It has no radio and no board connection. The phone is the only thing that ever talks to the board, and it hands the backend whatever live reading a request needs (e.g. battery percent and voltage get passed as query params to the range-estimate endpoint). That split kept the backend simple and testable, and meant a board firmware quirk never becomes a backend bug.
 
 <figure>
-  <img src="/blog/turbo-board-config.png" alt="Board configuration screen with per-mode speed limits, acceleration and braking curves, and live telemetry" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Board configuration screen with per-mode speed limits, acceleration and braking curves, and live telemetry" />
   <figcaption>Full board settings: speed limits, acceleration/braking curves, motor config, read and written over Direct BLE</figcaption>
 </figure>
 
@@ -42,13 +53,13 @@ One detail that mattered more than expected: the OSRM data has to be built with 
 Trips also get enriched with weather (condition codes, feels-like temperature, wind speed) averaged over the ride's time window from a keyless weather API, so a trip detail view can show what the ride actually felt like, not just where it went.
 
 <figure>
-  <img src="/blog/turbo-trip-detail.png" alt="Trip detail screen with map, ride-mode breakdown, and voltage graph" />
+  <img src="/blog/cityroam-trip-detail.jpg" alt="Trip detail screen with map, ride-mode breakdown, and voltage graph" />
   <figcaption>Trip detail: snapped route, mode breakdown, and a voltage graph pulled from the ride's samples</figcaption>
 </figure>
 
 ## Treating a hobby project's data like it matters
 
-Because trip history is what the range and efficiency models are built from, I didn't want it behind a shared static token the way a lot of personal projects end up. Turbo has real per-user accounts (argon2id-hashed passwords, session tokens with a 90-day sliding expiry) with no public signup; accounts are admin-issued. Every trip, in-progress trip, efficiency profile, and log entry is scoped to the user who created it. There's also a small admin panel for account management and read/debug inspection of the data, deliberately locked to read/delete only for the trip tables, since real writes go through the same enrichment logic a normal trip save uses, so an admin form can't quietly desync a trip from what actually happened.
+Because trip history is what the range and efficiency models are built from, I didn't want it behind a shared static token the way a lot of personal projects end up. Cityroam has real per-user accounts (argon2id-hashed passwords, session tokens with a 90-day sliding expiry) with no public signup; accounts are admin-issued. Every trip, in-progress trip, efficiency profile, and log entry is scoped to the user who created it. There's also a small admin panel for account management and read/debug inspection of the data, deliberately locked to read/delete only for the trip tables, since real writes go through the same enrichment logic a normal trip save uses, so an admin form can't quietly desync a trip from what actually happened.
 
 ## What this ends up proving
 

@@ -14,6 +14,7 @@ const strings = t(lang);
 const neutralPath = lang === 'sv' ? Astro.url.pathname.replace(/^\/sv/, '') || '/' : Astro.url.pathname;
 const isBlogActive = neutralPath.startsWith('/blog');
 const isAboutActive = neutralPath.startsWith('/about');
+const isCvActive = neutralPath.startsWith('/cv');
 const enHref = localizedPath(neutralPath, 'en');
 const svHref = localizedPath(neutralPath, 'sv');
 ---
@@ -25,6 +26,7 @@ const svHref = localizedPath(neutralPath, 'sv');
 			<a href={`${localizedPath('/', lang)}#work`}>{strings.nav.work}</a>
 			<a href={localizedPath('/blog', lang)} class:list={{ active: isBlogActive }}>{strings.nav.blog}</a>
 			<a href={localizedPath('/about', lang)} class:list={{ active: isAboutActive }}>{strings.nav.about}</a>
+			<a href={localizedPath('/cv', lang)} class:list={{ active: isCvActive }}>{strings.nav.cv}</a>
 		</div>
 		<div class="nav-right">
 			<a class="icon-link" href={GITHUB_URL} target="_blank" rel="noopener" title="GitHub" aria-label="GitHub">
@@ -54,6 +56,7 @@ const svHref = localizedPath(neutralPath, 'sv');
 		<a href={`${localizedPath('/', lang)}#work`}>{strings.nav.work}</a>
 		<a href={localizedPath('/blog', lang)} class:list={{ active: isBlogActive }}>{strings.nav.blog}</a>
 		<a href={localizedPath('/about', lang)} class:list={{ active: isAboutActive }}>{strings.nav.about}</a>
+		<a href={localizedPath('/cv', lang)} class:list={{ active: isCvActive }}>{strings.nav.cv}</a>
 	</div>
 </header>
 
@@ -119,7 +122,7 @@ const svHref = localizedPath(neutralPath, 'sv');
 	.nav-links {
 		display: flex;
 		align-items: center;
-		gap: 1.75rem;
+		gap: 1.5rem;
 	}
 	.nav-links a {
 		font-size: 0.92rem;

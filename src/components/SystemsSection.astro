@@ -1,0 +1,161 @@
+---
+// #systems — the five systems running on casa-verde.
+//
+// Deliberately lighter than the two flagship .project-card entries above it: smaller
+// headings, single column, fewer highlights. The hierarchy should read as "two deep
+// projects, and here's the breadth underneath one of them" rather than seven
+// competing cards.
+
+import Icon from './Icon.astro';
+import { SYSTEMS, SYSTEMS_SV } from '../consts';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/paths';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang).systems;
+const systems = lang === 'sv' ? SYSTEMS_SV : SYSTEMS;
+---
+
+<section id="systems">
+	<div class="section-head">
+		<span class="eyebrow">{strings.eyebrow}</span>
+		<h2>{strings.title}</h2>
+		<p>{strings.description}</p>
+	</div>
+
+	<div class="systems-grid">
+		{systems.map((system) => (
+			<article class="system-card card">
+				<div class="system-head">
+					<span class="system-icon"><Icon name={system.icon} size={20} /></span>
+					<span class="system-tag mono">{system.tag}</span>
+				</div>
+				<h3 class="system-name">{system.name}</h3>
+				<p class="system-pitch">{system.pitch}</p>
+				<ul class="system-highlights">
+					{system.highlights.map((h) => <li>{h}</li>)}
+				</ul>
+				<div class="stack-tags">
+					{system.stack.map((s) => <span>{s}</span>)}
+				</div>
+				<a class="system-link" href={system.href}>{strings.readMore}</a>
+			</article>
+		))}
+	</div>
+</section>
+
+<style>
+	section {
+		padding: 3.5rem 0;
+	}
+	.section-head {
+		margin-bottom: 2.5rem;
+		max-width: 640px;
+	}
+	.section-head p {
+		margin-top: 0.8rem;
+	}
+
+	.systems-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+	}
+	.system-card {
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+	.system-head {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		margin-bottom: 0.7rem;
+	}
+	.system-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 8px;
+		border: 1px solid var(--border);
+		background: var(--bg-elevated-2);
+		color: var(--accent);
+		flex-shrink: 0;
+	}
+	.system-tag {
+		color: var(--accent);
+		font-size: 0.76rem;
+	}
+	.system-name {
+		font-size: 1.15rem;
+		margin: 0 0 0.5rem;
+	}
+	.system-pitch {
+		margin: 0 0 1rem;
+		font-size: 0.94rem;
+		color: var(--text);
+	}
+	.system-highlights {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+	.system-highlights li {
+		position: relative;
+		padding-left: 1.1rem;
+		font-size: 0.88rem;
+		color: var(--text-muted);
+		line-height: 1.55;
+	}
+	.system-highlights li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 5px;
+		height: 5px;
+		border-radius: 1px;
+		background: var(--accent);
+	}
+	.stack-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		margin-top: 1.2rem;
+	}
+	.stack-tags span {
+		font-family: var(--mono);
+		font-size: 0.72rem;
+		padding: 0.25rem 0.55rem;
+		border: 1px solid var(--border);
+		border-radius: 5px;
+		color: var(--text-dim);
+		background: var(--bg-elevated-2);
+	}
+	.system-link {
+		margin-top: auto;
+		padding-top: 1.2rem;
+		font-size: 0.86rem;
+		font-weight: 700;
+		color: var(--text-muted);
+		align-self: flex-start;
+	}
+	.system-link:hover {
+		color: var(--accent);
+	}
+
+	@media (max-width: 640px) {
+		.system-card {
+			padding: 1.3rem;
+		}
+	}
+</style>

@@ -1,0 +1,381 @@
+---
+// The body of the /cv page, shared by both locales.
+//
+// Experience is rendered from EXPERIENCE/EXPERIENCE_SV — the same data the homepage
+// timeline uses — specifically so the CV page and the homepage cannot drift apart.
+// Only what the CV needs and the homepage doesn't (profile, skills, education,
+// early roles, languages) comes from CV/CV_SV.
+
+import Icon from './Icon.astro';
+import { CV, CV_SV, CV_FILES, EXPERIENCE, EXPERIENCE_SV, EMAIL, GITHUB_URL, LINKEDIN_URL } from '../consts';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/paths';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang).cv;
+const clientLabel = t(lang).clients.label;
+const cv = lang === 'sv' ? CV_SV : CV;
+const jobs = lang === 'sv' ? EXPERIENCE_SV : EXPERIENCE;
+const downloads = lang === 'sv' ? [CV_FILES.sv, CV_FILES.en] : [CV_FILES.en, CV_FILES.sv];
+---
+
+<article class="cv">
+	<header class="cv-header">
+		<div>
+			<span class="eyebrow">{strings.pageTitle}</span>
+			<h1>Christian Toledo</h1>
+			<p class="cv-headline mono">{cv.headline}</p>
+			<p class="cv-contact">
+				<a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+				<span aria-hidden="true">·</span>
+				<a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">GitHub</a>
+				<span aria-hidden="true">·</span>
+				<a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+			</p>
+		</div>
+		<div class="cv-actions">
+			{downloads.map((file) => (
+				<a class="btn btn-secondary" href={file.href} download>
+					{strings.download(file.label)}
+				</a>
+			))}
+			<p class="cv-updated mono">{cv.updated}</p>
+		</div>
+	</header>
+
+	<section class="cv-section">
+		<h2>{strings.profile}</h2>
+		{cv.profile.map((p) => <p>{p}</p>)}
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.experience}</h2>
+		{jobs.map((job) => (
+			<div class="cv-entry">
+				<div class="cv-entry-head">
+					<h3>{job.role}</h3>
+					<span class="cv-dates mono">{job.dates}</span>
+				</div>
+				<p class="cv-org mono">{job.org}</p>
+				<p class="cv-summary">{job.summary}</p>
+				<ul set:html={job.bullets.map((b) => `<li>${b}</li>`).join('')} />
+				{job.clients && (
+					<div class="cv-clients">
+						<span class="cv-sublabel mono">{clientLabel}</span>
+						<ul class="cv-client-list">
+							{job.clients.map((client) => (
+								<li>
+									<Icon name={client.icon} size={16} />
+									<span><strong>{client.name}</strong> — {client.role}</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				)}
+				<p class="cv-stack mono">{job.stack.join(' · ')}</p>
+			</div>
+		))}
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.skills}</h2>
+		<div class="skill-groups">
+			{cv.skillGroups.map((group) => (
+				<div class="skill-group">
+					<span class="cv-sublabel mono">{group.label}</span>
+					<div class="skill-tags">
+						{group.skills.map((s) => <span>{s}</span>)}
+					</div>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.earlyRoles}</h2>
+		{cv.earlyRoles.map((entry) => (
+			<div class="cv-entry">
+				<div class="cv-entry-head">
+					<h3>{entry.title}</h3>
+					<span class="cv-dates mono">{entry.dates}</span>
+				</div>
+				<p class="cv-org mono">{entry.org}</p>
+				{entry.body && <p class="cv-summary">{entry.body}</p>}
+				{entry.bullets && <ul>{entry.bullets.map((b) => <li>{b}</li>)}</ul>}
+				{entry.stack && <p class="cv-stack mono">{entry.stack}</p>}
+			</div>
+		))}
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.internships}</h2>
+		{cv.internships.map((entry) => (
+			<div class="cv-entry">
+				<div class="cv-entry-head">
+					<h3>{entry.title}</h3>
+					<span class="cv-dates mono">{entry.dates}</span>
+				</div>
+				<p class="cv-org mono">{entry.org}</p>
+				{entry.body && <p class="cv-summary">{entry.body}</p>}
+				{entry.bullets && <ul>{entry.bullets.map((b) => <li>{b}</li>)}</ul>}
+			</div>
+		))}
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.education}</h2>
+		{cv.education.map((entry) => (
+			<div class="cv-entry cv-entry-compact">
+				<div class="cv-entry-head">
+					<h3>{entry.title}</h3>
+					<span class="cv-dates mono">{entry.dates}</span>
+				</div>
+				<p class="cv-org mono">{entry.org}</p>
+			</div>
+		))}
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.languages}</h2>
+		<ul class="cv-languages">
+			{cv.languages.map((l) => (
+				<li><strong>{l.name}</strong> <span class="mono">{l.level}</span></li>
+			))}
+		</ul>
+	</section>
+
+	<section class="cv-section">
+		<h2>{strings.references}</h2>
+		<p>{cv.references}</p>
+	</section>
+</article>
+
+<style>
+	.cv {
+		max-width: 780px;
+	}
+	.cv-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 2rem;
+		flex-wrap: wrap;
+		padding-bottom: 1.8rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.cv-header h1 {
+		margin: 0.3rem 0 0.4rem;
+		font-size: 2rem;
+	}
+	.cv-headline {
+		margin: 0 0 0.7rem;
+		font-size: 0.86rem;
+		color: var(--accent);
+	}
+	.cv-contact {
+		margin: 0;
+		font-size: 0.9rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		color: var(--text-dim);
+	}
+	.cv-actions {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
+	}
+	.cv-updated {
+		margin: 0.2rem 0 0;
+		font-size: 0.74rem;
+		color: var(--text-dim);
+	}
+
+	.cv-section {
+		padding: 2.2rem 0 0;
+	}
+	.cv-section h2 {
+		font-size: 1.15rem;
+		margin: 0 0 1.2rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+	.cv-section > p {
+		margin: 0 0 0.9rem;
+	}
+
+	.cv-entry {
+		margin-bottom: 1.9rem;
+	}
+	.cv-entry:last-child {
+		margin-bottom: 0;
+	}
+	.cv-entry-compact {
+		margin-bottom: 1.1rem;
+	}
+	.cv-entry-head {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+	.cv-entry-head h3 {
+		font-size: 1rem;
+		margin: 0;
+		color: var(--text);
+	}
+	.cv-dates {
+		font-size: 0.78rem;
+		color: var(--text-dim);
+		white-space: nowrap;
+	}
+	.cv-org {
+		margin: 0.2rem 0 0.6rem;
+		font-size: 0.82rem;
+		color: var(--accent);
+		font-weight: 600;
+	}
+	.cv-summary {
+		margin: 0 0 0.6rem;
+		font-size: 0.94rem;
+		color: var(--text-muted);
+	}
+	.cv-entry :global(ul) {
+		margin: 0;
+		padding-left: 1.2rem;
+	}
+	.cv-entry :global(li) {
+		font-size: 0.92rem;
+		margin-bottom: 0.4rem;
+		color: var(--text-muted);
+	}
+	.cv-entry :global(strong) {
+		color: var(--text);
+	}
+
+	.cv-sublabel {
+		display: block;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--text-dim);
+		margin-bottom: 0.5rem;
+	}
+	.cv-clients {
+		margin: 1rem 0 0.8rem;
+		padding: 0.9rem 1rem;
+		background: var(--bg-elevated-2);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+	}
+	.cv-client-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.cv-client-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.55rem;
+		font-size: 0.88rem;
+		color: var(--text-muted);
+		margin: 0;
+	}
+	.cv-client-list :global(svg) {
+		flex-shrink: 0;
+		margin-top: 0.2em;
+		color: var(--text-dim);
+	}
+
+	.cv-stack {
+		margin: 0.8rem 0 0;
+		font-size: 0.74rem;
+		color: var(--text-dim);
+		line-height: 1.7;
+	}
+
+	.skill-groups {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 1.3rem;
+	}
+	.skill-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+	.skill-tags span {
+		font-family: var(--mono);
+		font-size: 0.74rem;
+		padding: 0.25rem 0.55rem;
+		border: 1px solid var(--border);
+		border-radius: 5px;
+		color: var(--text-muted);
+		background: var(--bg-elevated);
+	}
+
+	.cv-languages {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem 2rem;
+	}
+	.cv-languages li {
+		font-size: 0.94rem;
+	}
+	.cv-languages .mono {
+		font-size: 0.78rem;
+		color: var(--text-dim);
+	}
+
+	@media (max-width: 640px) {
+		.cv-header {
+			flex-direction: column;
+			gap: 1.2rem;
+		}
+		.cv-actions {
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+	}
+
+	/*
+		Ctrl-P should produce something you'd actually hand over: no nav, no theme
+		toggle, no dark background eating a printer's toner, and no entry split
+		across a page break.
+	*/
+	@media print {
+		.cv {
+			max-width: none;
+		}
+		.cv-actions {
+			display: none;
+		}
+		.cv-section {
+			padding-top: 1.4rem;
+			break-inside: auto;
+		}
+		.cv-entry,
+		.skill-group {
+			break-inside: avoid;
+		}
+		.cv-section h2 {
+			break-after: avoid;
+		}
+		.cv-clients {
+			background: none;
+		}
+	}
+</style>

@@ -2,7 +2,17 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import ClientGrid from '../components/ClientGrid.astro';
+import SystemsSection from '../components/SystemsSection.astro';
+import AiSection from '../components/AiSection.astro';
+import GithubSection from '../components/GithubSection.astro';
+import CvSection from '../components/CvSection.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../consts';
+import { t } from '../i18n/ui';
+
+const strings = t('en');
+const projects = [PROJECTS.cityroam, PROJECTS.casaVerde];
 ---
 
 <!doctype html>
@@ -16,11 +26,12 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 			<section class="hero">
 				<span class="eyebrow">Göteborg, Sweden</span>
 				<h1>Christian Toledo.<br>Full-stack engineer who ships and operates his own systems.</h1>
-				<p class="lead">Close to 7 years building production web and mobile apps across product companies and consultancies, React, React Native, Vue, Angular, .NET, and more, for clients ranging from national postal and healthcare platforms to a startup I saw through to acquisition. The more interesting proof of how I work is what I build when nobody's asking: reverse-engineering a proprietary Bluetooth protocol byte-for-byte to delete a vendor SDK entirely, fitting a real physics model to my own ride data, and running a home lab with the documentation discipline of a production team.</p>
-				<p class="sub">Most recently a fullstack developer at Dear Friends and Nexer AB, working across clients including PostNord, Nordic Wellness, and Inera (1177). Originally from Cuba, based in Göteborg since 2011.</p>
+				<p class="lead">Close to seven years building production web and mobile apps across product companies and consultancies — React, React Native, Vue, Angular and .NET — for clients including <strong>PostNord</strong>, <strong>Nordic Wellness</strong> and <strong>Inera's 1177</strong>, the national healthcare platform millions of Swedes use. The more interesting proof of how I work is what I build when nobody's asking: two manufacturers' Bluetooth protocols reverse-engineered from scratch for a ride-tracking app now in closed beta, a physics model fitted to my own ride data, and a home lab running five real systems with the documentation discipline of a production team.</p>
+				<p class="sub">Most recently a fullstack developer at Dear Friends and Nexer AB. Originally from Cuba, based in Göteborg since 2011, and currently looking for my next team.</p>
 				<div class="btn-row">
 					<a href="#work" class="btn">See my work →</a>
-					<a href="#experience" class="btn btn-secondary">Job experience</a>
+					<a href="#experience" class="btn btn-secondary">Experience</a>
+					<a href="/cv" class="btn btn-secondary">CV</a>
 					<a href={`mailto:${EMAIL}`} class="btn btn-secondary">Get in touch</a>
 				</div>
 			</section>
@@ -28,73 +39,55 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 			<section id="work">
 				<div class="section-head">
 					<span class="eyebrow">Selected work</span>
-					<h2>Two systems I built, ship, and keep running.</h2>
-					<p>Not demos. Both are live, in daily personal use, with real users (me, and whoever's in the house), real failure modes, and a written history of the decisions behind them, down to the protocol reverse-engineering, physics regressions, and infrastructure calls that went into each.</p>
+					<h2>Two things I built, ship, and keep running.</h2>
+					<p>Not demos. One is an Android app and backend in closed beta with real users; the other is the platform it runs on. Both have real failure modes and a written history of the decisions behind them — down to the protocol reverse-engineering, the physics regressions, and the infrastructure calls that went into each.</p>
 				</div>
 
 				<div class="projects-grid">
-					<article class="project-card card">
-						<div class="project-col-a">
-							<div class="project-icon"><img src={PROJECTS.turbo.icon} alt="Turbo logo" /></div>
-							<span class="project-tag mono">{PROJECTS.turbo.tag}</span>
-							<h3 class="project-name">{PROJECTS.turbo.name}</h3>
-							<p class="project-pitch">{PROJECTS.turbo.pitch}</p>
-							<div class="project-links">
-								{PROJECTS.turbo.repoLinks.map((link) => (
-									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
-								))}
-								<a href={`/blog/${PROJECTS.turbo.blogSlug}/`}>Read the deep dive →</a>
+					{projects.map((project) => (
+						<article class="project-card card">
+							<div class="project-col-a">
+								<div class="project-icon">
+									{project.icon
+										? <img src={project.icon} alt="" />
+										: <Icon name="platform" size={24} />}
+								</div>
+								<span class="project-tag mono">{project.tag}</span>
+								<h3 class="project-name">{project.name}</h3>
+								<p class="project-pitch">{project.pitch}</p>
+								<div class="project-links">
+									{project.links.map((link) => (
+										<a
+											href={link.url}
+											target={link.external ? '_blank' : undefined}
+											rel={link.external ? 'noopener noreferrer' : undefined}
+										>{link.label}{link.external ? ' ↗' : ''}</a>
+									))}
+								</div>
+								<p class="project-source">{project.sourceNote}</p>
 							</div>
-						</div>
-						<div class="project-col-b">
-							<ul class="detail-list">
-								{PROJECTS.turbo.details.map((d) => (
-									<li><strong>{d.title}:</strong> {d.body}</li>
-								))}
-							</ul>
-							<div class="stack-tags">
-								{PROJECTS.turbo.stack.map((s) => <span>{s}</span>)}
+							<div class="project-col-b">
+								<ul class="detail-list">
+									{project.details.map((d) => (
+										<li><strong>{d.title}:</strong> {d.body}</li>
+									))}
+								</ul>
+								<div class="stack-tags">
+									{project.stack.map((s) => <span>{s}</span>)}
+								</div>
 							</div>
-						</div>
-					</article>
-
-					<article class="project-card card">
-						<div class="project-col-a">
-							<div class="project-icon">
-								<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-									<rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect>
-									<rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect>
-									<path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"></path>
-								</svg>
-							</div>
-							<span class="project-tag mono">{PROJECTS.casaVerde.tag}</span>
-							<h3 class="project-name">{PROJECTS.casaVerde.name}</h3>
-							<p class="project-pitch">{PROJECTS.casaVerde.pitch}</p>
-							<div class="project-links">
-								{PROJECTS.casaVerde.repoLinks.map((link) => (
-									<a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>
-								))}
-								<a href={`/blog/${PROJECTS.casaVerde.blogSlug}/`}>Read the deep dive →</a>
-							</div>
-						</div>
-						<div class="project-col-b">
-							<ul class="detail-list">
-								{PROJECTS.casaVerde.details.map((d) => (
-									<li><strong>{d.title}:</strong> {d.body}</li>
-								))}
-							</ul>
-							<div class="stack-tags">
-								{PROJECTS.casaVerde.stack.map((s) => <span>{s}</span>)}
-							</div>
-						</div>
-					</article>
+						</article>
+					))}
 				</div>
 			</section>
+
+			<SystemsSection lang="en" />
 
 			<section id="experience">
 				<div class="section-head">
 					<span class="eyebrow">Experience</span>
 					<h2>Where the day job happens.</h2>
+					<p>Nine years of employment across product companies and consultancies. As a consultant the employer is who paid, but the client is what the work actually was — so both are listed.</p>
 				</div>
 
 				<div class="timeline">
@@ -106,6 +99,9 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 								<span class="timeline-date mono"><span class="timeline-org">{job.org}</span><span class="timeline-dates"> · {job.dates}</span></span>
 							</div>
 							<ul set:html={job.bullets.map((b) => `<li>${b}</li>`).join('')} />
+							{job.clients && (
+								<ClientGrid clients={job.clients} label={strings.clients.label} />
+							)}
 							<div class="stack-tags">
 								{job.stack.map((s) => <span>{s}</span>)}
 							</div>
@@ -116,12 +112,20 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 						<span class="timeline-now-label">Now — Looking for new opportunities</span>
 					</div>
 				</div>
+
+				<p class="clients-disclaimer">{strings.clients.disclaimer}</p>
 			</section>
+
+			<AiSection lang="en" />
+
+			<GithubSection lang="en" />
+
+			<CvSection lang="en" />
 
 			<section class="section-spaced">
 				<div class="cta-band card">
 					<h2>Want the fuller picture?</h2>
-					<p>The About page covers the path from Cuba to Göteborg and what I do outside of code. The blog goes deep on how Turbo and casa-verde actually work. I'm looking for a team that cares about technical quality and actually ships. If that's you, let's talk.</p>
+					<p>The About page covers the path from Cuba to Göteborg and what I do outside of code. The blog goes deep on how Cityroam and casa-verde actually work. I'm looking for a team that cares about technical quality and actually ships. If that's you, let's talk.</p>
 					<div class="btn-row">
 						<a href="/about" class="btn">About me</a>
 						<a href="/blog" class="btn btn-secondary">Read the blog</a>
@@ -132,7 +136,6 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 		<Footer lang="en" />
 	</body>
 </html>
-
 <style>
 	.hero {
 		padding: 3.5rem 0 3rem;
@@ -234,6 +237,20 @@ import { SITE_TITLE, SITE_DESCRIPTION, EMAIL, PROJECTS, EXPERIENCE } from '../co
 	.project-links a:hover {
 		color: var(--accent);
 		border-color: var(--accent);
+	}
+	.project-source {
+		margin: 0.9rem 0 0;
+		font-size: 0.82rem;
+		color: var(--text-dim);
+		line-height: 1.55;
+		max-width: 46ch;
+	}
+	.clients-disclaimer {
+		margin: 1.6rem 0 0;
+		font-size: 0.78rem;
+		color: var(--text-dim);
+		max-width: 70ch;
+		line-height: 1.6;
 	}
 	.detail-list {
 		list-style: none;

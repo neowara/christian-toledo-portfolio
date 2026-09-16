@@ -1,14 +1,15 @@
 ---
 title: 'Deleting the Tuya SDK: reimplementing a proprietary BLE protocol from scratch'
-description: 'How Turbo went from wrapping Tuya''s Direct BLE SDK to a from-scratch Kotlin GATT client with no SDK, no cloud dependency, and no ongoing Tuya requirement at all, and what it actually took to get the frame format, encryption, and handshake right.'
+description: 'How Cityroam went from wrapping Tuya''s Direct BLE SDK to a from-scratch Kotlin GATT client with no SDK, no cloud dependency, and no ongoing Tuya requirement at all, and what it actually took to get the frame format, encryption, and handshake right.'
 pubDate: 'Sep 06 2026'
-heroImage: '/blog/turbo-tuya-settings.jpg'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-settings.jpg'
 ---
 
-Earlier posts about Turbo describe it using "Direct BLE, the Tuya SDK's local Bluetooth path" to talk to the board without round-tripping through Tuya's cloud. That was true, and it was also not the end of the story. The app doesn't link the Tuya SDK at all anymore. `grep -ri thingclips mobile/` in the app's source returns nothing. What replaced it is a from-scratch Kotlin implementation of the board's actual wire protocol, reverse-engineered and reimplemented one opcode at a time.
+Earlier posts about Cityroam describe it using "Direct BLE, the Tuya SDK's local Bluetooth path" to talk to the board without round-tripping through Tuya's cloud. That was true, and it was also not the end of the story. The app doesn't link the Tuya SDK at all anymore. `grep -ri thingclips mobile/` in the app's source returns nothing. What replaced it is a from-scratch Kotlin implementation of the board's actual wire protocol, reverse-engineered and reimplemented one opcode at a time.
 
 <figure>
-  <img src="/blog/turbo-tuya-settings.jpg" alt="Turbo settings hub with tiles for board connection, ride tracking, and appearance" />
+  <img src="/blog/cityroam-settings.jpg" alt="Cityroam settings hub with tiles for board connection, ride tracking, and appearance" />
   <figcaption>Board connection is one settings tile now, no SDK, no ongoing account requirement to ride</figcaption>
 </figure>
 
@@ -44,7 +45,7 @@ Board firmware answers the wrong opcode by silently dropping the frame, never wi
 Getting the board's `localKey` (and, depending on which derivation it accepts, `secKey`) still means asking Tuya, because that key material is generated at binding time and never printed anywhere a user could type it in by hand. So the onboarding flow signs into the user's existing Tuya account through Tuya's undocumented mobile API, the same HMAC-signed, AES-GCM-encrypted API that Home Assistant's own integration depends on, fetches the device list and its keys once, and never calls Tuya again. No binding or unbinding happens, so the board never leaves the Tuya Smart app's control. From that point forward the phone talks to the board directly, works in airplane mode, and has no path back to Tuya's servers at all.
 
 <figure>
-  <img src="/blog/turbo-tuya-board-settings.jpg" alt="Turbo board settings screen with quick controls for lock, light, and per-mode speed and acceleration curves" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Cityroam board settings screen with quick controls for lock, light, and per-mode speed and acceleration curves" />
   <figcaption>Every one of these writes now goes phone-to-board only, verified against real hardware after the SDK was gone</figcaption>
 </figure>
 

@@ -1,0 +1,47 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CvContent from '../../components/CvContent.astro';
+import { SITE_TITLE } from '../../consts';
+import { t } from '../../i18n/ui';
+
+const strings = t('sv').cv;
+const title = `CV | ${SITE_TITLE}`;
+const description =
+	'Christian Toledos CV — fullstackutvecklare i Göteborg. Närmare sju år med React, React Native, Vue, Angular, .NET och mobil, för kunder som PostNord, Nordic Wellness och 1177.';
+---
+
+<!doctype html>
+<html lang="sv">
+	<head>
+		<BaseHead title={title} description={description} />
+		<link rel="alternate" hreflang="en" href="/cv" />
+		<link rel="alternate" hreflang="sv" href="/sv/cv" />
+	</head>
+	<body>
+		<Header lang="sv" />
+		<main>
+			<CvContent lang="sv" />
+			<p class="cv-foot">
+				<a href="/sv/">{strings.backHome}</a>
+			</p>
+		</main>
+		<Footer lang="sv" />
+	</body>
+</html>
+
+<style>
+	main {
+		padding-top: 2.5rem;
+	}
+	.cv-foot {
+		margin: 2.5rem 0 0;
+		font-size: 0.9rem;
+	}
+	@media print {
+		.cv-foot {
+			display: none;
+		}
+	}
+</style>

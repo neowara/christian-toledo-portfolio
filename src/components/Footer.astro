@@ -25,11 +25,17 @@ const year = new Date().getFullYear();
 					<a href={localizedPath('/', lang)}>{strings.footer.home}</a>
 					<a href={localizedPath('/about', lang)}>{strings.footer.about}</a>
 					<a href={localizedPath('/blog', lang)}>{strings.footer.blog}</a>
+					<a href={localizedPath('/cv', lang)}>{strings.footer.cv}</a>
 				</div>
 				<div class="footer-col">
 					<h4>{strings.footer.projects}</h4>
-					<a href="https://github.com/neowara/turbo" target="_blank" rel="noopener noreferrer">Turbo</a>
-					<a href="https://github.com/neowara/casa-verde" target="_blank" rel="noopener noreferrer">casa-verde</a>
+					{/*
+						These used to point at the GitHub repos, which are private — so every
+						visitor got a 404. Cityroam links to its live site; casa-verde links
+						to the deep dive, since there's nothing public to link to.
+					*/}
+					<a href="https://cityroam.casa-verde.casa" target="_blank" rel="noopener noreferrer">Cityroam</a>
+					<a href={localizedPath('/blog/casa-verde/', lang)}>casa-verde</a>
 				</div>
 				<div class="footer-col">
 					<h4>{strings.footer.connect}</h4>

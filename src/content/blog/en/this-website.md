@@ -27,7 +27,7 @@ The typography is Atkinson Hyperlegible, chosen for legibility rather than fashi
 
 ## Content that proves the claims
 
-The homepage leads with two systems, Turbo and casa-verde, and each has a deep-dive blog post that goes into the actual engineering: reverse-engineering a Bluetooth protocol, fitting a physics model to range data, running a home lab with written ADRs. These aren't "look what I made" posts. They're evidence for the claims in the About section, that I write things down and that I care about the edge cases.
+The homepage leads with two systems, Cityroam and casa-verde, and each has a deep-dive blog post that goes into the actual engineering: reverse-engineering a Bluetooth protocol, fitting a physics model to range data, running a home lab with written ADRs. These aren't "look what I made" posts. They're evidence for the claims in the About section, that I write things down and that I care about the edge cases.
 
 That's the structural trick. The About page states values like "writes things down" and "genuinely self-driven," and the rest of the site is arranged so those claims are checkable. The decision log for casa-verde isn't just mentioned, it's linked. The "When I'm not coding" section shows the hobbies that feed back into the work, an electric skateboard that became an Android app, a home lab that became a lesson in infrastructure.
 

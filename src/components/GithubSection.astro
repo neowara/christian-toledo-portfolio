@@ -1,0 +1,56 @@
+---
+// #github — contribution activity.
+//
+// The graph on its own invites "so what?", so it's paired with a line of context:
+// most of this is private-repo work, which is exactly why the blog posts exist. The
+// graph proves the volume; the writing proves the judgement.
+
+import ContributionGraph from './ContributionGraph.astro';
+import { GITHUB_URL } from '../consts';
+import { t } from '../i18n/ui';
+import type { Lang } from '../i18n/paths';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const strings = t(lang).github;
+---
+
+<section id="github">
+	<div class="section-head">
+		<span class="eyebrow">{strings.eyebrow}</span>
+		<h2>{strings.title}</h2>
+		<p>{strings.description}</p>
+	</div>
+
+	<ContributionGraph lang={lang} />
+
+	<a class="profile-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+		{strings.profileLink}
+	</a>
+</section>
+
+<style>
+	section {
+		padding: 3.5rem 0;
+	}
+	.section-head {
+		margin-bottom: 2rem;
+		max-width: 640px;
+	}
+	.section-head p {
+		margin-top: 0.8rem;
+	}
+	.profile-link {
+		display: inline-block;
+		margin-top: 1.2rem;
+		font-size: 0.88rem;
+		font-weight: 700;
+		color: var(--text-muted);
+	}
+	.profile-link:hover {
+		color: var(--accent);
+	}
+</style>

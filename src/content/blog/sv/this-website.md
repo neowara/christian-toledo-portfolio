@@ -27,7 +27,7 @@ Typografin är Atkinson Hyperlegible, vald för läsbarhet snarare än mode, med
 
 ## Innehåll som bevisar påståendena
 
-Startsidan leder med två system, Turbo och casa-verde, och var och en har ett djupdykningsinlägg som går in på den faktiska ingenjörskonsten: reverse-engineering av ett Bluetooth-protokoll, att anpassa en fysikmodell till räckviddsdata, att driva ett hemmalabb med skrivna ADR:er. Det här är inte "titta vad jag gjort"-inlägg. De är bevis för påståendena i Om-sektionen, att jag skriver ner saker och att jag bryr mig om gränsfallen.
+Startsidan leder med två system, Cityroam och casa-verde, och var och en har ett djupdykningsinlägg som går in på den faktiska ingenjörskonsten: reverse-engineering av ett Bluetooth-protokoll, att anpassa en fysikmodell till räckviddsdata, att driva ett hemmalabb med skrivna ADR:er. Det här är inte "titta vad jag gjort"-inlägg. De är bevis för påståendena i Om-sektionen, att jag skriver ner saker och att jag bryr mig om gränsfallen.
 
 Det är den strukturella poängen. Om-sidan anger värden som "skriver ner saker" och "genuint självdriven," och resten av sajten är arrangerad så att de påståendena går att kontrollera. Beslutsloggen för casa-verde nämns inte bara, den länkas. Sektionen "När jag inte kodar" visar hobbyn som matar tillbaka in i arbetet, en elskateboard som blev en Android-app, ett hemmalabb som blev en läxa i infrastruktur.
 

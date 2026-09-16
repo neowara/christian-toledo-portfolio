@@ -1,14 +1,15 @@
 ---
 title: 'The physics behind a range estimate: fitting Crr, drag, and drivetrain loss to your own rides'
-description: 'How the Turbo backend goes from a textbook power equation sourced from real engineering references to a per-rider, per-mode regression fit, why descent gets no regen credit, and what happens to the model below 20% battery.'
+description: 'How the Cityroam backend goes from a textbook power equation sourced from real engineering references to a per-rider, per-mode regression fit, why descent gets no regen credit, and what happens to the model below 20% battery.'
 pubDate: 'Sep 06 2026'
-heroImage: '/blog/turbo-physics-activity.jpg'
+updatedDate: 'Sep 16 2026'
+heroImage: '/blog/cityroam-activity.jpg'
 ---
 
-I've written before about why Turbo's range estimate needed real physics instead of a flat km-per-percent number. This is the part I skipped over there: what that physics model actually is, where its constants came from, and how it goes from a textbook equation to a number fitted specifically to how *you* ride.
+I've written before about why Cityroam's range estimate needed real physics instead of a flat km-per-percent number. This is the part I skipped over there: what that physics model actually is, where its constants came from, and how it goes from a textbook equation to a number fitted specifically to how *you* ride.
 
 <figure>
-  <img src="/blog/turbo-physics-activity.jpg" alt="Turbo activity screen with weekly ride distance and efficiency trends" />
+  <img src="/blog/cityroam-activity.jpg" alt="Cityroam activity screen with weekly ride distance and efficiency trends" />
   <figcaption>The activity view this model ultimately feeds: real trend lines, not a static spec-sheet number</figcaption>
 </figure>
 
@@ -41,7 +42,7 @@ The fitted numbers still get clamped to the literature's plausible bounds (`Crr`
 `climb_energy_wh()` only ever receives a non-negative climbed-meters figure. A descent doesn't subtract energy from the model, even though gravity is doing real work on the way down. That's deliberate: these boards free-wheel downhill rather than regenerating charge, so crediting a descent would make the model claim range the battery can't actually deliver. It's a small rule, one `if climb_m <= 0: return 0.0`, but it's the difference between a model that's honest about the hardware and one that's optimistic about it.
 
 <figure>
-  <img src="/blog/turbo-tuya-board-settings.jpg" alt="Turbo board settings screen with quick controls and per-mode acceleration and braking curves" />
+  <img src="/blog/cityroam-board-settings.jpg" alt="Cityroam board settings screen with quick controls and per-mode acceleration and braking curves" />
   <figcaption>Per-mode settings read straight from the board, the same modes the physics profile is fitted separately for</figcaption>
 </figure>
 
@@ -57,4 +58,4 @@ The methodologically correct fix is a full electrical model, open-circuit voltag
 
 ## Why bother fitting instead of shipping the defaults forever
 
-A textbook default is the same for every rider on every board. A fitted one is a claim about *your* board, *your* weight, *your* riding style, backed by your own trip history, and it gets more honest the more you ride. That's the whole reason range estimation in Turbo exists as a real regression pipeline instead of three constants pulled from a spec sheet: the interesting question was never "what does the average board do," it was "what does mine actually do."
+A textbook default is the same for every rider on every board. A fitted one is a claim about *your* board, *your* weight, *your* riding style, backed by your own trip history, and it gets more honest the more you ride. That's the whole reason range estimation in Cityroam exists as a real regression pipeline instead of three constants pulled from a spec sheet: the interesting question was never "what does the average board do," it was "what does mine actually do."

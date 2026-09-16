@@ -1,0 +1,21 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cityroam">
+	<!--
+		Cityroam brand mark, transparent background so it sits on both the dark and
+		light theme. Traced from the product's master glyph
+		(cityroam-website/prototype/cityroam-icons/glyph-mono.svg): a start dot, a
+		dashed route trail, and an X destination marker.
+
+		Brand colors are kept rather than currentColor-ed — this is a real product
+		logo, not a UI icon. Amber #ffa63d is close enough to the site accent
+		(#e8930c) that it reads as part of the palette either way.
+	-->
+	<path
+		d="M 22 70 C 28 83, 48 86, 56 73 C 64 60, 50 50, 58 39 C 62 33, 69 29.5, 76 28"
+		fill="none" stroke="#3fd6c8" stroke-width="7.5" stroke-linecap="round"
+		stroke-dasharray="9 11" stroke-dashoffset="9.25" />
+	<circle cx="22" cy="70" r="9.5" fill="#ffa63d" />
+	<g stroke="#ffa63d" stroke-width="5.5" stroke-linecap="round">
+		<line x1="70.5" y1="22.5" x2="81.5" y2="33.5" />
+		<line x1="70.5" y1="33.5" x2="81.5" y2="22.5" />
+	</g>
+</svg>
