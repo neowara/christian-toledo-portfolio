@@ -26,3 +26,7 @@ pnpm-debug.log*
 # wrangler files
 .wrangler
 .dev.vars
+
+# Local scratch: Playwright MCP snapshots and ad-hoc screenshots
+.playwright-mcp/
+shot-*.png

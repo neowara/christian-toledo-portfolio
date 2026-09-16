@@ -54,7 +54,12 @@ const { clients, label } = Astro.props;
 	}
 	.client-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		/*
+			auto-FILL, not auto-fit: a role with a single client (Plejd, Enginio)
+			would otherwise stretch one tile across the full card width, which reads
+			as a banner rather than as one item in a set.
+		*/
+		grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 		gap: 0.9rem;
 	}
 	.client-tile {

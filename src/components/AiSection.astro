@@ -114,7 +114,11 @@ const ai = lang === 'sv' ? AI_PRACTICE_SV : AI_PRACTICE;
 	}
 	.figure-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+		/*
+			280px lands three per row on the 1080px container, so six figures read as
+			a tidy 3x2 rather than 4+2 with a hole in the second row.
+		*/
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 1.4rem 1.8rem;
 	}
 	.figure {

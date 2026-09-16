@@ -126,20 +126,28 @@ function tooltip(day: Day): string {
 <script>
 	// Progressive enhancement only: the snapshot above is already rendered and
 	// correct. This just moves it forward if the Worker has fresher data.
+	interface ApiDay {
+		date: string;
+		count: number;
+		level: number;
+	}
+	interface ApiPayload {
+		total?: { lastYear?: number };
+		contributions?: ApiDay[];
+		stale?: boolean;
+	}
+
 	const root = document.querySelector('[data-contribution-graph]');
 	if (root) {
 		const totalEl = root.querySelector<HTMLElement>('[data-total]');
 		const locale = totalEl?.dataset.locale ?? 'en-GB';
 		fetch('/api/contributions.json')
-			.then((r) => (r.ok ? r.json() : null))
+			.then((r) => (r.ok ? (r.json() as Promise<ApiPayload>) : null))
 			.then((data) => {
 				if (!data?.contributions?.length) return;
 
 				const byDate = new Map<string, { count: number; level: number }>(
-					data.contributions.map((d: { date: string; count: number; level: number }) => [
-						d.date,
-						{ count: d.count, level: d.level },
-					]),
+					data.contributions.map((d) => [d.date, { count: d.count, level: d.level }]),
 				);
 
 				root.querySelectorAll<HTMLElement>('.day[data-date]').forEach((cell) => {
@@ -169,9 +177,15 @@ function tooltip(day: Day): string {
 				/* Snapshot stays on screen. Nothing to do. */
 			});
 
-		// Start scrolled to the most recent week on narrow screens.
-		const scroller = root.querySelector('.graph-scroll');
-		if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+		// Start scrolled to the most recent week on narrow screens, the way GitHub's
+		// own graph does. Deferred a frame: at script-run time the grid hasn't been
+		// laid out yet, so scrollWidth is still 0 and the assignment does nothing.
+		const scroller = root.querySelector<HTMLElement>('.graph-scroll');
+		if (scroller) {
+			requestAnimationFrame(() => {
+				scroller.scrollLeft = scroller.scrollWidth;
+			});
+		}
 	}
 </script>
 
@@ -203,8 +217,8 @@ function tooltip(day: Day): string {
 	.graph-scroll {
 		overflow-x: auto;
 		overflow-y: hidden;
-		scrollbar-width: thin;
-		padding-bottom: 0.4rem;
+		/* Scrollbar colours come from the global rules in global.css. */
+		padding-bottom: 0.5rem;
 	}
 	.graph-inner {
 		/* Declared here so both .month-row and .graph-body can align to it. */

@@ -309,3 +309,35 @@ li::marker {
     max-width: calc(100% - 1.6em);
   }
 }
+
+/* ============================================================
+   Scrollbars
+
+   The OS default renders as a white/light track that ignores the theme
+   completely — very obvious against the dark background on anything that
+   scrolls horizontally (the contribution graph, wide code blocks in posts).
+   Themed once here, globally, so no component has to remember to do it.
+
+   Both syntaxes are needed: `scrollbar-color` covers Firefox, the
+   ::-webkit-scrollbar rules cover Chromium and Safari.
+   ============================================================ */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-dim);
+}
