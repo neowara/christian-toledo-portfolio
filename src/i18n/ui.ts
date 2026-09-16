@@ -49,7 +49,7 @@ export const ui = {
       eyebrow: "Activity",
       title: "Still building, most days.",
       description:
-        "A year of commits across the mobile app, its backend, and the infrastructure underneath them.",
+        "Professional work and personal projects, in public and private repositories.",
       contributions: (n: number) =>
         `${n.toLocaleString("en-GB")} contributions in the last year`,
       /** Same string with an {n} placeholder, for client-side re-rendering. */
@@ -147,7 +147,7 @@ export const ui = {
       eyebrow: "Aktivitet",
       title: "Bygger fortfarande, de flesta dagar.",
       description:
-        "Ett år av commits i mobilappen, dess backend och infrastrukturen under dem.",
+        "Kunduppdrag och egna projekt, i både publika och privata repon.",
       contributions: (n: number) =>
         `${n.toLocaleString("sv-SE")} bidrag det senaste året`,
       /** Samma sträng med en {n}-platshållare, för omrendering på klienten. */
