@@ -70,8 +70,8 @@ export const EXPERIENCE: Job[] = [
     summary:
       "Creative agency in Gothenburg, moving between several client projects each week.",
     bullets: [
-      "Built and shipped the <strong>Nordic Wellness</strong> React Native apps with Expo, pulling live content and pricing from the Umbraco Delivery API",
-      "Owned the release process end to end: weekly builds, TestFlight, Google Play Console, on-device testing before each public release",
+      "Built and shipped two React Native apps with Expo, one for <strong>Nordic Wellness</strong> and one for its premium brand <strong>Grand Fitness</strong>, each pulling live content and pricing from the Umbraco site behind it",
+      "Ran both projects end to end: testing, weekly test builds out to testers through TestFlight and Google Play Console, public releases, and managing the project itself",
       "Built and maintained Umbraco (.NET) sites for several of the agency's clients, plus ongoing WordPress upkeep",
     ],
     clients: [
@@ -81,16 +81,16 @@ export const EXPERIENCE: Job[] = [
         logo: "nordic-wellness",
         kind: "Gym chain",
         scale: "Largest in the Nordics · 300+ clubs",
-        role: "React Native apps (Expo) and the Umbraco site behind them",
+        role: "React Native app (Expo) and the Umbraco site behind it. Owned the pipeline from testing to public release",
       },
       {
         name: "Grand Fitness",
         icon: "fitness",
         logo: "grandfitness",
         logoNeedsLabel: true,
-        kind: "Gym operator",
-        scale: "Sweden",
-        role: "Umbraco (.NET) site, built and maintained",
+        kind: "Premium gym brand",
+        scale: "Part of Nordic Wellness",
+        role: "React Native app (Expo) and the Umbraco site behind it. Owned the pipeline from testing to public release",
       },
       {
         name: "Fred's Food and Coffee",
@@ -235,8 +235,8 @@ export const EXPERIENCE_SV: Job[] = [
     summary:
       "Kreativ byrå i Göteborg, växlade mellan flera kundprojekt varje vecka.",
     bullets: [
-      "Byggde och lanserade <strong>Nordic Wellness</strong> React Native-appar med Expo, som hämtar liveinnehåll och priser från Umbraco Delivery API",
-      "Ägde releaseprocessen från start till slut: veckovisa builds, TestFlight, Google Play Console, testning på fysiska enheter inför varje publik release",
+      "Byggde och lanserade två React Native-appar med Expo, en för <strong>Nordic Wellness</strong> och en för premiumvarumärket <strong>Grand Fitness</strong>, som båda hämtar liveinnehåll och priser från Umbraco-sajten bakom dem",
+      "Drev båda projekten från start till slut: testning, veckovisa testbyggen till testare via TestFlight och Google Play Console, publika releaser och projektledning",
       "Byggde och underhöll Umbraco (.NET)-sajter för flera av byråns kunder, samt löpande WordPress-underhåll",
     ],
     clients: [
@@ -246,16 +246,16 @@ export const EXPERIENCE_SV: Job[] = [
         logo: "nordic-wellness",
         kind: "Gymkedja",
         scale: "Nordens största · 300+ anläggningar",
-        role: "React Native-appar (Expo) och Umbraco-sajten bakom dem",
+        role: "React Native-app (Expo) och Umbraco-sajten bakom den. Ägde hela flödet från testning till publik release",
       },
       {
         name: "Grand Fitness",
         icon: "fitness",
         logo: "grandfitness",
         logoNeedsLabel: true,
-        kind: "Gymaktör",
-        scale: "Sverige",
-        role: "Umbraco (.NET)-sajt, byggd och underhållen",
+        kind: "Premiumgym",
+        scale: "Del av Nordic Wellness",
+        role: "React Native-app (Expo) och Umbraco-sajten bakom den. Ägde hela flödet från testning till publik release",
       },
       {
         name: "Fred's Food and Coffee",
