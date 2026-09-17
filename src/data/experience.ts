@@ -44,7 +44,7 @@ export interface Client {
    */
   logoNeedsLabel?: boolean;
   /** What kind of organisation/product it is. Rendered as a mono eyebrow. */
-  kind: string;
+  kind?: string;
   /** Scale of the client or platform, never a personal traffic claim. */
   scale: string;
   /** What Christian actually did, scoped honestly. */
@@ -186,7 +186,6 @@ export const EXPERIENCE: Job[] = [
         name: "Enginio",
         icon: "megaphone",
         logo: "enginio",
-        kind: "The product, not a client",
         scale: "B2B SaaS · advertising and brand activations",
         role: "Sole frontend developer: architecture, component library, CI/CD",
       },
@@ -351,7 +350,6 @@ export const EXPERIENCE_SV: Job[] = [
         name: "Enginio",
         icon: "megaphone",
         logo: "enginio",
-        kind: "Produkten, inte en kund",
         scale: "B2B SaaS · annonsering och varumärkesaktivering",
         role: "Ensam frontendutvecklare: arkitektur, komponentbibliotek, CI/CD",
       },

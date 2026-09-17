@@ -73,7 +73,7 @@ function pngSrc(name: string): string | undefined {
 						{client.name}
 					</span>
 				</div>
-				<span class="client-kind mono">{client.kind}</span>
+				{client.kind && <span class="client-kind mono">{client.kind}</span>}
 				<p class="client-scale">{client.scale}</p>
 				<p class="client-role">{client.role}</p>
 			</div>
